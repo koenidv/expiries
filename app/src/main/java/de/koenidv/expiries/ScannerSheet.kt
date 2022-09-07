@@ -12,6 +12,9 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.core.content.ContextCompat
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.mlkit.vision.barcode.BarcodeScannerOptions
+import com.google.mlkit.vision.barcode.BarcodeScanning
+import com.google.mlkit.vision.barcode.common.Barcode
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
@@ -29,6 +32,7 @@ class ScannerSheet : BottomSheetDialogFragment() {
 
         preview = view.findViewById(R.id.camera_preview)
         cameraExecutor = Executors.newSingleThreadExecutor()
+
         startCamera()
 
         return view
@@ -39,7 +43,7 @@ class ScannerSheet : BottomSheetDialogFragment() {
         super.onDestroy()
     }
 
-    private fun startCamera() {
+    fun startCamera() {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
 
         cameraProviderFuture.addListener({
@@ -49,6 +53,13 @@ class ScannerSheet : BottomSheetDialogFragment() {
                 .also {
                     it.setSurfaceProvider(preview.surfaceProvider)
                 }
+
+            val options = BarcodeScannerOptions.Builder()
+                .setBarcodeFormats(
+                    Barcode.FORMAT_EAN_13,
+                    Barcode.FORMAT_EAN_8
+                ).build()
+            val scanner = BarcodeScanning.getClient(options)
 
             val imageAnalyzer = ImageAnalysis.Builder()
                 .build()
