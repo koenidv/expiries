@@ -14,4 +14,14 @@
         app:layout_constraintStart_toStartOf="@id/sheet_camera"
         app:layout_constraintTop_toTopOf="@id/sheet_camera" />
 
+    <ProgressBar
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:id="@+id/loading_progress"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/camera_preview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

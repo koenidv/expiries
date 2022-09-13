@@ -9,9 +9,8 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import de.koenidv.expiries.databinding.ActivityMainBinding
-import permissions.dispatcher.*
+import org.json.JSONObject
 
-@RuntimePermissions
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
@@ -30,23 +29,16 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         binding.fab.setOnClickListener { _ ->
-            launchScannerWithPermissionCheck()
+            launchScanner()
         }
     }
 
-    @NeedsPermission(android.Manifest.permission.CAMERA)
     fun launchScanner() {
-        ScannerSheet().show(supportFragmentManager, "scanner")
+        ScannerSheet { launchEditor(it) }.show(supportFragmentManager, "scanner")
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        // NOTE: delegate the permission handling to generated function
-        onRequestPermissionsResult(requestCode, grantResults)
+    fun launchEditor(article: JSONObject) {
+        EditorSheet(article).show(supportFragmentManager, "editor")
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
