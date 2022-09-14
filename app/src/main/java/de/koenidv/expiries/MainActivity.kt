@@ -8,6 +8,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.room.Room
 import de.koenidv.expiries.databinding.ActivityMainBinding
 import org.json.JSONObject
 
@@ -15,6 +16,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
+    private lateinit var db: Database
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,16 +30,18 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
+        db = Room.databaseBuilder(applicationContext, Database::class.java, "database").build()
+
         binding.fab.setOnClickListener { _ ->
             launchScanner()
         }
     }
 
-    fun launchScanner() {
+    private fun launchScanner() {
         ScannerSheet { launchEditor(it) }.show(supportFragmentManager, "scanner")
     }
 
-    fun launchEditor(article: JSONObject) {
+    private fun launchEditor(article: JSONObject) {
         EditorSheet(article).show(supportFragmentManager, "editor")
     }
 
