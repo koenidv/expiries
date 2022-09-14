@@ -5,12 +5,12 @@ import java.util.*
 
 @Entity
 data class Article(
-    @PrimaryKey val id: String,
     @ColumnInfo val barcode: String,
-    @ColumnInfo var name: String,
-    @ColumnInfo var expiry: Date,
-    @ColumnInfo val image_url: String,
-    @ColumnInfo var location_id: String,
+    @ColumnInfo val name: String,
+    @ColumnInfo val expiry: Date?,
+    @ColumnInfo val image_url: String?,
+    @ColumnInfo val location_id: String?,
+    @PrimaryKey(autoGenerate = true) val id: Int? = null
 )
 
 @Dao

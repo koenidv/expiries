@@ -7,9 +7,10 @@ import android.view.ViewGroup
 import android.widget.EditText
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import org.json.JSONObject
+import com.google.android.material.button.MaterialButton
 
-class EditorSheet(val article: JSONObject) : BottomSheetDialogFragment() {
+class EditorSheet(private val article: Article, val saveCallback: (Article) -> Unit) :
+    BottomSheetDialogFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -20,10 +21,24 @@ class EditorSheet(val article: JSONObject) : BottomSheetDialogFragment() {
 
         val nameEditText = view.findViewById<EditText>(R.id.name_edittext)
 
-        nameEditText.setText(article.getJSONObject("product").getString("product_name"))
+        nameEditText.setText(article.name)
         Glide.with(requireContext())
-            .load(article.getJSONObject("product").getString("image_small_url"))
+            .load(article.image_url)
             .into(view.findViewById(R.id.image))
+
+        view.findViewById<MaterialButton>(R.id.save_button).setOnClickListener {
+            saveCallback(
+                Article(
+                    article.barcode,
+                    nameEditText.text.toString(),
+                    null,
+                    article.image_url,
+                    null,
+                    article.id
+                )
+            )
+            dismiss()
+        }
 
         return view
     }

@@ -1,8 +1,10 @@
 package de.koenidv.expiries
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -10,6 +12,10 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.room.Room
 import de.koenidv.expiries.databinding.ActivityMainBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import org.json.JSONException
 import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
@@ -32,17 +38,36 @@ class MainActivity : AppCompatActivity() {
 
         db = Room.databaseBuilder(applicationContext, Database::class.java, "database").build()
 
+        CoroutineScope(Dispatchers.IO).launch {
+            binding.root.findViewById<TextView>(R.id.debugtext).text =
+                db.articleDao().getAll().toString()
+            Log.d("Database", db.articleDao().getAll().toString())
+        }
+
         binding.fab.setOnClickListener { _ ->
             launchScanner()
         }
     }
 
     private fun launchScanner() {
-        ScannerSheet { launchEditor(it) }.show(supportFragmentManager, "scanner")
+        ScannerSheet { handleScanResult(it) }.show(supportFragmentManager, "scanner")
     }
 
-    private fun launchEditor(article: JSONObject) {
-        EditorSheet(article).show(supportFragmentManager, "editor")
+    private fun handleScanResult(result: JSONObject) {
+        try {
+            launchEditor(JsonParser().parseArticle(result))
+        } catch (JSONException: JSONException) {
+            launchScanner()
+        }
+    }
+
+    private fun launchEditor(article: Article) {
+        EditorSheet(article) {
+            CoroutineScope(Dispatchers.IO).launch {
+                db.articleDao().insert(it)
+                Log.d("Database", db.articleDao().getAll().toString())
+            }
+        }.show(supportFragmentManager, "editor")
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
