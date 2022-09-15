@@ -1,8 +1,13 @@
 package de.koenidv.expiries
 
-import androidx.room.*
 import androidx.room.Database
-import java.util.*
+import androidx.room.RoomDatabase
+import androidx.room.TypeConverter
+import androidx.room.TypeConverters
+import java.time.Instant
+import java.time.LocalDate
+import java.time.ZoneId
+import java.time.ZonedDateTime
 
 @Database(entities = [Article::class], version = 1)
 @TypeConverters(Converters::class)
@@ -12,8 +17,12 @@ abstract class Database : RoomDatabase() {
 
 class Converters {
     @TypeConverter
-    fun toDate(dateLong: Long?): Date? = dateLong?.let { Date(it) }
+    fun toDate(dateLong: Long?): LocalDate? =
+        dateLong?.let { Instant.ofEpochMilli(it).atZone(ZoneId.systemDefault()).toLocalDate() }
 
     @TypeConverter
-    fun fromDate(date: Date?): Long? = date?.time
+    fun fromDate(date: LocalDate?): Long? =
+        date?.let {
+            ZonedDateTime.of(it.atStartOfDay(), ZoneId.systemDefault()).toInstant().toEpochMilli()
+        }
 }

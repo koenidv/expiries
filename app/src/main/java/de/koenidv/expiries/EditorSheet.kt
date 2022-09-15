@@ -5,12 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import androidx.fragment.app.DialogFragment
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.button.MaterialButton
+import com.mikhaellopez.lazydatepicker.LazyDatePicker
+import com.mikhaellopez.lazydatepicker.LazyLocalDatePicker
+import org.threeten.bp.LocalDate
 
 class EditorSheet(private val article: Article, val saveCallback: (Article) -> Unit) :
     BottomSheetDialogFragment() {
+
+    private lateinit var nameEditText: EditText
+    private lateinit var datePicker: LazyLocalDatePicker
+    private lateinit var saveButton: MaterialButton
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -18,15 +26,32 @@ class EditorSheet(private val article: Article, val saveCallback: (Article) -> U
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.sheet_edit, container, false)
+        setStyle(DialogFragment.STYLE_NORMAL, R.style.BottomSheetDialogTheme)
 
-        val nameEditText = view.findViewById<EditText>(R.id.name_edittext)
+        nameEditText = view.findViewById(R.id.name_edittext)
+        datePicker = view.findViewById(R.id.datepicker)
+        saveButton = view.findViewById(R.id.save_button)
 
-        nameEditText.setText(article.name)
         Glide.with(requireContext())
             .load(article.image_url)
             .into(view.findViewById(R.id.image))
 
-        view.findViewById<MaterialButton>(R.id.save_button).setOnClickListener {
+        nameEditText.setText(article.name)
+
+        datePicker.also {
+            it.setDateFormat(LazyDatePicker.DateFormat.DD_MM_YYYY)
+            it.setMinLocalDate(LocalDate.now())
+            it.setMaxLocalDate(LocalDate.now().plusYears(10))
+            article.expiry?.let { expiry ->
+                it.localDate = LocalDate.ofEpochDay(expiry.toEpochDay())
+            }
+        }
+
+        datePicker.setOnLocalDateSelectedListener {
+            checkValid()
+        }
+
+        saveButton.setOnClickListener {
             saveCallback(
                 Article(
                     article.barcode,
@@ -40,7 +65,15 @@ class EditorSheet(private val article: Article, val saveCallback: (Article) -> U
             dismiss()
         }
 
+        checkValid()
         return view
+    }
+
+    private fun checkValid() {
+        var valid = true
+        if (!datePicker.isSelected) valid = false
+
+        saveButton.isEnabled = valid
     }
 
 }

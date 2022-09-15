@@ -15,6 +15,7 @@ import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.DialogFragment
 import com.androidnetworking.AndroidNetworking
 import com.androidnetworking.error.ANError
 import com.androidnetworking.interfaces.JSONObjectRequestListener
@@ -43,6 +44,7 @@ class ScannerSheet(val scannedCallback: (JSONObject) -> Unit) : BottomSheetDialo
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.sheet_camera, container, false)
+        setStyle(DialogFragment.STYLE_NORMAL, R.style.BottomSheetDialogTheme)
 
         preview = view.findViewById(R.id.camera_preview)
         loadingProgress = view.findViewById(R.id.loading_progress)
@@ -88,13 +90,14 @@ class ScannerSheet(val scannedCallback: (JSONObject) -> Unit) : BottomSheetDialo
 
                             if (!result.equals(lastResult)) {
 
-                                AndroidNetworking.cancel("openfoodfacts")
                                 lastResult = result
 
                                 if (result == null) {
                                     loadingProgress.visibility = View.GONE
                                     return@processImageProxy
                                 }
+
+                                AndroidNetworking.cancel("openfoodfacts")
 
                                 if (loadingProgress.visibility != View.VISIBLE)
                                     loadingProgress.visibility = View.VISIBLE
