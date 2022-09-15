@@ -32,7 +32,7 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.mikhaellopez.lazydatepicker.LazyLocalDatePicker
+    <de.koenidv.expiries.lazyDatePicker.LazyLocalDatePicker
         android:id="@+id/datepicker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

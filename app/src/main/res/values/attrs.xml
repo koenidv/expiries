@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="LazyDatePicker">
+        <attr name="ldp_text_color" format="color" />
+        <attr name="ldp_hint_color" format="color" />
+        <attr name="ldp_date_format">
+            <flag name="mm-dd-yyyy" value="1" />
+            <flag name="dd-mm-yyyy" value="2" />
+        </attr>
+        <attr name="ldp_show_full_date" format="boolean" />
+    </declare-styleable>
+</resources>

@@ -9,8 +9,8 @@ import androidx.fragment.app.DialogFragment
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.button.MaterialButton
-import com.mikhaellopez.lazydatepicker.LazyDatePicker
-import com.mikhaellopez.lazydatepicker.LazyLocalDatePicker
+import de.koenidv.expiries.lazyDatePicker.LazyDatePicker
+import de.koenidv.expiries.lazyDatePicker.LazyLocalDatePicker
 import org.threeten.bp.LocalDate
 
 class EditorSheet(private val article: Article, val saveCallback: (Article) -> Unit) :
@@ -47,9 +47,11 @@ class EditorSheet(private val article: Article, val saveCallback: (Article) -> U
             }
         }
 
-        datePicker.setOnLocalDateSelectedListener {
-            checkValid()
-        }
+        datePicker.setOnLocalDateSelectedListener(object : LazyLocalDatePicker.OnLocalDateSelectedListener {
+            override fun onLocalDateSelected(dateSelected: Boolean?) {
+                checkValid()
+            }
+        })
 
         saveButton.setOnClickListener {
             saveCallback(
@@ -65,6 +67,7 @@ class EditorSheet(private val article: Article, val saveCallback: (Article) -> U
             dismiss()
         }
 
+        datePicker.requestFocus()
         checkValid()
         return view
     }
