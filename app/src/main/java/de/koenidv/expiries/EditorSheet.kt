@@ -74,7 +74,7 @@ class EditorSheet(private val article: Article, val saveCallback: (Article) -> U
 
     private fun checkValid() {
         var valid = true
-        if (!datePicker.isSelected) valid = false
+        if (datePicker.getDate() == null ) valid = false
 
         saveButton.isEnabled = valid
     }
