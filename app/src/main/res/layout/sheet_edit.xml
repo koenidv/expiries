@@ -37,17 +37,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="8dp"
+        app:ldp_show_full_date="false"
+        app:ldp_text_color="?attr/colorOnSurface"
+        app:ldp_hint_color="?attr/colorOutline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/name_layout" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/save_button"
-        style="@style/ThemeOverlay.Material3.Button.TonalButton"
-        android:layout_width="wrap_content"
+        style="@style/ThemeOverlay.Material3.Button"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="8dp"
-
         android:text="Save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

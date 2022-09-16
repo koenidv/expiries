@@ -93,6 +93,19 @@ open class LazyDatePicker @JvmOverloads constructor(
         initView()
     }
 
+    override fun onWindowFocusChanged(hasWindowFocus: Boolean) {
+        super.onWindowFocusChanged(hasWindowFocus)
+        if (!hasWindowFocus) // onPause() called
+        {
+            hideKeyBoard(context)
+        }
+    }
+
+    private fun hideKeyBoard(context: Context) {
+        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(this.windowToken, 0)
+    }
+
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
         if (!isInEditMode) {
@@ -113,6 +126,11 @@ open class LazyDatePicker @JvmOverloads constructor(
                     showDate(date, hasFocus)
                     if (showFullDate) {
                         showFullDateLayout(hasFocus)
+                    }
+                    if (hasFocus) {
+                        showKeyboard(editLazyDatePickerReal, context)
+                    } else {
+                        hideKeyBoard(context)
                     }
                 }
             initTextWatcher()
@@ -182,10 +200,9 @@ open class LazyDatePicker @JvmOverloads constructor(
         textLazyDate8.text = context.getString(R.string.ldp_year)
         textLazyDatePickerDate.setTextColor(textColor)
         findViewById<View>(R.id.btn_lazy_date_picker_on_focus).setOnClickListener {
-            showKeyboard(
-                editLazyDatePickerReal,
-                context
-            )
+            editLazyDatePickerReal.isFocusableInTouchMode = true
+            editLazyDatePickerReal.requestFocus()
+            showKeyboard(editLazyDatePickerReal, context)
         }
     }
 
@@ -470,6 +487,11 @@ open class LazyDatePicker @JvmOverloads constructor(
 
     //endregion
     //region PUBLIC METHOD
+    fun focus() {
+        editLazyDatePickerReal.isFocusableInTouchMode = true
+        editLazyDatePickerReal.requestFocus()
+    }
+
     fun getDate(): Date? {
         return if (date!!.length == LENGTH_DATE_COMPLETE) {
             stringToDate(date, dateFormat!!.value)
@@ -598,7 +620,7 @@ open class LazyDatePicker @JvmOverloads constructor(
         editText.setSelection(editText.length())
         val inputMethodManager =
             context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.showSoftInput(editText, InputMethodManager.SHOW_FORCED)
+        inputMethodManager.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT)
     }
 
     //endregion

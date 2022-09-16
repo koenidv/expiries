@@ -1,5 +1,6 @@
 package de.koenidv.expiries
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -67,7 +68,6 @@ class EditorSheet(private val article: Article, val saveCallback: (Article) -> U
             dismiss()
         }
 
-        datePicker.requestFocus()
         checkValid()
         return view
     }
