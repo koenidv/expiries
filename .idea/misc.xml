@@ -6,6 +6,8 @@
         <entry key="..\:/Users/koeni/AndroidStudioProjects/Ablaufdaten2/app/src/main/res/drawable/background_rounded_dialog.xml" value="0.172" />
         <entry key="..\:/Users/koeni/AndroidStudioProjects/Ablaufdaten2/app/src/main/res/layout/activity_main.xml" value="0.18072916666666666" />
         <entry key="..\:/Users/koeni/AndroidStudioProjects/Ablaufdaten2/app/src/main/res/layout/content_main.xml" value="0.18072916666666666" />
+        <entry key="..\:/Users/koeni/AndroidStudioProjects/Ablaufdaten2/app/src/main/res/layout/expiry_item.xml" value="0.3541666666666667" />
+        <entry key="..\:/Users/koeni/AndroidStudioProjects/Ablaufdaten2/app/src/main/res/layout/fragment_expiries.xml" value="0.35520833333333335" />
         <entry key="..\:/Users/koeni/AndroidStudioProjects/Ablaufdaten2/app/src/main/res/layout/fragment_first.xml" value="0.35520833333333335" />
         <entry key="..\:/Users/koeni/AndroidStudioProjects/Ablaufdaten2/app/src/main/res/layout/lazy_date_picker.xml" value="0.35520833333333335" />
         <entry key="..\:/Users/koeni/AndroidStudioProjects/Ablaufdaten2/app/src/main/res/layout/sheet_camera.xml" value="0.27219202898550726" />
@@ -13,7 +15,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

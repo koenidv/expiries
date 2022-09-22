@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -23,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
-    private lateinit var db: Database
+    lateinit var db: Database
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,17 +33,11 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
 
+        db = Database.get(applicationContext)
+
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
-
-        db = Room.databaseBuilder(applicationContext, Database::class.java, "database").build()
-
-        CoroutineScope(Dispatchers.IO).launch {
-            binding.root.findViewById<TextView>(R.id.debugtext).text =
-                db.articleDao().getAll().toString()
-            Log.d("Database", db.articleDao().getAll().toString())
-        }
 
         binding.fab.setOnClickListener { _ ->
             launchScanner()

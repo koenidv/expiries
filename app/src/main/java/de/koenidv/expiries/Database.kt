@@ -1,9 +1,9 @@
 package de.koenidv.expiries
 
+import android.content.Context
+import android.provider.ContactsContract.Data
+import androidx.room.*
 import androidx.room.Database
-import androidx.room.RoomDatabase
-import androidx.room.TypeConverter
-import androidx.room.TypeConverters
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
@@ -13,6 +13,21 @@ import java.time.ZonedDateTime
 @TypeConverters(Converters::class)
 abstract class Database : RoomDatabase() {
     abstract fun articleDao(): ArticleDao
+
+    companion object {
+        lateinit var db: de.koenidv.expiries.Database
+        fun get(context: Context): de.koenidv.expiries.Database {
+            if (!this::db.isInitialized) {
+                db = Room.databaseBuilder(
+                    context,
+                    de.koenidv.expiries.Database::class.java,
+                    "database"
+                ).build()
+            }
+
+            return db
+        }
+    }
 }
 
 class Converters {
