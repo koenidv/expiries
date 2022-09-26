@@ -9,6 +9,7 @@
         android:id="@+id/image"
         android:layout_width="wrap_content"
         android:layout_height="128dp"
+        android:contentDescription="@string/description_product_photo"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -18,7 +19,7 @@
         style="@style/Widget.Material3.TextInputEditText.FilledBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Name"
+        android:hint="@string/article_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/image">
@@ -37,12 +38,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="8dp"
-        app:ldp_show_full_date="false"
-        app:ldp_text_color="?attr/colorOnSurface"
-        app:ldp_hint_color="?attr/colorOutline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/name_layout" />
+        app:layout_constraintTop_toBottomOf="@id/name_layout"
+        app:ldp_hint_color="?attr/colorOutline"
+        app:ldp_show_full_date="false"
+        app:ldp_text_color="?attr/colorOnSurface" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/save_button"
@@ -50,7 +51,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="8dp"
-        android:text="Save"
+        android:text="@string/action_save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/datepicker" />
