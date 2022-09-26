@@ -1,31 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="8dp">
+    android:paddingTop="8dp"
+    android:paddingStart="8dp"
+    android:paddingEnd="8dp">
 
-    <TextView
-        android:id="@+id/nameTextView"
-        android:layout_width="wrap_content"
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="17dp"
-        tools:layout_editor_absoluteY="17dp"
-        tools:text="Article Name" />
+        app:cardBackgroundColor="?attr/colorSurfaceVariant"
+        app:strokeWidth="0dp">
 
-    <TextView
-        android:id="@+id/expiryTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/nameTextView"
-        tools:layout_editor_absoluteX="17dp"
-        tools:layout_editor_absoluteY="17dp"
-        tools:text="Article Expiry" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cardlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/nameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/cardlayout"
+                app:layout_constraintTop_toTopOf="@id/cardlayout"
+                tools:layout_editor_absoluteX="17dp"
+                tools:layout_editor_absoluteY="17dp"
+                tools:text="Article Name" />
+
+            <TextView
+                android:id="@+id/expiryTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"
+                app:layout_constraintStart_toStartOf="@id/cardlayout"
+                app:layout_constraintTop_toBottomOf="@id/nameTextView"
+                tools:layout_editor_absoluteX="17dp"
+                tools:layout_editor_absoluteY="17dp"
+                tools:text="Article Expiry" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
