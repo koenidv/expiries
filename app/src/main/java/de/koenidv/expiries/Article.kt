@@ -1,6 +1,7 @@
 package de.koenidv.expiries
 
 import androidx.room.*
+import kotlinx.coroutines.flow.Flow
 import java.time.LocalDate
 
 @Entity
@@ -16,14 +17,14 @@ data class Article(
 @Dao
 interface ArticleDao {
     @Query("SELECT * FROM article")
-    fun getAll(): List<Article>
+    fun getAll(): Flow<List<Article>>
 
     @Insert
-    fun insert(vararg articles: Article)
+    suspend fun insert(vararg articles: Article)
 
     @Delete
-    fun delete(article: Article)
+    suspend fun delete(article: Article)
 
     @Update
-    fun update(article: Article)
+    suspend fun update(article: Article)
 }

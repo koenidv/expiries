@@ -6,7 +6,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class ExpiryItemAdapter(private val dataset: List<Article>) : RecyclerView.Adapter<ExpiryItemAdapter.ViewHolder>() {
+class ExpiryItemAdapter() : RecyclerView.Adapter<ExpiryItemAdapter.ViewHolder>() {
+
+    var dataset: List<Article> = listOf()
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val nameText: TextView

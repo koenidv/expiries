@@ -54,6 +54,7 @@ class ScannerSheet(val scannedCallback: (JSONObject?) -> Unit) : BottomSheetDial
 
         view.findViewById<MaterialButton>(R.id.addManuallyButton).setOnClickListener {
             scannedCallback(null)
+            dismiss()
         }
 
         view.findViewById<MaterialButton>(R.id.cancelButton).setOnClickListener {

@@ -38,12 +38,18 @@ class ExpiriesFragment : Fragment() {
 
         val db = Database.get(requireContext())
         val recycler = view.findViewById<RecyclerView>(R.id.itemsRecyclerView)
-        lateinit var adapter: ExpiryItemAdapter
 
-        CoroutineScope(Dispatchers.IO).launch {
-            adapter = ExpiryItemAdapter(db.articleDao().getAll())
-            recycler.adapter = adapter
-            recycler.layoutManager = LinearLayoutManager(requireContext())
+        val adapter = ExpiryItemAdapter()
+        recycler.layoutManager = LinearLayoutManager(requireContext())
+        recycler.adapter = adapter
+
+        CoroutineScope(Dispatchers.Main).launch {
+
+            val articlesObservable = db.articleDao().getAll()
+            articlesObservable.collect {
+                adapter.dataset = it
+                adapter.notifyDataSetChanged()
+            }
         }
 
         binding.buttonFirst.setOnClickListener {
