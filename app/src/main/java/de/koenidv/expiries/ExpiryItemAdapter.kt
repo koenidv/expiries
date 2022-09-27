@@ -5,6 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import org.threeten.bp.format.DateTimeFormatter
+import org.threeten.bp.format.FormatStyle
 
 class ExpiryItemAdapter() : RecyclerView.Adapter<ExpiryItemAdapter.ViewHolder>() {
 
@@ -28,7 +30,8 @@ class ExpiryItemAdapter() : RecyclerView.Adapter<ExpiryItemAdapter.ViewHolder>()
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.nameText.text = dataset[position].name
-        holder.expiryText.text = dataset[position].expiry.toString()
+        holder.expiryText.text = dataset[position].expiry
+            ?.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT))
     }
 
     override fun getItemCount() = dataset.size

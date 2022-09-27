@@ -1,13 +1,9 @@
 package de.koenidv.expiries
 
 import android.content.Context
-import android.provider.ContactsContract.Data
 import androidx.room.*
 import androidx.room.Database
-import java.time.Instant
-import java.time.LocalDate
-import java.time.ZoneId
-import java.time.ZonedDateTime
+import org.threeten.bp.LocalDate
 
 @Database(entities = [Article::class], version = 1)
 @TypeConverters(Converters::class)
@@ -32,12 +28,8 @@ abstract class Database : RoomDatabase() {
 
 class Converters {
     @TypeConverter
-    fun toDate(dateLong: Long?): LocalDate? =
-        dateLong?.let { Instant.ofEpochMilli(it).atZone(ZoneId.systemDefault()).toLocalDate() }
+    fun toDate(dateLong: Long?): LocalDate? = dateLong?.let { LocalDate.ofEpochDay(it) }
 
     @TypeConverter
-    fun fromDate(date: LocalDate?): Long? =
-        date?.let {
-            ZonedDateTime.of(it.atStartOfDay(), ZoneId.systemDefault()).toInstant().toEpochMilli()
-        }
+    fun fromDate(date: LocalDate?): Long? = date?.toEpochDay()
 }

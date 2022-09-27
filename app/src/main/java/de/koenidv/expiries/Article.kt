@@ -2,7 +2,7 @@ package de.koenidv.expiries
 
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
-import java.time.LocalDate
+import org.threeten.bp.LocalDate
 
 @Entity
 data class Article(

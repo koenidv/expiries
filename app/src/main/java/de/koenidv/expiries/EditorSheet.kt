@@ -64,7 +64,7 @@ class EditorSheet(private val article: Article?, val saveCallback: (Article) -> 
                 Article(
                     article?.barcode,
                     nameEditText.text.toString(),
-                    null,
+                    datePicker.localDate,
                     article?.image_url,
                     null,
                     article?.id
