@@ -14,5 +14,7 @@
     <string name="article_name">Name</string>
     <string name="description_add">Add article</string>
     <string name="description_product_photo">Product image</string>
+    <string name="action_add_manually">Add manually</string>
     <string name="action_save">Save</string>
+    <string name="action_cancel">Cancel</string>
 </resources>

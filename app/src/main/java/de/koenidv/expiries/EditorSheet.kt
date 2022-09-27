@@ -1,11 +1,11 @@
 package de.koenidv.expiries
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.ImageView
 import androidx.fragment.app.DialogFragment
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -14,7 +14,7 @@ import de.koenidv.expiries.lazyDatePicker.LazyDatePicker
 import de.koenidv.expiries.lazyDatePicker.LazyLocalDatePicker
 import org.threeten.bp.LocalDate
 
-class EditorSheet(private val article: Article, val saveCallback: (Article) -> Unit) :
+class EditorSheet(private val article: Article?, val saveCallback: (Article) -> Unit) :
     BottomSheetDialogFragment() {
 
     private lateinit var nameEditText: EditText
@@ -33,22 +33,27 @@ class EditorSheet(private val article: Article, val saveCallback: (Article) -> U
         datePicker = view.findViewById(R.id.datepicker)
         saveButton = view.findViewById(R.id.save_button)
 
-        Glide.with(requireContext())
-            .load(article.image_url)
-            .into(view.findViewById(R.id.image))
+        if (article?.image_url.isNullOrEmpty()) {
+            view.findViewById<ImageView>(R.id.image).visibility = View.GONE
+        } else {
+            Glide.with(requireContext())
+                .load(article?.image_url)
+                .into(view.findViewById(R.id.image))
+        }
 
-        nameEditText.setText(article.name)
+        nameEditText.setText(article?.name)
 
         datePicker.also {
             it.setDateFormat(LazyDatePicker.DateFormat.DD_MM_YYYY)
             it.setMinLocalDate(LocalDate.now())
             it.setMaxLocalDate(LocalDate.now().plusYears(10))
-            article.expiry?.let { expiry ->
+            article?.expiry?.let { expiry ->
                 it.localDate = LocalDate.ofEpochDay(expiry.toEpochDay())
             }
         }
 
-        datePicker.setOnLocalDateSelectedListener(object : LazyLocalDatePicker.OnLocalDateSelectedListener {
+        datePicker.setOnLocalDateSelectedListener(object :
+            LazyLocalDatePicker.OnLocalDateSelectedListener {
             override fun onLocalDateSelected(dateSelected: Boolean?) {
                 checkValid()
             }
@@ -57,12 +62,12 @@ class EditorSheet(private val article: Article, val saveCallback: (Article) -> U
         saveButton.setOnClickListener {
             saveCallback(
                 Article(
-                    article.barcode,
+                    article?.barcode,
                     nameEditText.text.toString(),
                     null,
-                    article.image_url,
+                    article?.image_url,
                     null,
-                    article.id
+                    article?.id
                 )
             )
             dismiss()
@@ -74,7 +79,7 @@ class EditorSheet(private val article: Article, val saveCallback: (Article) -> U
 
     private fun checkValid() {
         var valid = true
-        if (datePicker.getDate() == null ) valid = false
+        if (datePicker.getDate() == null) valid = false
 
         saveButton.isEnabled = valid
     }

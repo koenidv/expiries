@@ -9,7 +9,6 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.room.Room
 import com.jakewharton.threetenabp.AndroidThreeTen
 import de.koenidv.expiries.databinding.ActivityMainBinding
 import kotlinx.coroutines.CoroutineScope
@@ -48,15 +47,16 @@ class MainActivity : AppCompatActivity() {
         ScannerSheet { handleScanResult(it) }.show(supportFragmentManager, "scanner")
     }
 
-    private fun handleScanResult(result: JSONObject) {
+    private fun handleScanResult(result: JSONObject?) {
         try {
-            launchEditor(JsonParser().parseArticle(result))
+            if (result === null) launchEditor(null)
+            else launchEditor(JsonParser().parseArticle(result))
         } catch (JSONException: JSONException) {
             launchScanner()
         }
     }
 
-    private fun launchEditor(article: Article) {
+    private fun launchEditor(article: Article?) {
         EditorSheet(article) {
             CoroutineScope(Dispatchers.IO).launch {
                 db.articleDao().insert(it)

@@ -9,19 +9,39 @@
         android:id="@+id/camera_preview"
         android:layout_width="match_parent"
         android:layout_height="500dp"
-        app:layout_constraintBottom_toBottomOf="@id/sheet_camera"
-        app:layout_constraintEnd_toEndOf="@id/sheet_camera"
-        app:layout_constraintStart_toStartOf="@id/sheet_camera"
-        app:layout_constraintTop_toTopOf="@id/sheet_camera" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ProgressBar
+        android:id="@+id/loading_progress"
         android:layout_width="64dp"
         android:layout_height="64dp"
-        android:id="@+id/loading_progress"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/camera_preview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/addManuallyButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/action_add_manually"
+        android:drawableStart="@drawable/ic_add"
+        android:drawablePadding="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/camera_preview" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/cancelButton"
+        style="@style/ThemeOverlay.Material3.Button.TextButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/action_cancel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/addManuallyButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

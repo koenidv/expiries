@@ -5,8 +5,8 @@ import java.time.LocalDate
 
 @Entity
 data class Article(
-    @ColumnInfo val barcode: String,
-    @ColumnInfo val name: String,
+    @ColumnInfo val barcode: String?,
+    @ColumnInfo val name: String?,
     @ColumnInfo val expiry: LocalDate?,
     @ColumnInfo val image_url: String?,
     @ColumnInfo val location_id: String?,
