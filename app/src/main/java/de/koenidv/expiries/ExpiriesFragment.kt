@@ -5,9 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import de.koenidv.expiries.databinding.FragmentExpiriesBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -37,11 +35,10 @@ class ExpiriesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val db = Database.get(requireContext())
-        val recycler = view.findViewById<RecyclerView>(R.id.itemsRecyclerView)
 
         val adapter = ExpiryItemAdapter()
-        recycler.layoutManager = LinearLayoutManager(requireContext())
-        recycler.adapter = adapter
+        binding.recycler.layoutManager = LinearLayoutManager(requireContext())
+        binding.recycler.adapter = adapter
 
         CoroutineScope(Dispatchers.Main).launch {
 
@@ -50,10 +47,6 @@ class ExpiriesFragment : Fragment() {
                 adapter.dataset = it
                 adapter.notifyDataSetChanged()
             }
-        }
-
-        binding.buttonFirst.setOnClickListener {
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }
 
     }
