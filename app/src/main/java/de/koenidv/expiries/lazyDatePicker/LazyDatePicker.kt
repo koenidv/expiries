@@ -122,7 +122,7 @@ open class LazyDatePicker @JvmOverloads constructor(
                 })
             }
             editLazyDatePickerReal.onFocusChangeListener =
-                OnFocusChangeListener { v, hasFocus ->
+                OnFocusChangeListener { _, hasFocus ->
                     showDate(date, hasFocus)
                     if (showFullDate) {
                         showFullDateLayout(hasFocus)
@@ -658,7 +658,6 @@ open class LazyDatePicker @JvmOverloads constructor(
                     MM_DD_YYYY -> "MMddyyyy"
                     DD_MM_YYYY -> "ddMMyyyy"
                 }
-                throw IllegalArgumentException("Not value available for this DateFormat: $this")
             }
         val completeFormatValue: String
             get() {
@@ -666,7 +665,6 @@ open class LazyDatePicker @JvmOverloads constructor(
                     MM_DD_YYYY -> "MMM dd yyyy"
                     DD_MM_YYYY -> "dd MMM yyyy"
                 }
-                throw IllegalArgumentException("Not value available for this DateFormat: $this")
             }
         val attrValue: Int
             get() {
@@ -674,7 +672,6 @@ open class LazyDatePicker @JvmOverloads constructor(
                     MM_DD_YYYY -> 1
                     DD_MM_YYYY -> 2
                 }
-                throw IllegalArgumentException("Not value available for this DateFormat: $this")
             }
 
         companion object {

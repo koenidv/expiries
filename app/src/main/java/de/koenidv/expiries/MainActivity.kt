@@ -15,7 +15,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.json.JSONException
-import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
 
@@ -47,10 +46,10 @@ class MainActivity : AppCompatActivity() {
         ScannerSheet { handleScanResult(it) }.show(supportFragmentManager, "scanner")
     }
 
-    private fun handleScanResult(result: JSONObject?) {
+    private fun handleScanResult(result: String?) {
         try {
             if (result === null) launchEditor(null)
-            else launchEditor(JsonParser().parseArticle(result))
+            else launchEditor(ArticleParser().parseArticle(ArticleParser().parseString(result)))
         } catch (JSONException: JSONException) {
             launchScanner()
         }
@@ -60,7 +59,7 @@ class MainActivity : AppCompatActivity() {
         EditorSheet(article) {
             CoroutineScope(Dispatchers.IO).launch {
                 db.articleDao().insert(it)
-                Log.d("Database", db.articleDao().getAll().toString())
+                Log.d("Database", db.articleDao().getAllSorted().toString())
             }
         }.show(supportFragmentManager, "editor")
     }

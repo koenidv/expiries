@@ -36,13 +36,13 @@ class ExpiriesFragment : Fragment() {
 
         val db = Database.get(requireContext())
 
-        val adapter = ExpiryItemAdapter()
+        val adapter = ExpiryItemAdapter(requireActivity())
         binding.recycler.layoutManager = LinearLayoutManager(requireContext())
         binding.recycler.adapter = adapter
 
         CoroutineScope(Dispatchers.Main).launch {
 
-            val articlesObservable = db.articleDao().getAll()
+            val articlesObservable = db.articleDao().getAllSorted()
             articlesObservable.collect {
                 adapter.dataset = it
                 adapter.notifyDataSetChanged()

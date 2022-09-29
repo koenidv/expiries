@@ -16,8 +16,8 @@ data class Article(
 
 @Dao
 interface ArticleDao {
-    @Query("SELECT * FROM article")
-    fun getAll(): Flow<List<Article>>
+    @Query("SELECT * FROM article ORDER BY expiry")
+    fun getAllSorted(): Flow<List<Article>>
 
     @Insert
     suspend fun insert(vararg articles: Article)

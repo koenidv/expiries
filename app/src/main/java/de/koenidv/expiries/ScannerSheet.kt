@@ -17,7 +17,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import com.androidnetworking.AndroidNetworking
 import com.androidnetworking.error.ANError
-import com.androidnetworking.interfaces.JSONObjectRequestListener
+import com.androidnetworking.interfaces.StringRequestListener
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.button.MaterialButton
 import com.google.mlkit.vision.barcode.BarcodeScanner
@@ -25,14 +25,13 @@ import com.google.mlkit.vision.barcode.BarcodeScannerOptions
 import com.google.mlkit.vision.barcode.BarcodeScanning
 import com.google.mlkit.vision.barcode.common.Barcode
 import com.google.mlkit.vision.common.InputImage
-import org.json.JSONObject
 import permissions.dispatcher.NeedsPermission
 import permissions.dispatcher.RuntimePermissions
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
 @RuntimePermissions
-class ScannerSheet(val scannedCallback: (JSONObject?) -> Unit) : BottomSheetDialogFragment() {
+class ScannerSheet(val scannedCallback: (String?) -> Unit) : BottomSheetDialogFragment() {
 
     private lateinit var cameraExecutor: ExecutorService
     private lateinit var preview: PreviewView
@@ -114,8 +113,8 @@ class ScannerSheet(val scannedCallback: (JSONObject?) -> Unit) : BottomSheetDial
                                 AndroidNetworking.get("https://world.openfoodfacts.org/api/v0/product/${result}.json")
                                     .setTag("openfoodfacts")
                                     .build()
-                                    .getAsJSONObject(object : JSONObjectRequestListener {
-                                        override fun onResponse(response: JSONObject) {
+                                    .getAsString(object : StringRequestListener {
+                                        override fun onResponse(response: String) {
                                             loadingProgress.visibility = View.GONE
                                             dismiss()
                                             scannedCallback(response)
