@@ -101,11 +101,11 @@ class ScannerSheet(val scannedCallback: (String?) -> Unit) : BottomSheetDialogFr
                                 lastResult = result
 
                                 if (result == null) {
-                                    loadingProgress.visibility = View.GONE
                                     return@processImageProxy
                                 }
 
                                 AndroidNetworking.cancel("openfoodfacts")
+                                loadingProgress.visibility = View.GONE
 
                                 if (loadingProgress.visibility != View.VISIBLE)
                                     loadingProgress.visibility = View.VISIBLE
@@ -115,13 +115,14 @@ class ScannerSheet(val scannedCallback: (String?) -> Unit) : BottomSheetDialogFr
                                     .build()
                                     .getAsString(object : StringRequestListener {
                                         override fun onResponse(response: String) {
-                                            loadingProgress.visibility = View.GONE
-                                            dismiss()
                                             scannedCallback(response)
+                                            dismiss()
                                         }
 
                                         override fun onError(anError: ANError) {
                                             Log.e("Scanner", anError.errorDetail)
+                                            lastResult = null
+                                            loadingProgress.visibility = View.GONE
                                         }
                                     })
                             }

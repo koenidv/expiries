@@ -14,7 +14,6 @@ import de.koenidv.expiries.databinding.ActivityMainBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import org.json.JSONException
 
 class MainActivity : AppCompatActivity() {
 
@@ -50,7 +49,7 @@ class MainActivity : AppCompatActivity() {
         try {
             if (result === null) launchEditor(null)
             else launchEditor(ArticleParser().parseArticle(ArticleParser().parseString(result)))
-        } catch (JSONException: JSONException) {
+        } catch (JSONException: java.lang.NullPointerException) {
             launchScanner()
         }
     }
