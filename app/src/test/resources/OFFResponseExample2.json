@@ -1,0 +1,993 @@
+{
+  "code": "90162480",
+  "product": {
+    "_id": "90162480",
+    "_keywords": [
+      "mit",
+      "eine",
+      "gezuckerte",
+      "red",
+      "energy-drink",
+      "sugarfree",
+      "bull",
+      "enthält",
+      "süßstoff",
+      "phenylalaninquelle",
+      "getränke"
+    ],
+    "added_countries_tags": [],
+    "additives_debug_tags": [
+      "en-e101i-added"
+    ],
+    "additives_n": 2,
+    "additives_old_n": 1,
+    "additives_old_tags": [
+      "en:e101"
+    ],
+    "additives_original_tags": [
+      "en:e951",
+      "en:e101"
+    ],
+    "additives_prev_original_tags": [
+      "en:e951",
+      "en:e101"
+    ],
+    "additives_tags": [
+      "en:e101",
+      "en:e951"
+    ],
+    "allergens": "",
+    "allergens_from_ingredients": "",
+    "allergens_from_user": "(de) ",
+    "allergens_hierarchy": [],
+    "allergens_tags": [],
+    "amino_acids_prev_tags": [],
+    "amino_acids_tags": [],
+    "brands": "Red Bull",
+    "brands_tags": [
+      "red-bull"
+    ],
+    "categories": "Getränke, Getränke mit Süßstoff, Energy-Drinks, Gezuckerte Getränke",
+    "categories_hierarchy": [
+      "en:beverages",
+      "en:artificially-sweetened-beverages",
+      "en:energy-drinks",
+      "en:sweetened-beverages"
+    ],
+    "categories_lc": "de",
+    "categories_old": "Beverages, Artificially sweetened beverages, Energy drinks, en:sweetened-beverages",
+    "categories_properties": {
+      "agribalyse_proxy_food_code:en": "18352"
+    },
+    "categories_properties_tags": [
+      "all-products",
+      "categories-known",
+      "agribalyse-food-code-unknown",
+      "agribalyse-proxy-food-code-18352",
+      "agribalyse-proxy-food-code-known",
+      "ciqual-food-code-unknown",
+      "agribalyse-known",
+      "agribalyse-18352"
+    ],
+    "categories_tags": [
+      "en:beverages",
+      "en:artificially-sweetened-beverages",
+      "en:energy-drinks",
+      "en:sweetened-beverages"
+    ],
+    "category_properties": {},
+    "checkers_tags": [],
+    "ciqual_food_name_tags": [
+      "unknown"
+    ],
+    "code": "90162480",
+    "codes_tags": [
+      "code-8",
+      "90162xxx",
+      "9016xxxx",
+      "901xxxxx",
+      "90xxxxxx",
+      "9xxxxxxx"
+    ],
+    "compared_to_category": "en:sweetened-beverages",
+    "complete": 0,
+    "completeness": 0.675,
+    "correctors_tags": [
+      "openfoodfacts-contributors",
+      "scanbot",
+      "akoenig",
+      "tacite-mass-editor",
+      "roboto-app"
+    ],
+    "countries": "en:Germany",
+    "countries_beforescanbot": "France",
+    "countries_hierarchy": [
+      "en:germany"
+    ],
+    "countries_lc": "en",
+    "countries_tags": [
+      "en:germany"
+    ],
+    "created_t": 1515272073,
+    "creator": "kiliweb",
+    "data_quality_bugs_tags": [],
+    "data_quality_errors_tags": [],
+    "data_quality_info_tags": [
+      "en:no-packaging-data",
+      "en:ingredients-percent-analysis-ok",
+      "en:ecoscore-extended-data-computed",
+      "en:ecoscore-extended-data-less-precise-than-agribalyse",
+      "en:food-groups-1-known",
+      "en:food-groups-2-known",
+      "en:food-groups-3-unknown"
+    ],
+    "data_quality_tags": [
+      "en:no-packaging-data",
+      "en:ingredients-percent-analysis-ok",
+      "en:ecoscore-extended-data-computed",
+      "en:ecoscore-extended-data-less-precise-than-agribalyse",
+      "en:food-groups-1-known",
+      "en:food-groups-2-known",
+      "en:food-groups-3-unknown",
+      "en:ingredients-unknown-score-above-0",
+      "en:ingredients-60-percent-unknown"
+    ],
+    "data_quality_warnings_tags": [
+      "en:ingredients-unknown-score-above-0",
+      "en:ingredients-60-percent-unknown"
+    ],
+    "data_sources": "App - yuka, Apps, App - off, App - Open Food Facts",
+    "data_sources_tags": [
+      "app-yuka",
+      "apps",
+      "app-off",
+      "app-open-food-facts"
+    ],
+    "ecoscore_data": {
+      "adjustments": {},
+      "ecoscore_not_applicable_for_category": "en:energy-drinks",
+      "status": "unknown"
+    },
+    "ecoscore_extended_data": {
+      "error": "Exception: estimation queue read: Exception: estimation process got exception: NoCharacterizedIngredientsError: "
+    },
+    "ecoscore_extended_data_version": "4",
+    "ecoscore_grade": "not-applicable",
+    "ecoscore_tags": [
+      "not-applicable"
+    ],
+    "editors_tags": [
+      "yuka.ZUtRU0Vmc1B1L1FXZzhFVDhEL09vL0Z2N0xHcUFVNnFEZWdKSWc9PQ",
+      "ecoscore-impact-estimator",
+      "tacite-mass-editor",
+      "akoenig",
+      "roboto-app",
+      "sebleouf",
+      "scanbot",
+      "kiliweb",
+      "openfoodfacts-contributors"
+    ],
+    "entry_dates_tags": [
+      "2018-01-06",
+      "2018-01",
+      "2018"
+    ],
+    "food_groups": "en:sweetened-beverages",
+    "food_groups_tags": [
+      "en:beverages",
+      "en:sweetened-beverages"
+    ],
+    "id": "90162480",
+    "image_front_small_url": "https://images.openfoodfacts.org/images/products/90162480/front_de.9.200.jpg",
+    "image_front_thumb_url": "https://images.openfoodfacts.org/images/products/90162480/front_de.9.100.jpg",
+    "image_front_url": "https://images.openfoodfacts.org/images/products/90162480/front_de.9.400.jpg",
+    "image_packaging_small_url": "https://images.openfoodfacts.org/images/products/90162480/packaging_de.20.200.jpg",
+    "image_packaging_thumb_url": "https://images.openfoodfacts.org/images/products/90162480/packaging_de.20.100.jpg",
+    "image_packaging_url": "https://images.openfoodfacts.org/images/products/90162480/packaging_de.20.400.jpg",
+    "image_small_url": "https://images.openfoodfacts.org/images/products/90162480/front_de.9.200.jpg",
+    "image_thumb_url": "https://images.openfoodfacts.org/images/products/90162480/front_de.9.100.jpg",
+    "image_url": "https://images.openfoodfacts.org/images/products/90162480/front_de.9.400.jpg",
+    "images": {
+      "1": {
+        "sizes": {
+          "100": {
+            "h": 62,
+            "w": 100
+          },
+          "400": {
+            "h": 250,
+            "w": 400
+          },
+          "full": {
+            "h": 1079,
+            "w": 1727
+          }
+        },
+        "uploaded_t": "1515272075",
+        "uploader": "kiliweb"
+      },
+      "2": {
+        "sizes": {
+          "100": {
+            "h": 100,
+            "w": 56
+          },
+          "400": {
+            "h": 400,
+            "w": 225
+          },
+          "full": {
+            "h": 4032,
+            "w": 2268
+          }
+        },
+        "uploaded_t": 1565781599,
+        "uploader": "openfoodfacts-contributors"
+      },
+      "3": {
+        "sizes": {
+          "100": {
+            "h": 100,
+            "w": 75
+          },
+          "400": {
+            "h": 400,
+            "w": 300
+          },
+          "full": {
+            "h": 4032,
+            "w": 3024
+          }
+        },
+        "uploaded_t": 1644326671,
+        "uploader": "openfoodfacts-contributors"
+      },
+      "front_de": {
+        "angle": 0,
+        "geometry": "0x0--10--10",
+        "imgid": "2",
+        "normalize": null,
+        "rev": "9",
+        "sizes": {
+          "100": {
+            "h": 100,
+            "w": 56
+          },
+          "200": {
+            "h": 200,
+            "w": 113
+          },
+          "400": {
+            "h": 400,
+            "w": 225
+          },
+          "full": {
+            "h": 4032,
+            "w": 2268
+          }
+        },
+        "white_magic": null,
+        "x1": "-1",
+        "x2": "-1",
+        "y1": "-1",
+        "y2": "-1"
+      },
+      "ingredients_fr": {
+        "angle": null,
+        "geometry": "0x0-0-0",
+        "imgid": "1",
+        "normalize": "0",
+        "ocr": 1,
+        "orientation": "0",
+        "rev": "4",
+        "sizes": {
+          "100": {
+            "h": 62,
+            "w": 100
+          },
+          "200": {
+            "h": 125,
+            "w": 200
+          },
+          "400": {
+            "h": 250,
+            "w": 400
+          },
+          "full": {
+            "h": 1079,
+            "w": 1727
+          }
+        },
+        "white_magic": "0",
+        "x1": null,
+        "x2": null,
+        "y1": null,
+        "y2": null
+      },
+      "packaging_de": {
+        "angle": 0,
+        "coordinates_image_size": "full",
+        "geometry": "0x0--1--1",
+        "imgid": "3",
+        "normalize": null,
+        "rev": "20",
+        "sizes": {
+          "100": {
+            "h": 100,
+            "w": 75
+          },
+          "200": {
+            "h": 200,
+            "w": 150
+          },
+          "400": {
+            "h": 400,
+            "w": 300
+          },
+          "full": {
+            "h": 4032,
+            "w": 3024
+          }
+        },
+        "white_magic": null,
+        "x1": "-1",
+        "x2": "-1",
+        "y1": "-1",
+        "y2": "-1"
+      }
+    },
+    "informers_tags": [
+      "yuka.ZUtRU0Vmc1B1L1FXZzhFVDhEL09vL0Z2N0xHcUFVNnFEZWdKSWc9PQ",
+      "kiliweb",
+      "sebleouf",
+      "scanbot",
+      "openfoodfacts-contributors",
+      "akoenig"
+    ],
+    "ingredients": [
+      {
+        "has_sub_ingredients": "yes",
+        "id": "de:L*t",
+        "percent_estimate": 74.91,
+        "percent_max": 100,
+        "percent_min": 49.82,
+        "rank": 1,
+        "text": "L*t"
+      },
+      {
+        "has_sub_ingredients": "yes",
+        "id": "en:taurine",
+        "percent_estimate": 12.545,
+        "percent_max": 50,
+        "percent_min": 0,
+        "rank": 2,
+        "text": "Taurin",
+        "vegan": "maybe",
+        "vegetarian": "maybe"
+      },
+      {
+        "has_sub_ingredients": "yes",
+        "id": "en:caffeine",
+        "percent_estimate": 0.03,
+        "percent_max": 0.06,
+        "percent_min": 0,
+        "rank": 3,
+        "text": "Koffein",
+        "vegan": "yes",
+        "vegetarian": "yes"
+      },
+      {
+        "id": "de:Riboflavine",
+        "percent_estimate": 0.03,
+        "percent_max": 0.06,
+        "percent_min": 0,
+        "rank": 4,
+        "text": "Riboflavine"
+      },
+      {
+        "id": "de:Enthâltéf Phenylalaninquelle",
+        "percent_estimate": 12.485,
+        "percent_max": 0.06,
+        "percent_min": 0,
+        "rank": 5,
+        "text": "Enthâltéf Phenylalaninquelle"
+      },
+      {
+        "id": "de:Wasser Sëuerungsmittel",
+        "percent_estimate": 49.91,
+        "percent_max": 100,
+        "percent_min": 24.91,
+        "text": "Wasser Sëuerungsmittel"
+      },
+      {
+        "id": "de:CfrormidGI hiure",
+        "percent_estimate": 25,
+        "percent_max": 50,
+        "percent_min": 0,
+        "text": "CfrormidGI hiure"
+      },
+      {
+        "id": "de:0‚4 Saure ulatom Magnesiumcarbonafefi S\" K",
+        "percent_estimate": 6.2725,
+        "percent_max": 50,
+        "percent_min": 0,
+        "text": "0‚4 Saure ulatom Magnesiumcarbonafefi S\" K"
+      },
+      {
+        "id": "en:e951",
+        "percent_estimate": 6.2725,
+        "percent_max": 25,
+        "percent_min": 0,
+        "text": "Aspartam",
+        "vegan": "yes",
+        "vegetarian": "yes"
+      },
+      {
+        "id": "en:e375",
+        "percent": 0.03,
+        "percent_estimate": 0.03,
+        "percent_max": 0.03,
+        "percent_min": 0.03,
+        "text": "Niacin",
+        "vegan": "maybe",
+        "vegetarian": "maybe"
+      },
+      {
+        "id": "de:Panto#Yié.q B6 BI 2",
+        "percent_estimate": 0,
+        "percent_max": 0.03,
+        "percent_min": 0,
+        "text": "Panto#Yié.q B6 BI 2"
+      }
+    ],
+    "ingredients_analysis": {
+      "en:palm-oil-content-unknown": [
+        "de:L*t",
+        "de:Wasser Sëuerungsmittel",
+        "de:CfrormidGI hiure",
+        "de:0‚4 Saure ulatom Magnesiumcarbonafefi S\" K",
+        "de:Panto#Yié.q B6 BI 2",
+        "de:Riboflavine",
+        "de:Enthâltéf Phenylalaninquelle"
+      ],
+      "en:vegan-status-unknown": [
+        "de:L*t",
+        "de:Wasser Sëuerungsmittel",
+        "de:CfrormidGI hiure",
+        "de:0‚4 Saure ulatom Magnesiumcarbonafefi S\" K",
+        "de:Panto#Yié.q B6 BI 2",
+        "de:Riboflavine",
+        "de:Enthâltéf Phenylalaninquelle"
+      ],
+      "en:vegetarian-status-unknown": [
+        "de:L*t",
+        "de:Wasser Sëuerungsmittel",
+        "de:CfrormidGI hiure",
+        "de:0‚4 Saure ulatom Magnesiumcarbonafefi S\" K",
+        "de:Panto#Yié.q B6 BI 2",
+        "de:Riboflavine",
+        "de:Enthâltéf Phenylalaninquelle"
+      ]
+    },
+    "ingredients_analysis_tags": [
+      "en:palm-oil-content-unknown",
+      "en:vegan-status-unknown",
+      "en:vegetarian-status-unknown"
+    ],
+    "ingredients_debug": [
+      "L*t",
+      ":",
+      ":",
+      null,
+      null,
+      " Wasser Sëuerungsmittel ",
+      "(",
+      "(",
+      null,
+      null,
+      "CfrormidGI hiure",
+      ",",
+      null,
+      null,
+      null,
+      " Taurin ",
+      "(",
+      "(",
+      null,
+      null,
+      "0",
+      ",",
+      null,
+      null,
+      null,
+      "4 Saure ulatom Magnesiumcarbonafefi S&quot",
+      ";",
+      ";",
+      null,
+      null,
+      " K",
+      ",",
+      null,
+      null,
+      null,
+      " Aspartam)",
+      ",",
+      null,
+      null,
+      null,
+      " Koffein ",
+      "(",
+      "(",
+      null,
+      null,
+      "0",
+      ",",
+      null,
+      null,
+      null,
+      "03 % Niacin",
+      ",",
+      null,
+      null,
+      null,
+      " Panto#Yié.q B6 BI 2)",
+      ",",
+      null,
+      null,
+      null,
+      " Riboflavine)",
+      ". ",
+      null,
+      null,
+      null,
+      "Enthâltéf Phenylalaninquelle"
+    ],
+    "ingredients_from_or_that_may_be_from_palm_oil_n": 0,
+    "ingredients_from_palm_oil_n": 0,
+    "ingredients_from_palm_oil_tags": [],
+    "ingredients_hierarchy": [
+      "de:L*t",
+      "en:taurine",
+      "en:caffeine",
+      "de:Riboflavine",
+      "de:Enthâltéf Phenylalaninquelle",
+      "de:Wasser Sëuerungsmittel",
+      "de:CfrormidGI hiure",
+      "de:0‚4 Saure ulatom Magnesiumcarbonafefi S\" K",
+      "en:e951",
+      "en:e375",
+      "de:Panto#Yié.q B6 BI 2"
+    ],
+    "ingredients_ids_debug": [
+      "l-t",
+      "wasser-seuerungsmittel",
+      "cfrormidgi-hiure",
+      "taurin",
+      "0",
+      "4-saure-ulatom-magnesiumcarbonafefi-s-quot",
+      "k",
+      "aspartam",
+      "koffein",
+      "0",
+      "03-niacin",
+      "panto-yie-q-b6-bi-2",
+      "riboflavine",
+      "enthaltef-phenylalaninquelle"
+    ],
+    "ingredients_n": 11,
+    "ingredients_n_tags": [
+      "11",
+      "11-20"
+    ],
+    "ingredients_original_tags": [
+      "de:L*t",
+      "en:taurine",
+      "en:caffeine",
+      "de:Riboflavine",
+      "de:Enthâltéf Phenylalaninquelle",
+      "de:Wasser Sëuerungsmittel",
+      "de:CfrormidGI hiure",
+      "de:0‚4 Saure ulatom Magnesiumcarbonafefi S\" K",
+      "en:e951",
+      "en:e375",
+      "de:Panto#Yié.q B6 BI 2"
+    ],
+    "ingredients_percent_analysis": 1,
+    "ingredients_tags": [
+      "de:l-t",
+      "en:taurine",
+      "en:caffeine",
+      "de:riboflavine",
+      "de:enthâltéf-phenylalaninquelle",
+      "de:wasser-sëuerungsmittel",
+      "de:cfrormidgi-hiure",
+      "de:0-4-saure-ulatom-magnesiumcarbonafefi-s-k",
+      "en:e951",
+      "en:e375",
+      "de:panto-yié-q-b6-bi-2"
+    ],
+    "ingredients_text": "L*t: Wasser Sëuerungsmittel (CfrormidGI hiure, Taurin (0,4 Saure ulatom Magnesiumcarbonafefi S&quot; K, Aspartam), Koffein (0,03 % Niacin, Panto#Yié.q B6 BI 2), Riboflavine). Enthâltéf Phenylalaninquelle",
+    "ingredients_text_de": "L*t: Wasser Sëuerungsmittel (CfrormidGI hiure, Taurin (0,4 Saure ulatom Magnesiumcarbonafefi S&quot; K, Aspartam), Koffein (0,03 % Niacin, Panto#Yié.q B6 BI 2), Riboflavine). Enthâltéf Phenylalaninquelle",
+    "ingredients_text_debug": "L*t: Wasser Sëuerungsmittel (CfrormidGI hiure, Taurin (0,4 Saure ulatom Magnesiumcarbonafefi S&quot; K, Aspartam), Koffein (0,03 % Niacin, Panto#Yié.q B6 BI 2), Riboflavine). Enthâltéf Phenylalaninquelle",
+    "ingredients_text_fr": "L*t: Wasser Sëuerungsmittel (CfrormidGI hiure, Taurin (0,4 Saure ulatom Magnesiumcarbonafefi S&quot; K, Aspartam), Koffein (0,03 % Niacin, Panto#Yié.q B6 BI 2), Riboflavine). Enthâltéf Phenylalaninquelle",
+    "ingredients_text_with_allergens": "L*t: Wasser Sëuerungsmittel (CfrormidGI hiure, Taurin (0,4 Saure ulatom Magnesiumcarbonafefi S\" K, Aspartam), Koffein (0,03 % Niacin, Panto#Yié.q B6 BI 2), Riboflavine). Enthâltéf Phenylalaninquelle",
+    "ingredients_text_with_allergens_de": "L*t: Wasser Sëuerungsmittel (CfrormidGI hiure, Taurin (0,4 Saure ulatom Magnesiumcarbonafefi S\" K, Aspartam), Koffein (0,03 % Niacin, Panto#Yié.q B6 BI 2), Riboflavine). Enthâltéf Phenylalaninquelle",
+    "ingredients_text_with_allergens_fr": "L*t: Wasser Sëuerungsmittel (CfrormidGI hiure, Taurin (0,4 Saure ulatom Magnesiumcarbonafefi S\" K, Aspartam), Koffein (0,03 % Niacin, Panto#Yié.q B6 BI 2), Riboflavine). Enthâltéf Phenylalaninquelle",
+    "ingredients_that_may_be_from_palm_oil_n": 0,
+    "ingredients_that_may_be_from_palm_oil_tags": [],
+    "ingredients_with_specified_percent_n": 1,
+    "ingredients_with_specified_percent_sum": 0.03,
+    "ingredients_with_unspecified_percent_n": 7,
+    "ingredients_with_unspecified_percent_sum": 99.97,
+    "interface_version_created": "20150316.jqm2",
+    "interface_version_modified": "20150316.jqm2",
+    "known_ingredients_n": 4,
+    "labels": "Enthält eine Phenylalaninquelle",
+    "labels_hierarchy": [
+      "en:contains-a-source-of-phenylalanine"
+    ],
+    "labels_lc": "de",
+    "labels_old": "en:contains-a-source-of-phenylalanine",
+    "labels_tags": [
+      "en:contains-a-source-of-phenylalanine"
+    ],
+    "lang": "de",
+    "languages": {
+      "en:french": 3,
+      "en:german": 3
+    },
+    "languages_codes": {
+      "de": 3,
+      "fr": 3
+    },
+    "languages_hierarchy": [
+      "en:french",
+      "en:german"
+    ],
+    "languages_tags": [
+      "en:french",
+      "en:german",
+      "en:2",
+      "en:multilingual"
+    ],
+    "last_edit_dates_tags": [
+      "2022-02-08",
+      "2022-02",
+      "2022"
+    ],
+    "last_editor": "ecoscore-impact-estimator",
+    "last_image_dates_tags": [
+      "2022-02-08",
+      "2022-02",
+      "2022"
+    ],
+    "last_image_t": 1644326673,
+    "last_modified_by": "ecoscore-impact-estimator",
+    "last_modified_t": 1644344572,
+    "lc": "de",
+    "main_countries_tags": [],
+    "max_imgid": "3",
+    "minerals_prev_tags": [],
+    "minerals_tags": [],
+    "misc_tags": [
+      "en:nutrition-fruits-vegetables-nuts-estimate-from-ingredients",
+      "en:nutrition-all-nutriscore-values-known",
+      "en:nutriscore-computed",
+      "en:ecoscore-not-computed",
+      "en:ecoscore-extended-data-computed",
+      "en:ecoscore-extended-data-version-4",
+      "en:ecoscore-not-applicable"
+    ],
+    "no_nutrition_data": "",
+    "nova_group": 4,
+    "nova_group_debug": " -- additives/en:e101 : 4",
+    "nova_group_tags": [
+      "not-applicable"
+    ],
+    "nova_groups": "4",
+    "nova_groups_tags": [
+      "en:4-ultra-processed-food-and-drink-products"
+    ],
+    "nucleotides_prev_tags": [],
+    "nucleotides_tags": [],
+    "nutrient_levels": {
+      "fat": "low",
+      "salt": "low",
+      "saturated-fat": "low",
+      "sugars": "low"
+    },
+    "nutrient_levels_tags": [
+      "en:fat-in-low-quantity",
+      "en:saturated-fat-in-low-quantity",
+      "en:sugars-in-low-quantity",
+      "en:salt-in-low-quantity"
+    ],
+    "nutriments": {
+      "carbohydrates": 0,
+      "carbohydrates_100g": 0,
+      "carbohydrates_unit": "g",
+      "carbohydrates_value": 0,
+      "energy": 13,
+      "energy-kcal": 3,
+      "energy-kcal_100g": 3,
+      "energy-kcal_unit": "kcal",
+      "energy-kcal_value": 3,
+      "energy_100g": 13,
+      "energy_unit": "kcal",
+      "energy_value": 3,
+      "fat": 0,
+      "fat_100g": 0,
+      "fat_unit": "g",
+      "fat_value": 0,
+      "fiber": 0,
+      "fiber_100g": 0,
+      "fiber_unit": "g",
+      "fiber_value": 0,
+      "fruits-vegetables-nuts-estimate-from-ingredients_100g": 0,
+      "fruits-vegetables-nuts-estimate-from-ingredients_serving": 0,
+      "nova-group": 4,
+      "nova-group_100g": 4,
+      "nova-group_serving": 4,
+      "nutrition-score-fr": 1,
+      "nutrition-score-fr_100g": 1,
+      "proteins": 0,
+      "proteins_100g": 0,
+      "proteins_unit": "g",
+      "proteins_value": 0,
+      "salt": 0.1,
+      "salt_100g": 0.1,
+      "salt_unit": "g",
+      "salt_value": 0.1,
+      "saturated-fat": 0,
+      "saturated-fat_100g": 0,
+      "saturated-fat_unit": "g",
+      "saturated-fat_value": 0,
+      "sodium": 0.04,
+      "sodium_100g": 0.04,
+      "sodium_unit": "g",
+      "sodium_value": 0.04,
+      "sugars": 0,
+      "sugars_100g": 0,
+      "sugars_unit": "g",
+      "sugars_value": 0
+    },
+    "nutriscore_data": {
+      "energy": 13,
+      "energy_points": 1,
+      "energy_value": 13,
+      "fiber": 0,
+      "fiber_points": 0,
+      "fiber_value": 0,
+      "fruits_vegetables_nuts_colza_walnut_olive_oils": 0,
+      "fruits_vegetables_nuts_colza_walnut_olive_oils_points": 0,
+      "fruits_vegetables_nuts_colza_walnut_olive_oils_value": 0,
+      "grade": "b",
+      "is_beverage": 1,
+      "is_cheese": 0,
+      "is_fat": 0,
+      "is_water": 0,
+      "negative_points": 1,
+      "positive_points": 0,
+      "proteins": 0,
+      "proteins_points": 0,
+      "proteins_value": 0,
+      "saturated_fat": 0,
+      "saturated_fat_points": 0,
+      "saturated_fat_ratio": 0,
+      "saturated_fat_ratio_points": 0,
+      "saturated_fat_ratio_value": 0,
+      "saturated_fat_value": 0,
+      "score": 1,
+      "sodium": 40,
+      "sodium_points": 0,
+      "sodium_value": 40,
+      "sugars": 0,
+      "sugars_points": 0,
+      "sugars_value": 0
+    },
+    "nutriscore_grade": "b",
+    "nutriscore_score": 1,
+    "nutriscore_score_opposite": -1,
+    "nutrition_data_per": "100g",
+    "nutrition_data_prepared_per": "100g",
+    "nutrition_grade_fr": "b",
+    "nutrition_grades": "b",
+    "nutrition_grades_tags": [
+      "b"
+    ],
+    "nutrition_score_beverage": 1,
+    "nutrition_score_warning_fruits_vegetables_nuts_estimate_from_ingredients": 1,
+    "nutrition_score_warning_fruits_vegetables_nuts_estimate_from_ingredients_value": 0,
+    "other_nutritional_substances_tags": [
+      "en:taurine"
+    ],
+    "packagings": [],
+    "photographers_tags": [
+      "kiliweb",
+      "openfoodfacts-contributors"
+    ],
+    "pnns_groups_1": "Beverages",
+    "pnns_groups_1_tags": [
+      "beverages",
+      "known"
+    ],
+    "pnns_groups_2": "Artificially sweetened beverages",
+    "pnns_groups_2_tags": [
+      "artificially-sweetened-beverages",
+      "known"
+    ],
+    "popularity_key": 20990000054,
+    "popularity_tags": [
+      "top-50000-scans-2019",
+      "top-100000-scans-2019",
+      "at-least-5-scans-2019",
+      "at-least-10-scans-2019",
+      "top-75-percent-scans-2019",
+      "top-80-percent-scans-2019",
+      "top-85-percent-scans-2019",
+      "top-90-percent-scans-2019",
+      "top-500-de-scans-2019",
+      "top-1000-de-scans-2019",
+      "top-5000-de-scans-2019",
+      "top-10000-de-scans-2019",
+      "top-50000-de-scans-2019",
+      "top-100000-de-scans-2019",
+      "top-country-de-scans-2019",
+      "at-least-5-de-scans-2019",
+      "at-least-10-de-scans-2019",
+      "top-50000-ch-scans-2019",
+      "top-100000-ch-scans-2019",
+      "top-50000-scans-2020",
+      "top-100000-scans-2020",
+      "at-least-5-scans-2020",
+      "at-least-10-scans-2020",
+      "top-75-percent-scans-2020",
+      "top-80-percent-scans-2020",
+      "top-85-percent-scans-2020",
+      "top-90-percent-scans-2020",
+      "top-500-de-scans-2020",
+      "top-1000-de-scans-2020",
+      "top-5000-de-scans-2020",
+      "top-10000-de-scans-2020",
+      "top-50000-de-scans-2020",
+      "top-100000-de-scans-2020",
+      "top-country-de-scans-2020",
+      "at-least-5-de-scans-2020",
+      "at-least-10-de-scans-2020",
+      "top-50000-be-scans-2020",
+      "top-100000-be-scans-2020",
+      "top-10000-gb-scans-2020",
+      "top-50000-gb-scans-2020",
+      "top-100000-gb-scans-2020",
+      "top-10000-scans-2021",
+      "top-50000-scans-2021",
+      "top-100000-scans-2021",
+      "at-least-5-scans-2021",
+      "at-least-10-scans-2021",
+      "top-75-percent-scans-2021",
+      "top-80-percent-scans-2021",
+      "top-85-percent-scans-2021",
+      "top-90-percent-scans-2021",
+      "top-500-de-scans-2021",
+      "top-1000-de-scans-2021",
+      "top-5000-de-scans-2021",
+      "top-10000-de-scans-2021",
+      "top-50000-de-scans-2021",
+      "top-100000-de-scans-2021",
+      "top-country-de-scans-2021",
+      "at-least-5-de-scans-2021",
+      "at-least-10-de-scans-2021",
+      "top-50000-ch-scans-2021",
+      "top-100000-ch-scans-2021",
+      "top-50000-es-scans-2021",
+      "top-100000-es-scans-2021",
+      "top-10000-us-scans-2021",
+      "top-50000-us-scans-2021",
+      "top-100000-us-scans-2021",
+      "top-5000-se-scans-2021",
+      "top-10000-se-scans-2021",
+      "top-50000-se-scans-2021",
+      "top-100000-se-scans-2021"
+    ],
+    "product_name": "Red Bull Sugarfree",
+    "product_name_de": "Red Bull Sugarfree",
+    "product_name_debug_tags": [],
+    "product_name_fr": "Red Bull Sugarfree 250ML",
+    "product_quantity": "250",
+    "quantity": "250ml",
+    "removed_countries_tags": [],
+    "rev": 21,
+    "scans_n": 69,
+    "selected_images": {
+      "front": {
+        "display": {
+          "de": "https://images.openfoodfacts.org/images/products/90162480/front_de.9.400.jpg"
+        },
+        "small": {
+          "de": "https://images.openfoodfacts.org/images/products/90162480/front_de.9.200.jpg"
+        },
+        "thumb": {
+          "de": "https://images.openfoodfacts.org/images/products/90162480/front_de.9.100.jpg"
+        }
+      },
+      "ingredients": {
+        "display": {
+          "fr": "https://images.openfoodfacts.org/images/products/90162480/ingredients_fr.4.400.jpg"
+        },
+        "small": {
+          "fr": "https://images.openfoodfacts.org/images/products/90162480/ingredients_fr.4.200.jpg"
+        },
+        "thumb": {
+          "fr": "https://images.openfoodfacts.org/images/products/90162480/ingredients_fr.4.100.jpg"
+        }
+      },
+      "packaging": {
+        "display": {
+          "de": "https://images.openfoodfacts.org/images/products/90162480/packaging_de.20.400.jpg"
+        },
+        "small": {
+          "de": "https://images.openfoodfacts.org/images/products/90162480/packaging_de.20.200.jpg"
+        },
+        "thumb": {
+          "de": "https://images.openfoodfacts.org/images/products/90162480/packaging_de.20.100.jpg"
+        }
+      }
+    },
+    "sortkey": 1585568013,
+    "states": "en:to-be-completed, en:nutrition-facts-completed, en:ingredients-completed, en:expiration-date-to-be-completed, en:packaging-code-to-be-completed, en:characteristics-to-be-completed, en:origins-to-be-completed, en:categories-completed, en:brands-completed, en:packaging-to-be-completed, en:quantity-completed, en:product-name-completed, en:photos-to-be-validated, en:packaging-photo-selected, en:nutrition-photo-to-be-selected, en:ingredients-photo-to-be-selected, en:front-photo-selected, en:photos-uploaded",
+    "states_hierarchy": [
+      "en:to-be-completed",
+      "en:nutrition-facts-completed",
+      "en:ingredients-completed",
+      "en:expiration-date-to-be-completed",
+      "en:packaging-code-to-be-completed",
+      "en:characteristics-to-be-completed",
+      "en:origins-to-be-completed",
+      "en:categories-completed",
+      "en:brands-completed",
+      "en:packaging-to-be-completed",
+      "en:quantity-completed",
+      "en:product-name-completed",
+      "en:photos-to-be-validated",
+      "en:packaging-photo-selected",
+      "en:nutrition-photo-to-be-selected",
+      "en:ingredients-photo-to-be-selected",
+      "en:front-photo-selected",
+      "en:photos-uploaded"
+    ],
+    "states_tags": [
+      "en:to-be-completed",
+      "en:nutrition-facts-completed",
+      "en:ingredients-completed",
+      "en:expiration-date-to-be-completed",
+      "en:packaging-code-to-be-completed",
+      "en:characteristics-to-be-completed",
+      "en:origins-to-be-completed",
+      "en:categories-completed",
+      "en:brands-completed",
+      "en:packaging-to-be-completed",
+      "en:quantity-completed",
+      "en:product-name-completed",
+      "en:photos-to-be-validated",
+      "en:packaging-photo-selected",
+      "en:nutrition-photo-to-be-selected",
+      "en:ingredients-photo-to-be-selected",
+      "en:front-photo-selected",
+      "en:photos-uploaded"
+    ],
+    "traces": "",
+    "traces_from_ingredients": "",
+    "traces_from_user": "(de) ",
+    "traces_hierarchy": [],
+    "traces_tags": [],
+    "unique_scans_n": 42,
+    "unknown_ingredients_n": 7,
+    "unknown_nutrients_tags": [],
+    "update_key": "ing20220322",
+    "vitamins_prev_tags": [],
+    "vitamins_tags": [],
+    "with_sweeteners": 1
+  },
+  "status": 1,
+  "status_verbose": "product found"
+}
