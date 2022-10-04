@@ -28,3 +28,14 @@ interface ArticleDao {
     @Update
     suspend fun update(article: Article)
 }
+
+fun addListDividers(list: List<Article>): List<ListItem> {
+    val result = ArrayList<ListItem>()
+    list.forEachIndexed { index, article ->
+        if (article.expiry != null && (index == 0 || article.expiry != list[index - 1].expiry)) {
+            result.add(ListItem(article.expiry))
+        }
+        result.add(ListItem(article))
+    }
+    return result.toList()
+}

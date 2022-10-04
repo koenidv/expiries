@@ -7,18 +7,19 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.threeten.bp.format.DateTimeFormatter
 import org.threeten.bp.format.FormatStyle
 
-class ExpiryItemAdapter(val activity: FragmentActivity) :
-    RecyclerView.Adapter<ExpiryItemAdapter.ViewHolder>() {
+class ExpiryItemAdapter(private val activity: FragmentActivity) :
+    RecyclerView.Adapter<ViewHolder>() {
 
-    var dataset: List<Article> = listOf()
+    var dataset: List<ListItem> = listOf()
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class ArticleViewHolder(view: View) : ViewHolder(view) {
         val nameText: TextView
         val expiryText: TextView
         val card: CardView
@@ -30,23 +31,57 @@ class ExpiryItemAdapter(val activity: FragmentActivity) :
         }
     }
 
+    class DividerViewHolder(view: View) : ViewHolder(view) {
+        val titleText: TextView
+
+        init {
+            titleText = view.findViewById(R.id.titleTextView)
+        }
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.expiry_item, parent, false)
-        return ViewHolder(view)
+        return when (viewType) {
+            ListItem.TYPE_ARTICLE -> {
+                val view = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.expiry_item, parent, false)
+                ArticleViewHolder(view)
+            }
+            else -> {
+                val view = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.divider_item, parent, false)
+                DividerViewHolder(view)
+            }
+        }
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.nameText.text = dataset[position].name
-        holder.expiryText.text = dataset[position].expiry
-            ?.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT))
-        holder.card.setOnClickListener {
-            EditorSheet(dataset[position]) {
-                CoroutineScope(Dispatchers.IO).launch {
-                    Database.get(activity).articleDao().update(it)
+        when (getItemViewType(position)) {
+            ListItem.TYPE_ARTICLE -> {
+                val article = dataset[position].article_data!!
+                holder as ArticleViewHolder
+
+                holder.nameText.text = article.name
+                holder.expiryText.text = article.expiry
+                    ?.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT))
+                holder.card.setOnClickListener {
+                    EditorSheet(article) {
+                        CoroutineScope(Dispatchers.IO).launch {
+                            Database.get(activity).articleDao().update(it)
+                        }
+                    }.show(activity.supportFragmentManager, "editor")
                 }
-            }.show(activity.supportFragmentManager, "editor")
+            }
+            else -> {
+                val date = dataset[position].divider_data
+                holder as DividerViewHolder
+
+                holder.titleText.text = date.toString()
+            }
         }
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return dataset[position].type
     }
 
     override fun getItemCount() = dataset.size

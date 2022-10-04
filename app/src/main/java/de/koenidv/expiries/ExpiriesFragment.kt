@@ -44,7 +44,7 @@ class ExpiriesFragment : Fragment() {
 
             val articlesObservable = db.articleDao().getAllSorted()
             articlesObservable.collect {
-                adapter.dataset = it
+                adapter.dataset = addListDividers(it)
                 adapter.notifyDataSetChanged()
             }
         }
