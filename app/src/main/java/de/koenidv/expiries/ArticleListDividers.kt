@@ -45,7 +45,14 @@ class ArticleListDividers {
     }
 
     fun resolveDividerDate(date: LocalDate, today: LocalDate): Int {
-        return 0
+        if (date.isBefore(today)) return R.string.timeframe_expired
+        if (isToday(date, today)) return R.string.timeframe_today
+        if (isTomorrow(date, today)) return R.string.timeframe_tomorrow
+        if (isThisWeek(date, today)) return R.string.timeframe_thisweek
+        if (isNextWeek(date, today)) return R.string.timeframe_nextweek
+        if (bothSameMonth(date, today)) return R.string.timeframe_thismonth
+        if (bothSameMonth(date, today.plusMonths(1))) return R.string.timeframe_nextmonth
+        return R.string.timeframe_later
     }
 
     private fun bothPast(before: LocalDate, after: LocalDate, today: LocalDate) =
