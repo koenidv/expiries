@@ -25,14 +25,6 @@ data class Article(
             return result.toList()
         }
 
-        fun determineAddDividers(
-            before: LocalDate,
-            after: LocalDate,
-            today: LocalDate = LocalDate.now()
-        ): Boolean {
-            return true
-        }
-
     }
 }
 

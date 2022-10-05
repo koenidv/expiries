@@ -1,19 +1,19 @@
 package de.koenidv.expiries
 
-import de.koenidv.expiries.Article.Companion.determineAddDividers
 import org.junit.Test
 import org.threeten.bp.LocalDate
 
 class ArticleListDividersTest {
 
-    private val T: Long = 16269L
+    private val T: Long = 19269L
+    private val dividers = ArticleListDividers()
 
     // Using epochDays to store dates: Tue, Oct 4, 2022 is epochDay T = 19269
     private fun testDates(day1: Long, day2: Long): Boolean {
         val today = LocalDate.ofEpochDay(T)
         val date1 = LocalDate.ofEpochDay(day1)
         val date2 = LocalDate.ofEpochDay(day2)
-        return determineAddDividers(date1, date2, today)
+        return dividers.determineAddDividers(date1, date2, today)
     }
 
     @Test
@@ -38,7 +38,7 @@ class ArticleListDividersTest {
     fun testDatesMonth() = assert(!testDates(T + 13, T + 27))
 
     @Test
-    fun testDatesMonthNextMonth() = assert(testDates(T + 28, T + 57))
+    fun testDatesMonthNextMonth() = assert(testDates(T + 28, T + 58))
 
     @Test
     fun testDatesNextMonthThirdMonth() = assert(testDates(T + 50, T + 70))
