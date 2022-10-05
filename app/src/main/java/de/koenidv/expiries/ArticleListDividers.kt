@@ -4,6 +4,26 @@ import org.threeten.bp.LocalDate
 
 class ArticleListDividers {
 
+    fun addListDividers(list: List<Article>): List<ListItem> {
+        val result = ArrayList<ListItem>()
+        val today = LocalDate.now()
+        list.forEachIndexed { index, article ->
+            if (article.expiry != null &&
+                (index == 0 ||
+                        list[index - 1].expiry == null ||
+                        determineAddDividers(
+                            article.expiry,
+                            list[index - 1].expiry!!,
+                            today
+                        ))
+            ) {
+                result.add(ListItem(article.expiry))
+            }
+            result.add(ListItem(article))
+        }
+        return result.toList()
+    }
+
     fun determineAddDividers(
         before: LocalDate,
         after: LocalDate,
@@ -29,11 +49,17 @@ class ArticleListDividers {
     private fun onePast(before: LocalDate, after: LocalDate, today: LocalDate) =
         before < today || after < today
 
+    private fun thisWeek(date: LocalDate, today: LocalDate) =
+        date.getWeekNumber() == today.getWeekNumber() && date.year == today.year
+
     private fun bothThisWeek(before: LocalDate, after: LocalDate, today: LocalDate) =
-        before.getWeekNumber() == today.getWeekNumber() && after.getWeekNumber() == today.getWeekNumber()
+        thisWeek(before, today) && thisWeek(after, today)
+
+    private fun nextWeek(date: LocalDate, today: LocalDate) =
+        date.getWeekNumber() == today.getWeekNumber() + 1 && date.year == today.year
 
     private fun bothNextWeek(before: LocalDate, after: LocalDate, today: LocalDate) =
-        before.getWeekNumber() == today.getWeekNumber() + 1 && after.getWeekNumber() == today.getWeekNumber() + 1
+        nextWeek(before, today) && nextWeek(after, today)
 
     private fun oneThisOrNextWeek(before: LocalDate, after: LocalDate, today: LocalDate) =
         (before.getWeekNumber() == today.getWeekNumber() || after.getWeekNumber() == today.getWeekNumber()) ||

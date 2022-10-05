@@ -3,7 +3,7 @@ package de.koenidv.expiries
 import org.junit.Test
 import org.threeten.bp.LocalDate
 
-class ArticleListDividersTest {
+class DetermineAddArticleListDividersTest {
 
     private val T: Long = 19269L
     private val dividers = ArticleListDividers()
@@ -52,5 +52,6 @@ class ArticleListDividersTest {
     @Test
     fun testDatesLater() = assert(!testDates(T + 100, T + 200))
 
-
 }
+
+class ResolveArticleListDividersTest
