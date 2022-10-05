@@ -75,37 +75,37 @@ class ResolveArticleListDividersTest {
     private val dividers = ArticleListDividers()
 
     // Using epochDays to store dates: Tue, Oct 4, 2022 is epochDay T = 19269
-    private fun testDates(day1: Long): Int {
+    private fun testDate(day1: Long): Int {
         val today = LocalDate.ofEpochDay(T)
         val date = LocalDate.ofEpochDay(day1)
         return dividers.resolveDividerDate(date, today)
     }
 
     @Test
-    fun testBefore() = assert(testDates(T - 7) == R.string.timeframe_expired)
+    fun testBefore() = assert(testDate(T - 7) == R.string.timeframe_expired)
 
     @Test
-    fun testRecently() = assert(testDates(T - 1) == R.string.timeframe_expired_recently)
+    fun testRecently() = assert(testDate(T - 1) == R.string.timeframe_expired_recently)
 
     @Test
-    fun testToday() = assert(testDates(T) == R.string.timeframe_today)
+    fun testToday() = assert(testDate(T) == R.string.timeframe_today)
 
     @Test
-    fun testTomorrow() = assert(testDates(T + 1) == R.string.timeframe_tomorrow)
+    fun testTomorrow() = assert(testDate(T + 1) == R.string.timeframe_tomorrow)
 
     @Test
-    fun testWeek() = assert(testDates(T + 2) == R.string.timeframe_this_week)
+    fun testWeek() = assert(testDate(T + 2) == R.string.timeframe_this_week)
 
     @Test
-    fun testNextWeek() = assert(testDates(T + 7) == R.string.timeframe_next_week)
+    fun testNextWeek() = assert(testDate(T + 7) == R.string.timeframe_next_week)
 
     @Test
-    fun testMonth() = assert(testDates(T + 15) == R.string.timeframe_this_month)
+    fun testMonth() = assert(testDate(T + 15) == R.string.timeframe_this_month)
 
     @Test
-    fun testNextMonth() = assert(testDates(T + 28) == R.string.timeframe_next_month)
+    fun testNextMonth() = assert(testDate(T + 28) == R.string.timeframe_next_month)
 
     @Test
-    fun testLater() = assert(testDates(T + 58) == R.string.timeframe_later)
+    fun testLater() = assert(testDate(T + 58) == R.string.timeframe_later)
 
 }

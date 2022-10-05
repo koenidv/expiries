@@ -28,8 +28,9 @@ class ArticleListDividers {
         before: LocalDate, after: LocalDate, today: LocalDate = LocalDate.now()
     ) = when {
         before == after -> false
-        bothPast(before, after, today) -> false
-        onePast(before, after, today) -> true
+        bothLongPast(before, after, today) -> false
+        bothRecent(before, after, today) -> false
+        oneOrBothPast(before, after, today) -> true
         // Dates are today or later
         oneTomorrow(before, after, today) -> true
         bothThisWeek(before, after, today) -> false
@@ -44,7 +45,8 @@ class ArticleListDividers {
     }
 
     fun resolveDividerDate(date: LocalDate, today: LocalDate) = when {
-        date.isBefore(today) -> R.string.timeframe_expired
+        isLongPast(date, today) -> R.string.timeframe_expired
+        date.isBefore(today) -> R.string.timeframe_expired_recently
         isToday(date, today) -> R.string.timeframe_today
         isTomorrow(date, today) -> R.string.timeframe_tomorrow
         isThisWeek(date, today) -> R.string.timeframe_this_week
@@ -54,11 +56,17 @@ class ArticleListDividers {
         else -> R.string.timeframe_later
     }
 
-    private fun bothPast(before: LocalDate, after: LocalDate, today: LocalDate) =
-        before < today && after < today
+    private fun isLongPast(date: LocalDate, today: LocalDate) =
+        date < today.minusDays(6)
 
-    private fun onePast(before: LocalDate, after: LocalDate, today: LocalDate) =
-        before < today || after < today
+    private fun bothLongPast(before: LocalDate, after: LocalDate, today: LocalDate) =
+        isLongPast(before, today) && isLongPast(after, today)
+
+    private fun bothRecent(before: LocalDate, after: LocalDate, today: LocalDate) =
+        before < today && after < today && !isLongPast(before, today) && !isLongPast(after, today)
+
+    private fun oneOrBothPast(before: LocalDate, after: LocalDate, today: LocalDate) =
+        before < today || after < today || (before < today && after < today)
 
     private fun isToday(date: LocalDate, today: LocalDate) =
         date == today
