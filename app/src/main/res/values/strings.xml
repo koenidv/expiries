@@ -21,4 +21,13 @@
     <string name="action_no">No</string>
 
     <string name="dialog_cancel_edit_title">Cancel editing?</string>
+
+    <string name="timeframe_expired">Expired</string>
+    <string name="timeframe_today">Today</string>
+    <string name="timeframe_tomorrow">Tomorrow</string>
+    <string name="timeframe_thisweek">This week</string>
+    <string name="timeframe_nextweek">Next week</string>
+    <string name="timeframe_thismonth">This month</string>
+    <string name="timeframe_nextmonth">Next month</string>
+    <string name="timeframe_later">Later</string>
 </resources>
