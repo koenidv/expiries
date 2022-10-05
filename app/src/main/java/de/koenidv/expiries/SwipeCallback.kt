@@ -25,7 +25,9 @@ abstract class SwipeCallback(val context: Context) : ItemTouchHelper.Callback() 
         recyclerView: RecyclerView,
         viewHolder: RecyclerView.ViewHolder
     ): Int {
-        return makeMovementFlags(0, ItemTouchHelper.RIGHT)
+        return if (viewHolder is ExpiryItemAdapter.ArticleViewHolder)
+            makeMovementFlags(0, ItemTouchHelper.RIGHT)
+        else 0
     }
 
     override fun onMove(
