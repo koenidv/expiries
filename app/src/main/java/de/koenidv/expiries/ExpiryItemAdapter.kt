@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.threeten.bp.LocalDate
 import org.threeten.bp.format.DateTimeFormatter
 import org.threeten.bp.format.FormatStyle
 
@@ -72,10 +73,12 @@ class ExpiryItemAdapter(private val activity: FragmentActivity) :
                 }
             }
             else -> {
-                val date = dataset[position].divider_data
+                val date = dataset[position].divider_data!!
                 holder as DividerViewHolder
 
-                holder.titleText.text = date.toString()
+                holder.titleText.text = activity.getString(
+                    ArticleListDividers().resolveDividerDate(date, LocalDate.now())
+                )
             }
         }
     }
