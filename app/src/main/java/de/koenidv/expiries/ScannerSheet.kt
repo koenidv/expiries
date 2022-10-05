@@ -1,9 +1,6 @@
 package de.koenidv.expiries
 
-import BarcodeBoxView
 import android.annotation.SuppressLint
-import android.graphics.Rect
-import android.graphics.RectF
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -19,6 +16,8 @@ import androidx.camera.view.PreviewView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import com.androidnetworking.AndroidNetworking
+import com.androidnetworking.error.ANError
+import com.androidnetworking.interfaces.StringRequestListener
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.button.MaterialButton
 import com.google.mlkit.vision.barcode.BarcodeScanner
@@ -37,7 +36,6 @@ class ScannerSheet(val scannedCallback: (String?) -> Unit) : BottomSheetDialogFr
     private lateinit var cameraExecutor: ExecutorService
     private lateinit var preview: PreviewView
     private lateinit var loadingProgress: ProgressBar
-    private lateinit var barcodeBoxView: BarcodeBoxView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,15 +48,6 @@ class ScannerSheet(val scannedCallback: (String?) -> Unit) : BottomSheetDialogFr
         preview = view.findViewById(R.id.camera_preview)
         loadingProgress = view.findViewById(R.id.loading_progress)
         cameraExecutor = Executors.newSingleThreadExecutor()
-
-        barcodeBoxView = BarcodeBoxView(requireContext())
-        container?.addView(
-            barcodeBoxView,
-            ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT
-            )
-        )
 
         startCameraWithPermissionCheck()
 
@@ -108,14 +97,12 @@ class ScannerSheet(val scannedCallback: (String?) -> Unit) : BottomSheetDialogFr
                     it.setAnalyzer(cameraExecutor) { imageProxy ->
                         processImageProxy(
                             scanner,
-                            imageProxy,
-                            barcodeBoxView,
-                            preview.width,
-                            preview.height
-
+                            imageProxy
                         ) { result ->
 
                             if (!result.equals(lastResult)) {
+                                Log.d("ScannerSheet", "Result: $result")
+                                Log.d("ScannerSheet", "Last result: $lastResult")
 
                                 lastResult = result
 
@@ -129,7 +116,7 @@ class ScannerSheet(val scannedCallback: (String?) -> Unit) : BottomSheetDialogFr
                                 if (loadingProgress.visibility != View.VISIBLE)
                                     loadingProgress.visibility = View.VISIBLE
 
-                                /*AndroidNetworking.get("https://world.openfoodfacts.org/api/v0/product/${result}.json")
+                                AndroidNetworking.get("https://world.openfoodfacts.org/api/v0/product/${result}.json")
                                     .setTag("openfoodfacts")
                                     .build()
                                     .getAsString(object : StringRequestListener {
@@ -140,10 +127,10 @@ class ScannerSheet(val scannedCallback: (String?) -> Unit) : BottomSheetDialogFr
 
                                         override fun onError(anError: ANError) {
                                             Log.e("Scanner", anError.errorDetail)
-                                            lastResult = null
+                                            Log.w("Scanner", "No product found")
                                             loadingProgress.visibility = View.GONE
                                         }
-                                    })*/
+                                    })
                             }
                         }
                     }
@@ -166,25 +153,8 @@ class ScannerSheet(val scannedCallback: (String?) -> Unit) : BottomSheetDialogFr
     private fun processImageProxy(
         barcodeScanner: BarcodeScanner,
         imageProxy: ImageProxy,
-        barcodeBox: BarcodeBoxView,
-        previewWidth: Int,
-        previewHeight: Int,
         callback: (String?) -> Unit
     ) {
-
-        val previewScaleX = previewWidth / imageProxy.width
-        val previewScaleY = previewHeight / imageProxy.height
-
-        fun translateX(x: Float) = x * previewScaleX
-        fun translateY(y: Float) = y * previewScaleY
-
-        fun adjustBoundingRect(rect: Rect) = RectF(
-            translateX(rect.left.toFloat()),
-            translateY(rect.top.toFloat()),
-            translateX(rect.right.toFloat()),
-            translateY(rect.bottom.toFloat())
-        )
-
         // Process the image and callback with the result
         // Close the proxy after completion to allow for the next image
         barcodeScanner.process(
@@ -193,14 +163,6 @@ class ScannerSheet(val scannedCallback: (String?) -> Unit) : BottomSheetDialogFr
             .addOnSuccessListener { barcodes ->
                 val barcode = barcodes.firstOrNull() ?: return@addOnSuccessListener
                 callback(barcode.rawValue)
-                // Update bounding rect
-                barcode.boundingBox?.let { rect ->
-                    barcodeBox.setRect(
-                        adjustBoundingRect(
-                            rect
-                        )
-                    )
-                }
             }
             .addOnFailureListener { callback(null) }
             .addOnCompleteListener { imageProxy.close() }
