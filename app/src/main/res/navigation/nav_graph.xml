@@ -8,20 +8,5 @@
         android:id="@+id/ExpiriesFragment"
         android:name="de.koenidv.expiries.ExpiriesFragment"
         android:label="@string/expiries_fragment_label"
-        tools:layout="@layout/fragment_expiries">
-
-        <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/SecondFragment"
-        android:name="de.koenidv.expiries.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
-
-        <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/ExpiriesFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_expiries" />
 </navigation>
