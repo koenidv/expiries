@@ -174,6 +174,7 @@ class ScannerSheet(val scannedCallback: (String?) -> Unit) : BottomSheetDialogFr
         permissions: Array<String>,
         grantResults: IntArray
     ) {
+        @Suppress("DEPRECATION")
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         // NOTE: delegate the permission handling to generated function
         onRequestPermissionsResult(requestCode, grantResults)

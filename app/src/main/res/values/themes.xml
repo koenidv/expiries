@@ -1,7 +1,9 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Theme.Ablaufdaten" parent="Theme.Material3.DynamicColors.DayNight">
         <item name="android:windowSoftInputMode">adjustResize</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 
     <style name="Theme.Ablaufdaten.NoActionBar">
@@ -18,8 +20,6 @@
     <style name="ModalTheme" parent="Widget.Material3.BottomSheet.Modal">
         <item name="android:background">@drawable/background_rounded_dialog</item>
     </style>
-
-    <style name="Theme.Ablaufdaten.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.Ablaufdaten.PopupOverlay" parent="ThemeOverlay.Material3" />
 </resources>
