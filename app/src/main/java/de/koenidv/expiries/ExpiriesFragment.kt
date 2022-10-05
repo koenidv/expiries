@@ -43,7 +43,7 @@ class ExpiriesFragment : Fragment() {
         binding.recycler.layoutManager = LinearLayoutManager(requireContext())
         binding.recycler.adapter = adapter
 
-        enableSwipeActions(binding.recycler)
+        enableSwipeActions(binding.recycler, db)
 
         CoroutineScope(Dispatchers.Main).launch {
 
@@ -61,12 +61,14 @@ class ExpiriesFragment : Fragment() {
         _binding = null
     }
 
-    private fun enableSwipeActions(recycler: RecyclerView) {
+    private fun enableSwipeActions(recycler: RecyclerView, db: Database) {
         val swipeCallback: SwipeCallback = object : SwipeCallback(requireContext()) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, i: Int) {
                 val position = viewHolder.adapterPosition
-                recycler.adapter?.notifyItemRemoved(position)
-                (recycler.adapter as ExpiryItemAdapter).dataset.removeAt(position)
+                val adapter = recycler.adapter as ExpiryItemAdapter
+                val article = adapter.dataset[position].article_data!!
+
+                CoroutineScope(Dispatchers.Main).launch { db.articleDao().delete(article) }
 
                 //val item: String = recycler.adapter.getData().get(position)
                 //recycler.adapter.removeItem(position)
