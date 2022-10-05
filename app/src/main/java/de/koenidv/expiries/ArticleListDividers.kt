@@ -32,6 +32,7 @@ class ArticleListDividers {
         if (bothPast(before, after, today)) return false
         if (onePast(before, after, today)) return true
         // Dates are today or later
+        if (oneTomorrow(before, after, today)) return true
         if (bothThisWeek(before, after, today)) return false
         if (bothNextWeek(before, after, today)) return false
         // Dates are not in the same this or next week
@@ -48,6 +49,9 @@ class ArticleListDividers {
 
     private fun onePast(before: LocalDate, after: LocalDate, today: LocalDate) =
         before < today || after < today
+
+    private fun oneTomorrow(before: LocalDate, after: LocalDate, today: LocalDate) =
+        before == today.plusDays(1) || after == today.plusDays(1)
 
     private fun thisWeek(date: LocalDate, today: LocalDate) =
         date.getWeekNumber() == today.getWeekNumber() && date.year == today.year

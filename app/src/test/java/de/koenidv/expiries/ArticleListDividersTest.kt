@@ -23,6 +23,12 @@ class DetermineAddArticleListDividersTest {
     fun testDatesBeforeAfter() = assert(testDates(T - 2, T))
 
     @Test
+    fun testDatesTodayTomorrow() = assert(testDates(T, T + 1))
+
+    @Test
+    fun testDatesTomorrowWeek() = assert(testDates(T + 1, T + 5))
+
+    @Test
     fun testDatesWeek() = assert(!testDates(T, T + 5))
 
     @Test
