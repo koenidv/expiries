@@ -13,7 +13,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDate
 import org.threeten.bp.format.DateTimeFormatter
-import org.threeten.bp.format.FormatStyle
 
 class ExpiryItemAdapter(private val activity: FragmentActivity) :
     RecyclerView.Adapter<ViewHolder>() {
@@ -63,7 +62,12 @@ class ExpiryItemAdapter(private val activity: FragmentActivity) :
 
                 holder.nameText.text = article.name
                 holder.expiryText.text = article.expiry
-                    ?.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT))
+                    ?.format(
+                        DateTimeFormatter.ofPattern(
+                            "d. MMM" +
+                                    if (article.expiry.year != LocalDate.now().year) " yy" else ""
+                        )
+                    )
                 holder.card.setOnClickListener {
                     EditorSheet(article) {
                         CoroutineScope(Dispatchers.IO).launch {
