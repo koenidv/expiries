@@ -23,10 +23,16 @@ class DetermineAddArticleListDividersTest {
     fun testSameTomorrow() = assert(!testDates(T + 1, T + 1))
 
     @Test
-    fun testDatesBefore() = assert(!testDates(T - 5, T - 2))
+    fun testDatesBefore() = assert(!testDates(T - 12, T - 7))
 
     @Test
-    fun testDatesBeforeAfter() = assert(testDates(T - 2, T))
+    fun testDatesBeforeRecent() = assert(testDates(T - 7, T - 6))
+
+    @Test
+    fun testDatesRecent() = assert(!testDates(T - 6, T - 1))
+
+    @Test
+    fun testDatesRecentAfter() = assert(testDates(T - 2, T))
 
     @Test
     fun testDatesTodayTomorrow() = assert(testDates(T, T + 1))
@@ -76,7 +82,10 @@ class ResolveArticleListDividersTest {
     }
 
     @Test
-    fun testBefore() = assert(testDates(T - 1) == R.string.timeframe_expired)
+    fun testBefore() = assert(testDates(T - 7) == R.string.timeframe_expired)
+
+    @Test
+    fun testRecently() = assert(testDates(T - 1) == R.string.timeframe_expired_recently)
 
     @Test
     fun testToday() = assert(testDates(T) == R.string.timeframe_today)
@@ -85,16 +94,16 @@ class ResolveArticleListDividersTest {
     fun testTomorrow() = assert(testDates(T + 1) == R.string.timeframe_tomorrow)
 
     @Test
-    fun testWeek() = assert(testDates(T + 2) == R.string.timeframe_thisweek)
+    fun testWeek() = assert(testDates(T + 2) == R.string.timeframe_this_week)
 
     @Test
-    fun testNextWeek() = assert(testDates(T + 7) == R.string.timeframe_nextweek)
+    fun testNextWeek() = assert(testDates(T + 7) == R.string.timeframe_next_week)
 
     @Test
-    fun testMonth() = assert(testDates(T + 15) == R.string.timeframe_thismonth)
+    fun testMonth() = assert(testDates(T + 15) == R.string.timeframe_this_month)
 
     @Test
-    fun testNextMonth() = assert(testDates(T + 28) == R.string.timeframe_nextmonth)
+    fun testNextMonth() = assert(testDates(T + 28) == R.string.timeframe_next_month)
 
     @Test
     fun testLater() = assert(testDates(T + 58) == R.string.timeframe_later)
