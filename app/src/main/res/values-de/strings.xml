@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Ablaufdaten</string>
+    <string name="expiries_fragment_label">Ablaufdaten</string>
+    <string name="ldp_day">T</string>
+    <string name="ldp_month">M</string>
+    <string name="ldp_year">J</string>
+    <string name="article_name">Name</string>
+    <string name="description_add">Artikel hinzufügen</string>
+    <string name="description_product_photo">Produktbild</string>
+    <string name="action_add_manually">Manuell hinzufügen</string>
+    <string name="action_scan">Scannen</string>
+    <string name="action_save">Speichern</string>
+    <string name="action_cancel">Abbrechen</string>
+    <string name="action_yes">Ja</string>
+    <string name="action_no">Nein</string>
+    <string name="action_undo">Rückgängig</string>
+    <string name="dialog_cancel_edit_title">Bearbeiten abbrechen?</string>
+    <string name="warning_item_deleted">Artikel verbraucht</string>
+    <string name="timeframe_expired">Abgelaufen</string>
+    <string name="timeframe_expired_recently">Kürzlich abgelaufen</string>
+    <string name="timeframe_today">Heute</string>
+    <string name="timeframe_tomorrow">Morgen</string>
+    <string name="timeframe_this_week">Diese Woche</string>
+    <string name="timeframe_next_week">Nächste Woche</string>
+    <string name="timeframe_this_month">Dieser Monat</string>
+    <string name="timeframe_next_month">Nächster Monat</string>
+    <string name="timeframe_later">Später</string>
+</resources>
