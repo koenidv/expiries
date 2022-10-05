@@ -1,5 +1,6 @@
 package de.koenidv.expiries
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,8 @@ import androidx.cardview.widget.CardView
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.google.android.material.R.attr
+import com.google.android.material.color.MaterialColors
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -56,6 +59,7 @@ class ExpiryItemAdapter(private val activity: FragmentActivity) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         when (getItemViewType(position)) {
+
             ListItem.TYPE_ARTICLE -> {
                 val article = dataset[position].article_data!!
                 holder as ArticleViewHolder
@@ -68,6 +72,17 @@ class ExpiryItemAdapter(private val activity: FragmentActivity) :
                                     if (article.expiry.year != LocalDate.now().year) " yy" else ""
                         )
                     )
+
+                if (article.expiry?.isBefore(LocalDate.now()) == true) {
+                    holder.expiryText.setTextColor(
+                        MaterialColors.getColor(activity, attr.colorError, Color.RED)
+                    )
+                } else {
+                    holder.expiryText.setTextColor(
+                        MaterialColors.getColor(activity, attr.colorOnSurfaceVariant, Color.BLACK)
+                    )
+                }
+
                 holder.card.setOnClickListener {
                     EditorSheet(article) {
                         CoroutineScope(Dispatchers.IO).launch {
@@ -75,7 +90,9 @@ class ExpiryItemAdapter(private val activity: FragmentActivity) :
                         }
                     }.show(activity.supportFragmentManager, "editor")
                 }
+
             }
+
             else -> {
                 val date = dataset[position].divider_data!!
                 holder as DividerViewHolder
@@ -83,7 +100,9 @@ class ExpiryItemAdapter(private val activity: FragmentActivity) :
                 holder.titleText.text = activity.getString(
                     ArticleListDividers().resolveDividerDate(date, LocalDate.now())
                 )
+
             }
+
         }
     }
 

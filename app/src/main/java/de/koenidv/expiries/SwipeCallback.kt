@@ -9,6 +9,7 @@ import android.util.TypedValue
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.R.attr
 import com.google.android.material.color.MaterialColors
 
 
@@ -18,7 +19,7 @@ abstract class SwipeCallback(val context: Context) : ItemTouchHelper.Callback() 
     private val icon = ContextCompat.getDrawable(context, R.drawable.ic_check)
 
     init {
-        paint.color = MaterialColors.getColor(context, android.R.attr.colorSecondary, Color.GREEN)
+        paint.color = MaterialColors.getColor(context, attr.colorSecondary, Color.GREEN)
     }
 
     override fun getMovementFlags(
