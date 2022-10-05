@@ -25,34 +25,32 @@ class ArticleListDividers {
     }
 
     fun determineAddDividers(
-        before: LocalDate,
-        after: LocalDate,
-        today: LocalDate = LocalDate.now()
-    ): Boolean {
-        if (bothPast(before, after, today)) return false
-        if (onePast(before, after, today)) return true
+        before: LocalDate, after: LocalDate, today: LocalDate = LocalDate.now()
+    ) = when {
+        bothPast(before, after, today) -> false
+        onePast(before, after, today) -> true
         // Dates are today or later
-        if (oneTomorrow(before, after, today)) return true
-        if (bothThisWeek(before, after, today)) return false
-        if (bothNextWeek(before, after, today)) return false
+        oneTomorrow(before, after, today) -> true
+        bothThisWeek(before, after, today) -> false
+        bothNextWeek(before, after, today) -> false
         // Dates are not in the same this or next week
-        if (oneThisOrNextWeek(before, after, today)) return true
-        if (bothFarFuture(before, after, today)) return false
+        oneThisOrNextWeek(before, after, today) -> true
+        bothFarFuture(before, after, today) -> false
         // At least one date is less than 3 months from today
-        if (bothSameMonth(before, after)) return false
+        bothSameMonth(before, after) -> false
         // Days are not in the same this or next 1-2 months
-        return true
+        else -> true
     }
 
-    fun resolveDividerDate(date: LocalDate, today: LocalDate): Int {
-        if (date.isBefore(today)) return R.string.timeframe_expired
-        if (isToday(date, today)) return R.string.timeframe_today
-        if (isTomorrow(date, today)) return R.string.timeframe_tomorrow
-        if (isThisWeek(date, today)) return R.string.timeframe_thisweek
-        if (isNextWeek(date, today)) return R.string.timeframe_nextweek
-        if (bothSameMonth(date, today)) return R.string.timeframe_thismonth
-        if (bothSameMonth(date, today.plusMonths(1))) return R.string.timeframe_nextmonth
-        return R.string.timeframe_later
+    fun resolveDividerDate(date: LocalDate, today: LocalDate) = when {
+        date.isBefore(today) -> R.string.timeframe_expired
+        isToday(date, today) -> R.string.timeframe_today
+        isTomorrow(date, today) -> R.string.timeframe_tomorrow
+        isThisWeek(date, today) -> R.string.timeframe_thisweek
+        isNextWeek(date, today) -> R.string.timeframe_nextweek
+        bothSameMonth(date, today) -> R.string.timeframe_thismonth
+        bothSameMonth(date, today.plusMonths(1)) -> R.string.timeframe_nextmonth
+        else -> R.string.timeframe_later
     }
 
     private fun bothPast(before: LocalDate, after: LocalDate, today: LocalDate) =
