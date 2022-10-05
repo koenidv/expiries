@@ -17,6 +17,12 @@ class DetermineAddArticleListDividersTest {
     }
 
     @Test
+    fun testSame() = assert(!testDates(T, T))
+
+    @Test
+    fun testSameTomorrow() = assert(!testDates(T + 1, T + 1))
+
+    @Test
     fun testDatesBefore() = assert(!testDates(T - 5, T - 2))
 
     @Test
