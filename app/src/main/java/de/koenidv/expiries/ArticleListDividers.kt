@@ -44,26 +44,36 @@ class ArticleListDividers {
         return true
     }
 
+    fun resolveDividerDate(date: LocalDate, today: LocalDate): Int {
+        return 0
+    }
+
     private fun bothPast(before: LocalDate, after: LocalDate, today: LocalDate) =
         before < today && after < today
 
     private fun onePast(before: LocalDate, after: LocalDate, today: LocalDate) =
         before < today || after < today
 
-    private fun oneTomorrow(before: LocalDate, after: LocalDate, today: LocalDate) =
-        before == today.plusDays(1) || after == today.plusDays(1)
+    private fun isToday(date: LocalDate, today: LocalDate) =
+        date == today
 
-    private fun thisWeek(date: LocalDate, today: LocalDate) =
+    private fun isTomorrow(date: LocalDate, today: LocalDate) =
+        date == today.plusDays(1)
+
+    private fun oneTomorrow(before: LocalDate, after: LocalDate, today: LocalDate) =
+        isTomorrow(before, today) || isTomorrow(after, today)
+
+    private fun isThisWeek(date: LocalDate, today: LocalDate) =
         date.getWeekNumber() == today.getWeekNumber() && date.year == today.year
 
     private fun bothThisWeek(before: LocalDate, after: LocalDate, today: LocalDate) =
-        thisWeek(before, today) && thisWeek(after, today)
+        isThisWeek(before, today) && isThisWeek(after, today)
 
-    private fun nextWeek(date: LocalDate, today: LocalDate) =
+    private fun isNextWeek(date: LocalDate, today: LocalDate) =
         date.getWeekNumber() == today.getWeekNumber() + 1 && date.year == today.year
 
     private fun bothNextWeek(before: LocalDate, after: LocalDate, today: LocalDate) =
-        nextWeek(before, today) && nextWeek(after, today)
+        isNextWeek(before, today) && isNextWeek(after, today)
 
     private fun oneThisOrNextWeek(before: LocalDate, after: LocalDate, today: LocalDate) =
         (before.getWeekNumber() == today.getWeekNumber() || after.getWeekNumber() == today.getWeekNumber()) ||
