@@ -27,6 +27,7 @@ class ArticleListDividers {
     fun determineAddDividers(
         before: LocalDate, after: LocalDate, today: LocalDate = LocalDate.now()
     ) = when {
+        before == after -> false
         bothPast(before, after, today) -> false
         onePast(before, after, today) -> true
         // Dates are today or later
