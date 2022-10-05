@@ -17,7 +17,7 @@ import org.threeten.bp.format.DateTimeFormatter
 class ExpiryItemAdapter(private val activity: FragmentActivity) :
     RecyclerView.Adapter<ViewHolder>() {
 
-    var dataset: List<ListItem> = listOf()
+    var dataset: MutableList<ListItem> = mutableListOf()
 
     class ArticleViewHolder(view: View) : ViewHolder(view) {
         val nameText: TextView

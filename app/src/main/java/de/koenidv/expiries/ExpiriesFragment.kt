@@ -5,11 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import de.koenidv.expiries.databinding.FragmentExpiriesBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -40,6 +43,8 @@ class ExpiriesFragment : Fragment() {
         binding.recycler.layoutManager = LinearLayoutManager(requireContext())
         binding.recycler.adapter = adapter
 
+        enableSwipeActions(binding.recycler)
+
         CoroutineScope(Dispatchers.Main).launch {
 
             val articlesObservable = db.articleDao().getAllSorted()
@@ -55,4 +60,32 @@ class ExpiriesFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+    private fun enableSwipeActions(recycler: RecyclerView) {
+        val swipeCallback: SwipeCallback = object : SwipeCallback(requireContext()) {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, i: Int) {
+                val position = viewHolder.adapterPosition
+                recycler.adapter?.notifyItemRemoved(position)
+                (recycler.adapter as ExpiryItemAdapter).dataset.removeAt(position)
+
+                //val item: String = recycler.adapter.getData().get(position)
+                //recycler.adapter.removeItem(position)
+                /*val snackbar = Snackbar
+                    .make(
+                        coordinatorLayout,
+                        "Item was removed from the list.",
+                        Snackbar.LENGTH_LONG
+                    )
+                snackbar.setAction("UNDO") {
+                    mAdapter.restoreItem(item, position)
+                    recyclerView.scrollToPosition(position)
+                }
+                snackbar.setActionTextColor(Color.YELLOW)
+                snackbar.show()*/
+            }
+        }
+        val itemTouchhelper = ItemTouchHelper(swipeCallback)
+        itemTouchhelper.attachToRecyclerView(recycler)
+    }
+
 }

@@ -4,7 +4,7 @@ import org.threeten.bp.LocalDate
 
 class ArticleListDividers {
 
-    fun addListDividers(list: List<Article>): List<ListItem> {
+    fun addListDividers(list: List<Article>): MutableList<ListItem> {
         val result = ArrayList<ListItem>()
         val today = LocalDate.now()
         list.forEachIndexed { index, article ->
@@ -21,7 +21,7 @@ class ArticleListDividers {
             }
             result.add(ListItem(article))
         }
-        return result.toList()
+        return result.toMutableList()
     }
 
     fun determineAddDividers(
