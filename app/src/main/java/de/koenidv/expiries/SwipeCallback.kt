@@ -75,7 +75,7 @@ abstract class SwipeCallback(val context: Context) : ItemTouchHelper.Callback() 
     }
 
     override fun getSwipeThreshold(viewHolder: RecyclerView.ViewHolder): Float {
-        return 0.7f
+        return 0.5f
     }
 
     private val Number.toPx
