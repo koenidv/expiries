@@ -26,11 +26,12 @@
     <string name="warning_item_deleted">Article marked as used up</string>
 
     <string name="timeframe_expired">Expired</string>
+    <string name="timeframe_expired_recently">Expired recently</string>
     <string name="timeframe_today">Today</string>
     <string name="timeframe_tomorrow">Tomorrow</string>
-    <string name="timeframe_thisweek">This week</string>
-    <string name="timeframe_nextweek">Next week</string>
-    <string name="timeframe_thismonth">This month</string>
-    <string name="timeframe_nextmonth">Next month</string>
+    <string name="timeframe_this_week">This week</string>
+    <string name="timeframe_next_week">Next week</string>
+    <string name="timeframe_this_month">This month</string>
+    <string name="timeframe_next_month">Next month</string>
     <string name="timeframe_later">Later</string>
 </resources>

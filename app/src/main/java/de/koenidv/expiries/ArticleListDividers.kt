@@ -47,10 +47,10 @@ class ArticleListDividers {
         date.isBefore(today) -> R.string.timeframe_expired
         isToday(date, today) -> R.string.timeframe_today
         isTomorrow(date, today) -> R.string.timeframe_tomorrow
-        isThisWeek(date, today) -> R.string.timeframe_thisweek
-        isNextWeek(date, today) -> R.string.timeframe_nextweek
-        bothSameMonth(date, today) -> R.string.timeframe_thismonth
-        bothSameMonth(date, today.plusMonths(1)) -> R.string.timeframe_nextmonth
+        isThisWeek(date, today) -> R.string.timeframe_this_week
+        isNextWeek(date, today) -> R.string.timeframe_next_week
+        bothSameMonth(date, today) -> R.string.timeframe_this_month
+        bothSameMonth(date, today.plusMonths(1)) -> R.string.timeframe_next_month
         else -> R.string.timeframe_later
     }
 
