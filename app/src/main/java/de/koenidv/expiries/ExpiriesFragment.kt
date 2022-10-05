@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import de.koenidv.expiries.databinding.FragmentExpiriesBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -70,24 +71,16 @@ class ExpiriesFragment : Fragment() {
 
                 CoroutineScope(Dispatchers.Main).launch { db.articleDao().delete(article) }
 
-                //val item: String = recycler.adapter.getData().get(position)
-                //recycler.adapter.removeItem(position)
-                /*val snackbar = Snackbar
-                    .make(
-                        coordinatorLayout,
-                        "Item was removed from the list.",
-                        Snackbar.LENGTH_LONG
-                    )
-                snackbar.setAction("UNDO") {
-                    mAdapter.restoreItem(item, position)
-                    recyclerView.scrollToPosition(position)
-                }
-                snackbar.setActionTextColor(Color.YELLOW)
-                snackbar.show()*/
+                Snackbar.make(
+                    recycler,
+                    R.string.warning_item_deleted,
+                    Snackbar.LENGTH_LONG
+                ).setAction(R.string.action_undo) {
+                    CoroutineScope(Dispatchers.Main).launch { db.articleDao().insert(article) }
+                }.show()
             }
         }
-        val itemTouchhelper = ItemTouchHelper(swipeCallback)
-        itemTouchhelper.attachToRecyclerView(recycler)
+        ItemTouchHelper(swipeCallback).attachToRecyclerView(recycler)
     }
 
 }
