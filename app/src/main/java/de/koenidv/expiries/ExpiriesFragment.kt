@@ -50,8 +50,8 @@ class ExpiriesFragment : Fragment() {
 
             val articlesObservable = db.articleDao().getAllSorted()
             articlesObservable.collect {
-                adapter.dataset = ArticleListDividers().addListDividers(it)
-                adapter.notifyDataSetChanged()
+                adapter.differ.submitList(ArticleListDividers().addListDividers(it))
+                //adapter.notifyDataSetChanged()
             }
         }
 
@@ -67,7 +67,7 @@ class ExpiriesFragment : Fragment() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, i: Int) {
                 val position = viewHolder.adapterPosition
                 val adapter = recycler.adapter as ExpiryItemAdapter
-                val article = adapter.dataset[position].article_data!!
+                val article = adapter.differ.currentList[position].article_data!!
 
                 CoroutineScope(Dispatchers.Main).launch { db.articleDao().delete(article) }
 

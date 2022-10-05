@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.FragmentActivity
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.google.android.material.R.attr
@@ -61,7 +63,7 @@ class ExpiryItemAdapter(private val activity: FragmentActivity) :
         when (getItemViewType(position)) {
 
             ListItem.TYPE_ARTICLE -> {
-                val article = dataset[position].article_data!!
+                val article = differ.currentList[position].article_data!!
                 holder as ArticleViewHolder
 
                 holder.nameText.text = article.name
@@ -94,7 +96,7 @@ class ExpiryItemAdapter(private val activity: FragmentActivity) :
             }
 
             else -> {
-                val date = dataset[position].divider_data!!
+                val date = differ.currentList[position].divider_data!!
                 holder as DividerViewHolder
 
                 holder.titleText.text = activity.getString(
@@ -107,9 +109,22 @@ class ExpiryItemAdapter(private val activity: FragmentActivity) :
     }
 
     override fun getItemViewType(position: Int): Int {
-        return dataset[position].type
+        return differ.currentList[position].type
     }
 
-    override fun getItemCount() = dataset.size
+    override fun getItemCount() = differ.currentList.size
+
+
+    private val diffCallback = object : DiffUtil.ItemCallback<ListItem>() {
+        override fun areItemsTheSame(oldItem: ListItem, newItem: ListItem): Boolean {
+            return oldItem == newItem
+        }
+
+        override fun areContentsTheSame(oldItem: ListItem, newItem: ListItem): Boolean {
+            return oldItem == newItem
+        }
+    }
+
+    val differ = AsyncListDiffer(this, diffCallback)
 
 }
