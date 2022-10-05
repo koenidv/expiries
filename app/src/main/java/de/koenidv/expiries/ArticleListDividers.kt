@@ -66,7 +66,7 @@ class ArticleListDividers {
                 (before.getWeekNumber() == today.getWeekNumber() + 1 || after.getWeekNumber() == today.getWeekNumber() + 1)
 
     private fun bothFarFuture(before: LocalDate, after: LocalDate, today: LocalDate) =
-        today.until(before).months >= 3 && today.until(after).months >= 3
+        today.until(before).months >= 2 && today.until(after).months >= 2
 
     private fun bothSameMonth(before: LocalDate, after: LocalDate) =
         before.monthValue == after.monthValue

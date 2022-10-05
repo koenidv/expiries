@@ -41,13 +41,10 @@ class DetermineAddArticleListDividersTest {
     fun testDatesMonthNextMonth() = assert(testDates(T + 28, T + 58))
 
     @Test
-    fun testDatesNextMonthThirdMonth() = assert(testDates(T + 50, T + 70))
+    fun testDatesNextMonthLater() = assert(testDates(T + 50, T + 70))
 
     @Test
     fun testDatesMonthLater() = assert(testDates(T + 15, T + 100))
-
-    @Test
-    fun testDatesThirdMonthLater() = assert(testDates(T + 88, T + 100))
 
     @Test
     fun testDatesLater() = assert(!testDates(T + 100, T + 200))
