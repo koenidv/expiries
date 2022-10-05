@@ -32,7 +32,7 @@ class ArticleListDividers {
         bothRecent(before, after, today) -> false
         oneOrBothPast(before, after, today) -> true
         // Dates are today or later
-        oneTomorrow(before, after, today) -> true
+        oneTodayOrTomorrow(before, after, today) -> true
         bothThisWeek(before, after, today) -> false
         bothNextWeek(before, after, today) -> false
         // Dates are not in the same this or next week
@@ -74,8 +74,9 @@ class ArticleListDividers {
     private fun isTomorrow(date: LocalDate, today: LocalDate) =
         date == today.plusDays(1)
 
-    private fun oneTomorrow(before: LocalDate, after: LocalDate, today: LocalDate) =
-        isTomorrow(before, today) || isTomorrow(after, today)
+    private fun oneTodayOrTomorrow(before: LocalDate, after: LocalDate, today: LocalDate) =
+        isToday(before, today) || isToday(after, today) ||
+                isTomorrow(before, today) || isTomorrow(after, today)
 
     private fun isThisWeek(date: LocalDate, today: LocalDate) =
         date.getWeekNumber() == today.getWeekNumber() && date.year == today.year
