@@ -3,6 +3,7 @@ package de.koenidv.expiries
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
+import android.util.Size
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -72,11 +73,12 @@ class ScannerSheet(val scannedCallback: (String?) -> Unit) : BottomSheetDialogFr
     fun startCamera() {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
 
-
         cameraProviderFuture.addListener({
             val cameraProvider = cameraProviderFuture.get()
 
-            val previewUseCase = Preview.Builder().build()
+            val previewUseCase = Preview.Builder()
+                .setTargetResolution(Size(preview.width, preview.height))
+                .build()
                 .also {
                     it.setSurfaceProvider(preview.surfaceProvider)
                 }
