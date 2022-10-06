@@ -16,9 +16,6 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
-import com.androidnetworking.AndroidNetworking
-import com.androidnetworking.error.ANError
-import com.androidnetworking.interfaces.StringRequestListener
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.button.MaterialButton
 import com.google.mlkit.vision.barcode.BarcodeScanner
@@ -89,51 +86,33 @@ class ScannerSheet(val scannedCallback: (String?) -> Unit) : BottomSheetDialogFr
                     Barcode.FORMAT_EAN_8
                 ).build()
             val scanner = BarcodeScanning.getClient(options)
+            val network = NetworkUtils(requireContext())
 
-            AndroidNetworking.initialize(context)
             var lastResult: String? = null
 
-            val imageAnalyzer = ImageAnalysis.Builder()
-                .build()
+            val imageAnalyzer = ImageAnalysis.Builder().build()
                 .also {
                     it.setAnalyzer(cameraExecutor) { imageProxy ->
-                        processImageProxy(
-                            scanner,
-                            imageProxy
-                        ) { result ->
+                        processImageProxy(scanner, imageProxy) { result ->
 
-                            if (!result.equals(lastResult)) {
-                                Log.d("ScannerSheet", "Result: $result")
-                                Log.d("ScannerSheet", "Last result: $lastResult")
+                            if (result.equals(lastResult)) return@processImageProxy
 
-                                lastResult = result
+                            lastResult = result
 
-                                if (result == null) {
-                                    return@processImageProxy
+                            if (result == null) return@processImageProxy
+
+                            network.cancelProductDataRequests()
+                            loadingProgress.visibility = View.VISIBLE
+
+                            network.getProductData(result) { productData ->
+                                if (productData == null) {
+                                    loadingProgress.visibility = View.GONE
+                                } else {
+                                    scannedCallback(productData)
+                                    dismiss()
                                 }
-
-                                AndroidNetworking.cancel("openfoodfacts")
-                                loadingProgress.visibility = View.GONE
-
-                                if (loadingProgress.visibility != View.VISIBLE)
-                                    loadingProgress.visibility = View.VISIBLE
-
-                                AndroidNetworking.get("https://world.openfoodfacts.org/api/v0/product/${result}.json")
-                                    .setTag("openfoodfacts")
-                                    .build()
-                                    .getAsString(object : StringRequestListener {
-                                        override fun onResponse(response: String) {
-                                            scannedCallback(response)
-                                            dismiss()
-                                        }
-
-                                        override fun onError(anError: ANError) {
-                                            Log.e("Scanner", anError.errorDetail)
-                                            Log.w("Scanner", "No product found")
-                                            loadingProgress.visibility = View.GONE
-                                        }
-                                    })
                             }
+
                         }
                     }
                 }
