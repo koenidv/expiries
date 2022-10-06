@@ -17,6 +17,7 @@
         android:theme="@style/Theme.Ablaufdaten"
         tools:targetApi="33">
         <activity
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize"
             android:name=".MainActivity"
             android:exported="true"

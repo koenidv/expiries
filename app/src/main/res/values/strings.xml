@@ -2,6 +2,8 @@
     <string name="app_name">Expiries</string>
     <string name="expiries_fragment_label">Expiries</string>
 
+    <string name="url_product_data" translatable="false">https://world.openfoodfacts.org/api/v0/product/%s.json</string>
+
     <string name="ldp_day">D</string>
     <string name="ldp_month">M</string>
     <string name="ldp_year">Y</string>

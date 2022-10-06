@@ -6,15 +6,19 @@ import com.androidnetworking.AndroidNetworking
 import com.androidnetworking.error.ANError
 import com.androidnetworking.interfaces.StringRequestListener
 
-class NetworkUtils(context: Context) {
+@Suppress("SpellCheckingInspection")
+const val REQUEST_TAG = "openfoodfacts"
+
+class NetworkUtils(val context: Context) {
+
 
     init {
         AndroidNetworking.initialize(context)
     }
 
     fun getProductData(barcode: String, callback: (String?) -> Unit) {
-        AndroidNetworking.get("https://world.openfoodfacts.org/api/v0/product/${barcode}.json")
-            .setTag("openfoodfacts")
+        AndroidNetworking.get(context.getString(R.string.url_product_data, barcode))
+            .setTag(REQUEST_TAG)
             .build()
             .getAsString(object : StringRequestListener {
                 override fun onResponse(response: String) {
@@ -30,7 +34,7 @@ class NetworkUtils(context: Context) {
     }
 
     fun cancelProductDataRequests() {
-        AndroidNetworking.cancel("openfoodfacts")
+        AndroidNetworking.cancel(REQUEST_TAG)
 
     }
 
