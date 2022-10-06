@@ -1,17 +1,14 @@
 package de.koenidv.expiries
 
-import org.threeten.bp.LocalDate
-
-data class ListItem(
-    val type: Int,
-    val article_data: Article?,
-    val divider_data: LocalDate?
+abstract class ListItem(
+    @androidx.room.Ignore
+    val type: Int
 ) {
-    constructor(article: Article) : this(TYPE_ARTICLE, article, null)
-    constructor(date: LocalDate) : this(TYPE_DIVIDER, null, date)
-
     companion object {
         const val TYPE_ARTICLE = 0
         const val TYPE_DIVIDER = 1
     }
+
+    abstract override fun equals(other: Any?): Boolean
+    abstract override fun hashCode(): Int
 }

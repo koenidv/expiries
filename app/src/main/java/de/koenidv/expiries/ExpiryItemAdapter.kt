@@ -22,8 +22,6 @@ import org.threeten.bp.format.DateTimeFormatter
 class ExpiryItemAdapter(private val activity: FragmentActivity) :
     RecyclerView.Adapter<ViewHolder>() {
 
-    var dataset: MutableList<ListItem> = mutableListOf()
-
     class ArticleViewHolder(view: View) : ViewHolder(view) {
         val nameText: TextView
         val expiryText: TextView
@@ -63,7 +61,7 @@ class ExpiryItemAdapter(private val activity: FragmentActivity) :
         when (getItemViewType(position)) {
 
             ListItem.TYPE_ARTICLE -> {
-                val article = differ.currentList[position].article_data!!
+                val article = differ.currentList[position] as Article
                 holder as ArticleViewHolder
 
                 holder.nameText.text = article.name
@@ -96,11 +94,11 @@ class ExpiryItemAdapter(private val activity: FragmentActivity) :
             }
 
             else -> {
-                val date = differ.currentList[position].divider_data!!
+                val divider = differ.currentList[position] as ListDivider
                 holder as DividerViewHolder
 
                 holder.titleText.text = activity.getString(
-                    ArticleListDividers().resolveDividerDate(date, LocalDate.now())
+                    divider.getDividerString()
                 )
 
             }

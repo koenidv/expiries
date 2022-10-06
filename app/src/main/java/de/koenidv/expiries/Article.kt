@@ -12,7 +12,7 @@ data class Article(
     @ColumnInfo val image_url: String?,
     @ColumnInfo val location_id: String?,
     @PrimaryKey(autoGenerate = true) val id: Int? = null
-)
+) : ListItem(TYPE_ARTICLE)
 
 @Dao
 interface ArticleDao {

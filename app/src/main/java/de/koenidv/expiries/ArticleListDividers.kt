@@ -17,9 +17,9 @@ class ArticleListDividers {
                             today
                         ))
             ) {
-                result.add(ListItem(article.expiry))
+                result.add(ListDivider(article.expiry))
             }
-            result.add(ListItem(article))
+            result.add(article)
         }
         return result.toMutableList()
     }
@@ -44,7 +44,7 @@ class ArticleListDividers {
         else -> true
     }
 
-    fun resolveDividerDate(date: LocalDate, today: LocalDate) = when {
+    fun resolveDividerDate(date: LocalDate, today: LocalDate = LocalDate.now()) = when {
         isLongPast(date, today) -> R.string.timeframe_expired
         date.isBefore(today) -> R.string.timeframe_expired_recently
         isToday(date, today) -> R.string.timeframe_today

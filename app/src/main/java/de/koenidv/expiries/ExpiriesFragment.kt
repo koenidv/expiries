@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import de.koenidv.expiries.databinding.FragmentExpiriesBinding
@@ -41,7 +40,6 @@ class ExpiriesFragment : Fragment() {
         val db = Database.get(requireContext())
 
         val adapter = ExpiryItemAdapter(requireActivity())
-        binding.recycler.layoutManager = LinearLayoutManager(requireContext())
         binding.recycler.adapter = adapter
 
         enableSwipeActions(binding.recycler, db)
@@ -67,7 +65,7 @@ class ExpiriesFragment : Fragment() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, i: Int) {
                 val position = viewHolder.adapterPosition
                 val adapter = recycler.adapter as ExpiryItemAdapter
-                val article = adapter.differ.currentList[position].article_data!!
+                val article = adapter.differ.currentList[position] as Article
 
                 CoroutineScope(Dispatchers.Main).launch { db.articleDao().delete(article) }
 
