@@ -89,4 +89,9 @@ class EditorSheet(private val article: Article?, val saveCallback: (Article) -> 
         dismiss()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+
 }

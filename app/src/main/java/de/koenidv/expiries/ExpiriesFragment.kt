@@ -13,16 +13,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-
-/**
- * A simple [Fragment] subclass as the default destination in the navigation.
- */
 class ExpiriesFragment : Fragment() {
 
     private var _binding: FragmentExpiriesBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -31,54 +24,54 @@ class ExpiriesFragment : Fragment() {
     ): View {
         _binding = FragmentExpiriesBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val db = Database.get(requireContext())
+        binding.recycler.adapter = ExpiryItemAdapter(requireActivity())
+        collectArticles(db)
+        enableSwipeActions(db)
+    }
 
-        val adapter = ExpiryItemAdapter(requireActivity())
-        binding.recycler.adapter = adapter
-
-        enableSwipeActions(binding.recycler, db)
-
+    private fun collectArticles(db: Database) {
         CoroutineScope(Dispatchers.Main).launch {
-
             val articlesObservable = db.articleDao().getAllSorted()
             articlesObservable.collect {
-                adapter.differ.submitList(ArticleListDividers().addListDividers(it))
-                //adapter.notifyDataSetChanged()
+                (binding.recycler.adapter as ExpiryItemAdapter)
+                    .differ.submitList(ArticleListDividers().addListDividers(it))
             }
         }
+    }
 
+    private fun enableSwipeActions(db: Database) {
+        val swipeCallback: SwipeCallback = object : SwipeCallback(requireContext()) {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, i: Int) {
+                val position = viewHolder.adapterPosition
+                val adapter = binding.recycler.adapter as ExpiryItemAdapter
+                val article = adapter.differ.currentList[position] as Article
+
+                CoroutineScope(Dispatchers.Main).launch { db.articleDao().delete(article) }
+                showUndoSnackbar(article, db)
+            }
+        }
+        ItemTouchHelper(swipeCallback).attachToRecyclerView(binding.recycler)
+    }
+
+    private fun showUndoSnackbar(article: Article, db: Database) {
+        Snackbar.make(
+            binding.recycler,
+            R.string.warning_item_deleted,
+            Snackbar.LENGTH_LONG
+        ).setAction(R.string.action_undo) {
+            CoroutineScope(Dispatchers.Main).launch { db.articleDao().insert(article) }
+        }.show()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    private fun enableSwipeActions(recycler: RecyclerView, db: Database) {
-        val swipeCallback: SwipeCallback = object : SwipeCallback(requireContext()) {
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, i: Int) {
-                val position = viewHolder.adapterPosition
-                val adapter = recycler.adapter as ExpiryItemAdapter
-                val article = adapter.differ.currentList[position] as Article
-
-                CoroutineScope(Dispatchers.Main).launch { db.articleDao().delete(article) }
-
-                Snackbar.make(
-                    recycler,
-                    R.string.warning_item_deleted,
-                    Snackbar.LENGTH_LONG
-                ).setAction(R.string.action_undo) {
-                    CoroutineScope(Dispatchers.Main).launch { db.articleDao().insert(article) }
-                }.show()
-            }
-        }
-        ItemTouchHelper(swipeCallback).attachToRecyclerView(recycler)
     }
 
 }
