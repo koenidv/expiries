@@ -4,12 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.ImageView
 import androidx.fragment.app.DialogFragment
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.android.material.button.MaterialButton
+import de.koenidv.expiries.databinding.SheetEditorBinding
 import de.koenidv.expiries.lazyDatePicker.LazyDatePicker
 import de.koenidv.expiries.lazyDatePicker.LazyLocalDatePicker
 import org.threeten.bp.LocalDate
@@ -17,71 +15,78 @@ import org.threeten.bp.LocalDate
 class EditorSheet(private val article: Article?, val saveCallback: (Article) -> Unit) :
     BottomSheetDialogFragment() {
 
-    private lateinit var nameEditText: EditText
-    private lateinit var datePicker: LazyLocalDatePicker
-    private lateinit var saveButton: MaterialButton
+    private var _binding: SheetEditorBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.sheet_edit, container, false)
+    ): View {
+        _binding = SheetEditorBinding.inflate(inflater, container, false)
         setStyle(DialogFragment.STYLE_NORMAL, R.style.BottomSheetDialogTheme)
 
-        nameEditText = view.findViewById(R.id.name_edittext)
-        datePicker = view.findViewById(R.id.datepicker)
-        saveButton = view.findViewById(R.id.save_button)
+        return binding.root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.nameEdittext.setText(article?.name)
+        loadImage()
+        setupDatePicker()
+        binding.saveButton.setOnClickListener { saveArticle() }
+
+        checkInputsValid()
+    }
+
+    private fun loadImage() {
         if (article?.image_url.isNullOrEmpty()) {
-            view.findViewById<ImageView>(R.id.image).visibility = View.GONE
+            binding.image.visibility = View.GONE
         } else {
             Glide.with(requireContext())
                 .load(article?.image_url)
-                .into(view.findViewById(R.id.image))
+                .into(binding.image)
         }
+    }
 
-        nameEditText.setText(article?.name)
-
-        datePicker.also {
+    private fun setupDatePicker() {
+        binding.datepicker.also {
             it.setDateFormat(LazyDatePicker.DateFormat.DD_MM_YYYY)
             it.setMinLocalDate(LocalDate.now())
             it.setMaxLocalDate(LocalDate.now().plusYears(10))
+
+            it.setOnLocalDateSelectedListener(object :
+                LazyLocalDatePicker.OnLocalDateSelectedListener {
+                override fun onLocalDateSelected(dateSelected: Boolean?) {
+                    checkInputsValid()
+                }
+            })
+
             article?.expiry?.let { expiry ->
                 it.localDate = LocalDate.ofEpochDay(expiry.toEpochDay())
             }
         }
-
-        datePicker.setOnLocalDateSelectedListener(object :
-            LazyLocalDatePicker.OnLocalDateSelectedListener {
-            override fun onLocalDateSelected(dateSelected: Boolean?) {
-                checkValid()
-            }
-        })
-
-        saveButton.setOnClickListener {
-            saveCallback(
-                Article(
-                    article?.barcode,
-                    nameEditText.text.toString(),
-                    datePicker.localDate,
-                    article?.image_url,
-                    null,
-                    article?.id
-                )
-            )
-            dismiss()
-        }
-
-        checkValid()
-        return view
     }
 
-    private fun checkValid() {
+    private fun checkInputsValid() {
         var valid = true
-        if (datePicker.getDate() == null) valid = false
+        if (binding.datepicker.getDate() == null) valid = false
+        binding.saveButton.isEnabled = valid
+    }
 
-        saveButton.isEnabled = valid
+    private fun saveArticle() {
+        saveCallback(
+            Article(
+                article?.barcode,
+                binding.nameEdittext.text.toString(),
+                binding.datepicker.localDate,
+                article?.image_url,
+                null,
+                article?.id
+            )
+        )
+        dismiss()
     }
 
 }
