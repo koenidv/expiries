@@ -1,5 +1,6 @@
 package de.koenidv.expiries
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -38,6 +39,7 @@ class EditorSheet(private val article: Article?, val saveCallback: (Article) -> 
         binding.saveButton.setOnClickListener { saveArticle() }
 
         checkInputsValid()
+        preventAccidentalCancel()
     }
 
     private fun loadImage() {
@@ -73,6 +75,17 @@ class EditorSheet(private val article: Article?, val saveCallback: (Article) -> 
         var valid = true
         if (binding.datepicker.getDate() == null) valid = false
         binding.saveButton.isEnabled = valid
+    }
+
+    private fun preventAccidentalCancel() {
+        dialog?.window?.decorView?.findViewById<View>(com.google.android.material.R.id.touch_outside)
+            ?.setOnClickListener {
+                AlertDialog.Builder(requireContext())
+                    .setTitle(R.string.dialog_cancel_edit_title)
+                    .setPositiveButton(R.string.action_yes) { _, _ -> this.dismiss() }
+                    .setNegativeButton(R.string.action_no) { dialog, _ -> dialog.dismiss() }
+                    .show()
+            }
     }
 
     private fun saveArticle() {
