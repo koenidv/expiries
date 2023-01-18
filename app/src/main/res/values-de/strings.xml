@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Ablaufdaten</string>
-    <string name="expiries_fragment_label">Ablaufdaten</string>
+    <string name="app_name">Vorratsliste</string>
+    <string name="expiries_fragment_label">Bald Ablaufend</string>
     <string name="ldp_day">T</string>
     <string name="ldp_month">M</string>
     <string name="ldp_year">J</string>

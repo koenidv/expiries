@@ -14,13 +14,13 @@ internal class JsonParserTest {
         val json = JsonParser.parseString(getResource("OFFResponseExample1.json"))
         val parsed: Article = ArticleParser().parseArticle(json)
         assert(parsed.name == "Feiner Gurkensalat in Joghurtdressing")
+        assert(parsed.image_url == "https://images.openfoodfacts.org/images/products/90162480/front_de.9.200.jpg")
     }
 
     @Test
     fun parseArticleImageTest() {
         val json = JsonParser.parseString(getResource("OFFResponseExample2.json"))
         val parsed: Article = ArticleParser().parseArticle(json)
-        assert(parsed.image_url == "https://images.openfoodfacts.org/images/products/90162480/front_de.9.200.jpg")
     }
 
 
