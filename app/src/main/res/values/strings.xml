@@ -16,6 +16,7 @@
     <string name="action_scan">Scan</string>
     <string name="action_save">Save</string>
     <string name="action_cancel">Cancel</string>
+    <string name="action_continue">Continue</string>
     <string name="action_yes">Yes</string>
     <string name="action_no">No</string>
     <string name="action_undo">Undo</string>
@@ -38,5 +39,7 @@
     <string name="settings_restore">Restore</string>
     <string name="settings_backup_toast">Creating Backup</string>
     <string name="settings_restore_toast">Restoring Backup</string>
+    <string name="restore_warning_title">Restore backup?</string>
+    <string name="restore_warning_message">This will overwrite your current data.</string>
 
 </resources>

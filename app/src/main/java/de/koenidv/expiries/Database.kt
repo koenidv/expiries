@@ -80,18 +80,22 @@ fun launchRestoreFilePicker(activity: Activity) {
     startActivityForResult(activity, chooseFile, SettingsActivity.REQUEST_RESTORE, null)
 }
 
-fun restoreDbFile(context: Context, uri: Uri) {
+fun restoreDbFile(activity: Activity, uri: Uri) {
     de.koenidv.expiries.Database.close()
-    val db = context.getDatabasePath("database").absoluteFile
+    val db = activity.getDatabasePath("database").absoluteFile
 
     copy(
-        context.contentResolver.openInputStream(uri),
+        activity.contentResolver.openInputStream(uri),
         db.toPath(),
         StandardCopyOption.REPLACE_EXISTING
     )
 
-    Toast.makeText(context, R.string.settings_restore_toast, Toast.LENGTH_SHORT).show()
-    MainActivity().recreate()
+    Toast.makeText(activity, R.string.settings_restore_toast, Toast.LENGTH_SHORT).show()
+    try {
+        MainActivity().recreate()
+    } catch (e: Exception) {
+        activity.finish()
+    }
 }
 
 class Converters {

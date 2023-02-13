@@ -2,6 +2,7 @@ package de.koenidv.expiries
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import de.koenidv.expiries.databinding.ActivitySettingsBinding
 
@@ -24,7 +25,26 @@ class SettingsActivity : AppCompatActivity() {
         }
 
         binding.restoreButton.setOnClickListener {
-            launchRestoreFilePicker(this)
+            AlertDialog.Builder(this)
+                .setTitle(R.string.restore_warning_title)
+                .setMessage(R.string.restore_warning_message)
+                .setPositiveButton(R.string.action_continue) { _, _ -> launchRestoreFilePicker(this) }
+                .setNegativeButton(R.string.action_cancel) { _, _ -> }
+                .show()
+        }
+
+        if (intent?.action == Intent.ACTION_VIEW && intent?.data != null) {
+            AlertDialog.Builder(this)
+                .setTitle(R.string.restore_warning_title)
+                .setMessage(R.string.restore_warning_message)
+                .setPositiveButton(R.string.action_continue) { _, _ ->
+                    restoreDbFile(
+                        this,
+                        intent?.data!!
+                    )
+                }
+                .setNegativeButton(R.string.action_cancel) { _, _ -> }
+                .show()
         }
     }
 

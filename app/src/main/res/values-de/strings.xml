@@ -32,4 +32,7 @@
     <string name="settings_restore">Sicherung wiederherstellen</string>
     <string name="settings_backup_toast">Sicherung wird erstellt</string>
     <string name="settings_restore_toast">Wird wiederhergestellt</string>
+    <string name="action_continue">Weiter</string>
+    <string name="restore_warning_title">Sicherung wiederherstellen?</string>
+    <string name="restore_warning_message">Dies überschreibt alle aktuellen Daten.</string>
 </resources>
