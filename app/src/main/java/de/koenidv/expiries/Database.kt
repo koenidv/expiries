@@ -10,6 +10,8 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.core.content.FileProvider
 import androidx.room.*
 import androidx.room.Database
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 import org.threeten.bp.LocalDate
 import java.io.File
 import java.nio.file.Files.copy
@@ -19,7 +21,7 @@ import java.util.Date
 import java.util.Locale
 
 
-@Database(entities = [Article::class], version = 1)
+@Database(entities = [Article::class], version = 2)
 @TypeConverters(Converters::class)
 abstract class Database : RoomDatabase() {
     abstract fun articleDao(): ArticleDao
@@ -32,7 +34,16 @@ abstract class Database : RoomDatabase() {
                     context,
                     de.koenidv.expiries.Database::class.java,
                     "database"
-                ).build()
+                ).addMigrations(
+                    object : Migration(1, 2) {
+                        override fun migrate(database: SupportSQLiteDatabase) {
+                            database.execSQL("ALTER TABLE article ADD COLUMN created_at INTEGER")
+                            database.execSQL("ALTER TABLE article ADD COLUMN amount REAL")
+                            database.execSQL("ALTER TABLE article ADD COLUMN unit TEXT")
+                        }
+                    }
+                )
+                    .build()
             }
 
             return db

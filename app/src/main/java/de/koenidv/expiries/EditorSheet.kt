@@ -96,6 +96,9 @@ class EditorSheet(private val article: Article?, val saveCallback: (Article) -> 
                 binding.datepicker.localDate,
                 article?.image_url,
                 null,
+                article?.created_at ?: LocalDate.now(),
+                article?.amount,
+                article?.unit,
                 article?.id
             )
         )

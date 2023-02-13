@@ -4,6 +4,10 @@ import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 import org.threeten.bp.LocalDate
 
+enum class ArticleUnit {
+    PIECE, GRAM, KILOGRAM, LITER, MILLILITER
+}
+
 @Entity
 data class Article(
     @ColumnInfo val barcode: String?,
@@ -11,6 +15,9 @@ data class Article(
     @ColumnInfo val expiry: LocalDate?,
     @ColumnInfo val image_url: String?,
     @ColumnInfo val location_id: String?,
+    @ColumnInfo val created_at: LocalDate?,
+    @ColumnInfo val amount: Float?,
+    @ColumnInfo val unit: String?,
     @PrimaryKey(autoGenerate = true) val id: Int? = null
 ) : ListItem(TYPE_ARTICLE)
 

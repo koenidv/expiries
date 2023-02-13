@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
             if (result === null) launchEditor(null)
             else launchEditor(ArticleParser().parseArticle(ArticleParser().parseString(result)))
         } catch (JSONException: java.lang.NullPointerException) {
-            launchScanner()
+            launchEditor(null)
         }
     }
 

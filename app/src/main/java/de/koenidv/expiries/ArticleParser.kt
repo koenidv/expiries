@@ -1,6 +1,7 @@
 package de.koenidv.expiries
 
 import com.google.gson.JsonElement
+import org.threeten.bp.LocalDate
 
 class ArticleParser {
 
@@ -14,7 +15,10 @@ class ArticleParser {
             product["product_name"].asString,
             null,
             product["image_small_url"].asString,
-            null
+            null,
+            LocalDate.now(),
+            1f,
+            "PIECE"
         )
     }
 }
