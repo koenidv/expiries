@@ -2,6 +2,7 @@
 <resources>
     <string name="app_name">Vorratsliste</string>
     <string name="expiries_fragment_label">Bald Ablaufend</string>
+    <string name="label_settings">Einstellungen</string>
     <string name="ldp_day">T</string>
     <string name="ldp_month">M</string>
     <string name="ldp_year">J</string>
@@ -26,4 +27,9 @@
     <string name="timeframe_this_month">Dieser Monat</string>
     <string name="timeframe_next_month">Nächster Monat</string>
     <string name="timeframe_later">Später</string>
+    <string name="settings_backup_and_restore">Sichern &amp; Wiederherstellen</string>
+    <string name="settings_backup">Sicherung erstellen</string>
+    <string name="settings_restore">Sicherung wiederherstellen</string>
+    <string name="settings_backup_toast">Sicherung wird erstellt</string>
+    <string name="settings_restore_toast">Wird wiederhergestellt</string>
 </resources>
