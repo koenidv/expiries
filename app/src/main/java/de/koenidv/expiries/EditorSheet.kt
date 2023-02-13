@@ -11,6 +11,9 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import de.koenidv.expiries.databinding.SheetEditorBinding
 import de.koenidv.expiries.lazyDatePicker.LazyDatePicker
 import de.koenidv.expiries.lazyDatePicker.LazyLocalDatePicker
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDate
 
 class EditorSheet(private val article: Article?, val saveCallback: (Article) -> Unit) :
@@ -37,9 +40,12 @@ class EditorSheet(private val article: Article?, val saveCallback: (Article) -> 
         loadImage()
         setupDatePicker()
         binding.saveButton.setOnClickListener { saveArticle() }
+        binding.deleteButton.setOnClickListener { deleteArticle() }
 
         checkInputsValid()
         preventAccidentalCancel()
+
+        if (article == null) binding.deleteButton.visibility = View.GONE
     }
 
     private fun loadImage() {
@@ -103,6 +109,18 @@ class EditorSheet(private val article: Article?, val saveCallback: (Article) -> 
             )
         )
         dismiss()
+    }
+
+    private fun deleteArticle() {
+        if (article == null) {
+            dismiss()
+            return
+        }
+
+        CoroutineScope(Dispatchers.IO).launch {
+            Database.get(requireContext()).articleDao().delete(article)
+            dismiss()
+        }
     }
 
     override fun onDestroy() {

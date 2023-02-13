@@ -35,4 +35,5 @@
     <string name="action_continue">Weiter</string>
     <string name="restore_warning_title">Sicherung wiederherstellen?</string>
     <string name="restore_warning_message">Dies überschreibt alle aktuellen Daten.</string>
+    <string name="action_delete">Löschen</string>
 </resources>
