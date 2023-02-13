@@ -1,9 +1,19 @@
 package de.koenidv.expiries
 
 import android.content.Context
+import android.content.Intent
+import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
+import androidx.core.content.FileProvider
 import androidx.room.*
 import androidx.room.Database
 import org.threeten.bp.LocalDate
+import java.io.File
+import java.nio.file.Files.copy
+import java.nio.file.StandardCopyOption
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 @Database(entities = [Article::class], version = 1)
 @TypeConverters(Converters::class)
@@ -23,7 +33,40 @@ abstract class Database : RoomDatabase() {
 
             return db
         }
+
+        fun close() {
+            if (this::db.isInitialized) {
+                db.close()
+            }
+        }
     }
+
+}
+
+fun shareDbFile(context: Context) {
+    val db = context.getDatabasePath("database").absoluteFile
+    // Close the database to make sure everything is written to disk
+    de.koenidv.expiries.Database.close()
+
+    val date = SimpleDateFormat("yyyy-MM-dd_HH-mm", Locale.US).format(Date())
+    val external = File(context.getExternalFilesDir(null), "backup-${date}.exp")
+    copy(db.toPath(), external.toPath(), StandardCopyOption.REPLACE_EXISTING)
+
+    val uri = FileProvider.getUriForFile(context, "de.koenidv.expiries.fileprovider", external)
+
+    val shareIntent: Intent = Intent().apply {
+        flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+        action = Intent.ACTION_SEND
+        putExtra(Intent.EXTRA_STREAM, uri)
+        type = "expiries/backup"
+    }
+    startActivity(context, Intent.createChooser(shareIntent, null), null)
+    // Recreate because database references are now invalid
+    // todo There must be a better way
+    Toast.makeText(context, R.string.settings_backup_toast, Toast.LENGTH_SHORT).show()
+    MainActivity().recreate()
+
+    // fixme Permission denial because URI permission not granted, but works for now
 }
 
 class Converters {
