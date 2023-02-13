@@ -37,5 +37,6 @@
     <string name="settings_backup">Backup</string>
     <string name="settings_restore">Restore</string>
     <string name="settings_backup_toast">Creating Backup</string>
+    <string name="settings_restore_toast">Restoring Backup</string>
 
 </resources>

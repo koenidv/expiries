@@ -1,8 +1,11 @@
 package de.koenidv.expiries
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.widget.Toast
+import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.core.content.ContextCompat.startActivity
 import androidx.core.content.FileProvider
 import androidx.room.*
@@ -14,6 +17,7 @@ import java.nio.file.StandardCopyOption
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+
 
 @Database(entities = [Article::class], version = 1)
 @TypeConverters(Converters::class)
@@ -67,6 +71,27 @@ fun shareDbFile(context: Context) {
     MainActivity().recreate()
 
     // fixme Permission denial because URI permission not granted, but works for now
+}
+
+fun launchRestoreFilePicker(activity: Activity) {
+    var chooseFile = Intent(Intent.ACTION_GET_CONTENT)
+    chooseFile.type = "*/*"
+    chooseFile = Intent.createChooser(chooseFile, "Choose a file")
+    startActivityForResult(activity, chooseFile, SettingsActivity.REQUEST_RESTORE, null)
+}
+
+fun restoreDbFile(context: Context, uri: Uri) {
+    de.koenidv.expiries.Database.close()
+    val db = context.getDatabasePath("database").absoluteFile
+
+    copy(
+        context.contentResolver.openInputStream(uri),
+        db.toPath(),
+        StandardCopyOption.REPLACE_EXISTING
+    )
+
+    Toast.makeText(context, R.string.settings_restore_toast, Toast.LENGTH_SHORT).show()
+    MainActivity().recreate()
 }
 
 class Converters {
