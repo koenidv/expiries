@@ -16,6 +16,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDate
 
+
 class EditorSheet(private val article: Article?, val saveCallback: (Article) -> Unit) :
     BottomSheetDialogFragment() {
 
@@ -37,6 +38,7 @@ class EditorSheet(private val article: Article?, val saveCallback: (Article) -> 
         super.onViewCreated(view, savedInstanceState)
 
         binding.nameEdittext.setText(article?.name)
+        if (article?.name == null) binding.nameEdittext.focusAndShowKeyboard()
         loadImage()
         setupDatePicker()
         binding.saveButton.setOnClickListener { saveArticle() }
