@@ -35,6 +35,8 @@
     <string name="timeframe_next_month">Next month</string>
     <string name="timeframe_later">Later</string>
 
+    <string name="info_added_on">Added on %s</string>
+
     <string name="settings_backup_and_restore">Backup &amp; Restore</string>
     <string name="settings_backup">Backup</string>
     <string name="settings_restore">Restore</string>

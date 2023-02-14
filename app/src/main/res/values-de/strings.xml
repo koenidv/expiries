@@ -27,6 +27,7 @@
     <string name="timeframe_this_month">Dieser Monat</string>
     <string name="timeframe_next_month">Nächster Monat</string>
     <string name="timeframe_later">Später</string>
+    <string name="info_added_on">Hinzugefügt am %s</string>
     <string name="settings_backup_and_restore">Sichern &amp; Wiederherstellen</string>
     <string name="settings_backup">Sicherung erstellen</string>
     <string name="settings_restore">Sicherung wiederherstellen</string>

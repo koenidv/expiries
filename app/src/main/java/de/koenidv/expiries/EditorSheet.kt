@@ -15,6 +15,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDate
+import org.threeten.bp.format.DateTimeFormatter
 
 
 class EditorSheet(private val article: Article?, val saveCallback: (Article) -> Unit) :
@@ -37,13 +38,25 @@ class EditorSheet(private val article: Article?, val saveCallback: (Article) -> 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.nameEdittext.setText(article?.name)
-        if (article?.name == null) binding.nameEdittext.focusAndShowKeyboard()
-        loadImage()
-        setupDatePicker()
         binding.saveButton.setOnClickListener { saveArticle() }
         binding.deleteButton.setOnClickListener { deleteArticle() }
         if (article == null) binding.deleteButton.visibility = View.GONE
+
+        binding.nameEdittext.setText(article?.name)
+        if (article?.name == null) binding.nameEdittext.focusAndShowKeyboard()
+
+        loadImage()
+        setupDatePicker()
+
+        if (article?.created_at != null && article.expiry != null) {
+            // Do not show for new articles
+            binding.addedOnTextview.visibility = View.VISIBLE
+            binding.addedOnTextview.text = getString(
+                R.string.info_added_on, article.created_at.format(
+                    DateTimeFormatter.ofPattern("dd.MM.yyyy")
+                )
+            )
+        }
 
         checkInputsValid()
         preventAccidentalCancel()
