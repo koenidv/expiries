@@ -58,12 +58,13 @@ class EditorSheet(private val article: Article?, val saveCallback: (Article) -> 
     }
 
     private fun setupDatePicker() {
-        binding.datepicker.also {
-            it.setDateFormat(LazyDatePicker.DateFormat.DD_MM_YY)
-            it.setMinLocalDate(LocalDate.now())
-            it.setMaxLocalDate(LocalDate.now().withYear(2099))
+        binding.datepicker.apply {
+            setDateFormat(LazyDatePicker.DateFormat.DD_MM_YY)
+            setMinLocalDate(LocalDate.now())
+            setMaxLocalDate(LocalDate.now().withYear(2099))
+            autofocus = article?.expiry == null && article?.name != null
 
-            it.setOnLocalDateSelectedListener(object :
+            setOnLocalDateSelectedListener(object :
                 LazyLocalDatePicker.OnLocalDateSelectedListener {
                 override fun onLocalDateSelected(dateSelected: Boolean?) {
                     checkInputsValid()
@@ -71,7 +72,7 @@ class EditorSheet(private val article: Article?, val saveCallback: (Article) -> 
             })
 
             article?.expiry?.let { expiry ->
-                it.localDate = LocalDate.ofEpochDay(expiry.toEpochDay())
+                localDate = LocalDate.ofEpochDay(expiry.toEpochDay())
             }
         }
     }

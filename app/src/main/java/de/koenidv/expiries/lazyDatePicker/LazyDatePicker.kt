@@ -58,6 +58,7 @@ open class LazyDatePicker @JvmOverloads constructor(
     private var onDatePickListener: OnDatePickListener? = null
     private var onDateSelectedListener: OnDateSelectedListener? = null
     private var textWatcher: TextWatcher? = null
+    var autofocus = false
 
     //region CONSTRUCTORS
     init {
@@ -91,8 +92,11 @@ open class LazyDatePicker @JvmOverloads constructor(
 
     override fun onWindowFocusChanged(hasWindowFocus: Boolean) {
         super.onWindowFocusChanged(hasWindowFocus)
-        if (!hasWindowFocus) // onPause() called
-        {
+        if (hasWindowFocus) {
+            if (autofocus) {
+                post { activate() }
+            }
+        } else { // onPause() called
             hideKeyBoard(context)
         }
     }
@@ -177,10 +181,20 @@ open class LazyDatePicker @JvmOverloads constructor(
         textLazyDate6.text = context.getString(R.string.ldp_year)
         textLazyDatePickerDate.setTextColor(textColor)
         findViewById<View>(R.id.btn_lazy_date_picker_on_focus).setOnClickListener {
-            editLazyDatePickerReal.isFocusableInTouchMode = true
-            editLazyDatePickerReal.requestFocus()
-            showKeyboard(editLazyDatePickerReal, context)
+            activate()
         }
+    }
+
+    fun postActivate() {
+        post {
+            activate()
+        }
+    }
+
+    fun activate() {
+        editLazyDatePickerReal.isFocusableInTouchMode = true
+        editLazyDatePickerReal.requestFocus()
+        showKeyboard(editLazyDatePickerReal, context)
     }
 
     private fun showFullDateLayout(hasFocus: Boolean) {
