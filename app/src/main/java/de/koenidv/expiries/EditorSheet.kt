@@ -26,14 +26,17 @@ class EditorSheet(private val article: Article?, val saveCallback: (Article) -> 
     private var _binding: SheetEditorBinding? = null
     private val binding get() = _binding!!
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setStyle(DialogFragment.STYLE_NORMAL, R.style.BottomSheetDialogTheme)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = SheetEditorBinding.inflate(inflater, container, false)
-        setStyle(DialogFragment.STYLE_NORMAL, R.style.BottomSheetDialogTheme)
-
         return binding.root
     }
 
