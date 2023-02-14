@@ -44,10 +44,6 @@ open class LazyDatePicker @JvmOverloads constructor(
     private lateinit var viewLazyDate5: View
     private lateinit var textLazyDate6: TextView
     private lateinit var viewLazyDate6: View
-    private lateinit var textLazyDate7: TextView
-    private lateinit var viewLazyDate7: View
-    private lateinit var textLazyDate8: TextView
-    private lateinit var viewLazyDate8: View
 
     // Properties
     protected var date: String? = null
@@ -81,7 +77,7 @@ open class LazyDatePicker @JvmOverloads constructor(
         showFullDate = attributes.getBoolean(R.styleable.LazyDatePicker_ldp_show_full_date, true)
         val dateFormatValue = attributes.getInteger(
             R.styleable.LazyDatePicker_ldp_date_format,
-            DateFormat.MM_DD_YYYY.attrValue
+            DateFormat.DD_MM_YY.attrValue
         )
         dateFormat = DateFormat.fromValue(dateFormatValue)
         attributes.recycle()
@@ -155,10 +151,6 @@ open class LazyDatePicker @JvmOverloads constructor(
         viewLazyDate5 = findViewById(R.id.view_lazy_date_5)
         textLazyDate6 = findViewById(R.id.text_lazy_date_6)
         viewLazyDate6 = findViewById(R.id.view_lazy_date_6)
-        textLazyDate7 = findViewById(R.id.text_lazy_date_7)
-        viewLazyDate7 = findViewById(R.id.view_lazy_date_7)
-        textLazyDate8 = findViewById(R.id.text_lazy_date_8)
-        viewLazyDate8 = findViewById(R.id.view_lazy_date_8)
         textLazyDate1.setTextColor(hintColor)
         viewLazyDate1.setBackgroundColor(hintColor)
         viewLazyDate1.visibility = GONE
@@ -177,27 +169,12 @@ open class LazyDatePicker @JvmOverloads constructor(
         textLazyDate6.setTextColor(hintColor)
         viewLazyDate6.setBackgroundColor(hintColor)
         viewLazyDate6.visibility = GONE
-        textLazyDate7.setTextColor(hintColor)
-        viewLazyDate7.setBackgroundColor(hintColor)
-        viewLazyDate7.visibility = GONE
-        textLazyDate8.setTextColor(hintColor)
-        viewLazyDate8.setBackgroundColor(hintColor)
-        viewLazyDate8.visibility = GONE
-        if (dateFormat == DateFormat.MM_DD_YYYY) {
-            textLazyDate1.text = context.getString(R.string.ldp_month)
-            textLazyDate2.text = context.getString(R.string.ldp_month)
-            textLazyDate3.text = context.getString(R.string.ldp_day)
-            textLazyDate4.text = context.getString(R.string.ldp_day)
-        } else if (dateFormat == DateFormat.DD_MM_YYYY) {
-            textLazyDate1.text = context.getString(R.string.ldp_day)
-            textLazyDate2.text = context.getString(R.string.ldp_day)
-            textLazyDate3.text = context.getString(R.string.ldp_month)
-            textLazyDate4.text = context.getString(R.string.ldp_month)
-        }
+        textLazyDate1.text = context.getString(R.string.ldp_day)
+        textLazyDate2.text = context.getString(R.string.ldp_day)
+        textLazyDate3.text = context.getString(R.string.ldp_month)
+        textLazyDate4.text = context.getString(R.string.ldp_month)
         textLazyDate5.text = context.getString(R.string.ldp_year)
         textLazyDate6.text = context.getString(R.string.ldp_year)
-        textLazyDate7.text = context.getString(R.string.ldp_year)
-        textLazyDate8.text = context.getString(R.string.ldp_year)
         textLazyDatePickerDate.setTextColor(textColor)
         findViewById<View>(R.id.btn_lazy_date_picker_on_focus).setOnClickListener {
             editLazyDatePickerReal.isFocusableInTouchMode = true
@@ -229,34 +206,18 @@ open class LazyDatePicker @JvmOverloads constructor(
 
         // Check Month & Day by dateFormat selected
         val value = Character.getNumericValue(unicodeChar)
-        if (dateFormat == DateFormat.MM_DD_YYYY) {
-            if (length == 0 && value > 1) { // M1
-                return false
-            } else if (length == 1 && (Character.getNumericValue(date[0]) == 1 && value > 2
-                        || Character.getNumericValue(date[0]) == 0 && value == 0)
-            ) { // M2
-                return false
-            } else if (length == 2 && value > 3) { // D1
-                return false
-            } else if (length == 3 && (Character.getNumericValue(date[2]) == 3 && value > 1
-                        || Character.getNumericValue(date[2]) == 0 && value == 0)
-            ) { // D2
-                return false
-            }
-        } else if (dateFormat == DateFormat.DD_MM_YYYY) {
-            if (length == 0 && value > 3) { // D1
-                return false
-            } else if (length == 1 && (Character.getNumericValue(date[0]) == 3 && value > 1
-                        || Character.getNumericValue(date[0]) == 0 && value == 0)
-            ) { // D2
-                return false
-            } else if (length == 2 && value > 1) { // M1
-                return false
-            } else if (length == 3 && (Character.getNumericValue(date[2]) == 1 && value > 2
-                        || Character.getNumericValue(date[2]) == 0 && value == 0)
-            ) { // M2
-                return false
-            }
+        if (length == 0 && value > 3) { // D1
+            return false
+        } else if (length == 1 && (Character.getNumericValue(date[0]) == 3 && value > 1
+                    || Character.getNumericValue(date[0]) == 0 && value == 0)
+        ) { // D2
+            return false
+        } else if (length == 2 && value > 1) { // M1
+            return false
+        } else if (length == 3 && (Character.getNumericValue(date[2]) == 1 && value > 2
+                    || Character.getNumericValue(date[2]) == 0 && value == 0)
+        ) { // M2
+            return false
         }
 
         // Check if date is between min & max date
@@ -289,57 +250,51 @@ open class LazyDatePicker @JvmOverloads constructor(
         when (value.length) {
             0 -> {
                 textLazyDate1.text =
-                    context.getString(if (dateFormat == DateFormat.MM_DD_YYYY) R.string.ldp_month else R.string.ldp_day)
+                    context.getString(R.string.ldp_day)
                 textLazyDate1.setTextColor(hintColor)
             }
+
             1 -> {
                 textLazyDate1.setTextColor(textColor)
                 textLazyDate1.text = getLetterAt(0, value)
                 textLazyDate2.text =
-                    context.getString(if (dateFormat == DateFormat.MM_DD_YYYY) R.string.ldp_month else R.string.ldp_day)
+                    context.getString(R.string.ldp_day)
                 textLazyDate2.setTextColor(hintColor)
             }
+
             2 -> {
                 textLazyDate2.setTextColor(textColor)
                 textLazyDate2.text = getLetterAt(1, value)
                 textLazyDate3.text =
-                    context.getString(if (dateFormat == DateFormat.MM_DD_YYYY) R.string.ldp_day else R.string.ldp_month)
+                    context.getString(R.string.ldp_month)
                 textLazyDate3.setTextColor(hintColor)
             }
+
             3 -> {
                 textLazyDate3.setTextColor(textColor)
                 textLazyDate3.text = getLetterAt(2, value)
                 textLazyDate4.text =
-                    context.getString(if (dateFormat == DateFormat.MM_DD_YYYY) R.string.ldp_day else R.string.ldp_month)
+                    context.getString(R.string.ldp_month)
                 textLazyDate4.setTextColor(hintColor)
             }
+
             4 -> {
                 textLazyDate4.setTextColor(textColor)
                 textLazyDate4.text = getLetterAt(3, value)
                 textLazyDate5.text = context.getString(R.string.ldp_year)
                 textLazyDate5.setTextColor(hintColor)
             }
+
             5 -> {
                 textLazyDate5.setTextColor(textColor)
                 textLazyDate5.text = getLetterAt(4, value)
                 textLazyDate6.text = context.getString(R.string.ldp_year)
                 textLazyDate6.setTextColor(hintColor)
             }
+
             6 -> {
                 textLazyDate6.setTextColor(textColor)
                 textLazyDate6.text = getLetterAt(5, value)
-                textLazyDate7.text = context.getString(R.string.ldp_year)
-                textLazyDate7.setTextColor(hintColor)
-            }
-            7 -> {
-                textLazyDate7.setTextColor(textColor)
-                textLazyDate7.text = getLetterAt(6, value)
-                textLazyDate8.text = context.getString(R.string.ldp_year)
-                textLazyDate8.setTextColor(hintColor)
-            }
-            8 -> {
-                textLazyDate8.setTextColor(textColor)
-                textLazyDate8.text = getLetterAt(7, value)
             }
         }
     }
@@ -352,56 +307,51 @@ open class LazyDatePicker @JvmOverloads constructor(
             viewLazyDate4.visibility = VISIBLE
             viewLazyDate5.visibility = VISIBLE
             viewLazyDate6.visibility = VISIBLE
-            viewLazyDate7.visibility = VISIBLE
-            viewLazyDate8.visibility = VISIBLE
             when (valueLength) {
                 0 -> {
                     viewLazyDate1.visibility = VISIBLE
                     viewLazyDate1.setBackgroundColor(textColor)
                     viewLazyDate2.setBackgroundColor(hintColor)
                 }
+
                 1 -> {
                     viewLazyDate1.setBackgroundColor(Color.TRANSPARENT)
                     viewLazyDate2.visibility = VISIBLE
                     viewLazyDate2.setBackgroundColor(textColor)
                     viewLazyDate3.setBackgroundColor(hintColor)
                 }
+
                 2 -> {
                     viewLazyDate2.setBackgroundColor(Color.TRANSPARENT)
                     viewLazyDate3.visibility = VISIBLE
                     viewLazyDate3.setBackgroundColor(textColor)
                     viewLazyDate4.setBackgroundColor(hintColor)
                 }
+
                 3 -> {
                     viewLazyDate3.setBackgroundColor(Color.TRANSPARENT)
                     viewLazyDate4.visibility = VISIBLE
                     viewLazyDate4.setBackgroundColor(textColor)
                     viewLazyDate5.setBackgroundColor(hintColor)
                 }
+
                 4 -> {
                     viewLazyDate4.setBackgroundColor(Color.TRANSPARENT)
                     viewLazyDate5.visibility = VISIBLE
                     viewLazyDate5.setBackgroundColor(textColor)
                     viewLazyDate6.setBackgroundColor(hintColor)
                 }
+
                 5 -> {
                     viewLazyDate5.setBackgroundColor(Color.TRANSPARENT)
                     viewLazyDate6.visibility = VISIBLE
                     viewLazyDate6.setBackgroundColor(textColor)
-                    viewLazyDate7.setBackgroundColor(hintColor)
                 }
+
                 6 -> {
                     viewLazyDate6.setBackgroundColor(Color.TRANSPARENT)
-                    viewLazyDate7.visibility = VISIBLE
-                    viewLazyDate7.setBackgroundColor(textColor)
-                    viewLazyDate8.setBackgroundColor(hintColor)
                 }
-                7 -> {
-                    viewLazyDate7.setBackgroundColor(Color.TRANSPARENT)
-                    viewLazyDate8.visibility = VISIBLE
-                    viewLazyDate8.setBackgroundColor(textColor)
-                }
-                8 -> viewLazyDate8.setBackgroundColor(Color.TRANSPARENT)
+
             }
         } else {
             viewLazyDate1.visibility = GONE
@@ -410,8 +360,6 @@ open class LazyDatePicker @JvmOverloads constructor(
             viewLazyDate4.visibility = GONE
             viewLazyDate5.visibility = GONE
             viewLazyDate6.visibility = GONE
-            viewLazyDate7.visibility = GONE
-            viewLazyDate8.visibility = GONE
         }
     }
 
@@ -468,18 +416,12 @@ open class LazyDatePicker @JvmOverloads constructor(
         textLazyDate5.text = getLetterAt(4, date)
         textLazyDate6.setTextColor(textColor)
         textLazyDate6.text = getLetterAt(5, date)
-        textLazyDate7.setTextColor(textColor)
-        textLazyDate7.text = getLetterAt(6, date)
-        textLazyDate8.setTextColor(textColor)
-        textLazyDate8.text = getLetterAt(7, date)
         viewLazyDate1.setBackgroundColor(Color.TRANSPARENT)
         viewLazyDate2.setBackgroundColor(Color.TRANSPARENT)
         viewLazyDate3.setBackgroundColor(Color.TRANSPARENT)
         viewLazyDate4.setBackgroundColor(Color.TRANSPARENT)
         viewLazyDate5.setBackgroundColor(Color.TRANSPARENT)
         viewLazyDate6.setBackgroundColor(Color.TRANSPARENT)
-        viewLazyDate7.setBackgroundColor(Color.TRANSPARENT)
-        viewLazyDate8.setBackgroundColor(Color.TRANSPARENT)
         if (showFullDate) {
             showFullDateLayout(editLazyDatePickerReal.isFocused)
         }
@@ -650,35 +592,31 @@ open class LazyDatePicker @JvmOverloads constructor(
     }
 
     enum class DateFormat {
-        MM_DD_YYYY, DD_MM_YYYY;
+        DD_MM_YY;
 
         val value: String
             get() {
                 return when (this) {
-                    MM_DD_YYYY -> "MMddyyyy"
-                    DD_MM_YYYY -> "ddMMyyyy"
+                    DD_MM_YY -> "ddMMyy"
                 }
             }
         val completeFormatValue: String
             get() {
                 return when (this) {
-                    MM_DD_YYYY -> "MMM dd yyyy"
-                    DD_MM_YYYY -> "dd MMM yyyy"
+                    DD_MM_YY -> "dd MMM yy"
                 }
             }
         val attrValue: Int
             get() {
                 return when (this) {
-                    MM_DD_YYYY -> 1
-                    DD_MM_YYYY -> 2
+                    DD_MM_YY -> 3
                 }
             }
 
         companion object {
             fun fromValue(value: Int): DateFormat {
                 when (value) {
-                    1 -> return MM_DD_YYYY
-                    2 -> return DD_MM_YYYY
+                    3 -> return DD_MM_YY
                 }
                 throw IllegalArgumentException("This value is not supported for DateFormat: $value")
             }
@@ -686,7 +624,7 @@ open class LazyDatePicker @JvmOverloads constructor(
     }
 
     companion object {
-        const val LENGTH_DATE_COMPLETE = 8
+        const val LENGTH_DATE_COMPLETE = 6
         fun dateToString(date: Date?, pattern: String?): String {
             return SimpleDateFormat(pattern, Locale.getDefault()).format(date)
         }

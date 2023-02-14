@@ -41,11 +41,10 @@ class EditorSheet(private val article: Article?, val saveCallback: (Article) -> 
         setupDatePicker()
         binding.saveButton.setOnClickListener { saveArticle() }
         binding.deleteButton.setOnClickListener { deleteArticle() }
+        if (article == null) binding.deleteButton.visibility = View.GONE
 
         checkInputsValid()
         preventAccidentalCancel()
-
-        if (article == null) binding.deleteButton.visibility = View.GONE
     }
 
     private fun loadImage() {
@@ -60,9 +59,9 @@ class EditorSheet(private val article: Article?, val saveCallback: (Article) -> 
 
     private fun setupDatePicker() {
         binding.datepicker.also {
-            it.setDateFormat(LazyDatePicker.DateFormat.DD_MM_YYYY)
+            it.setDateFormat(LazyDatePicker.DateFormat.DD_MM_YY)
             it.setMinLocalDate(LocalDate.now())
-            it.setMaxLocalDate(LocalDate.now().plusYears(10))
+            it.setMaxLocalDate(LocalDate.now().withYear(2099))
 
             it.setOnLocalDateSelectedListener(object :
                 LazyLocalDatePicker.OnLocalDateSelectedListener {
