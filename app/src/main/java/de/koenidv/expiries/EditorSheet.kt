@@ -1,7 +1,6 @@
 package de.koenidv.expiries
 
 import android.app.AlertDialog
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -40,7 +39,7 @@ class EditorSheet(private val article: Article?, val saveCallback: (Article) -> 
         return binding.root
     }
 
-    var fruits = arrayOf("Apple", "Banana", "Cherry", "Date", "Grape", "Kiwi", "Mango", "Pear")
+    var fruits = arrayOf("Apple", "ABanana", "ACherry", "ADate", "AGrape", "Kiwi", "Mango", "Pear")
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -68,13 +67,21 @@ class EditorSheet(private val article: Article?, val saveCallback: (Article) -> 
         checkInputsValid()
         preventAccidentalCancel()
 
-        binding.nameEdittext.apply {
-            threshold = 1
-            setAdapter(
-                ArrayAdapter(requireContext(), android.R.layout.select_dialog_item, fruits)
-            )
-            setTextColor(Color.RED)
-            //fixme Suggestions are hidden behind keyboard
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val previousEntries = Database.get(requireContext()).articleDao().getSuggestedNames()
+            requireActivity().runOnUiThread {
+                binding.nameEdittext.apply {
+                    threshold = 1
+                    setAdapter(
+                        ArrayAdapter(
+                            requireContext(),
+                            android.R.layout.select_dialog_item,
+                            previousEntries
+                        )
+                    )
+                }
+            }
         }
 
 

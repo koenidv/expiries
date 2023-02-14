@@ -34,4 +34,7 @@ interface ArticleDao {
 
     @Update
     suspend fun update(article: Article)
+
+    @Query("SELECT DISTINCT name FROM article ORDER BY created_at DESC LIMIT 1000")
+    fun getSuggestedNames(): List<String>
 }
