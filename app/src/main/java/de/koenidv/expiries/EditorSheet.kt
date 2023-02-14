@@ -76,7 +76,7 @@ class EditorSheet(private val article: Article?, val saveCallback: (Article) -> 
                     setAdapter(
                         ArrayAdapter(
                             requireContext(),
-                            android.R.layout.select_dialog_item,
+                            R.layout.suggestion_item,
                             previousEntries
                         )
                     )
