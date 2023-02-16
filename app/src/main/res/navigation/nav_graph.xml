@@ -2,11 +2,16 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/ExpiriesFragment">
+    app:startDestination="@id/expiries">
 
     <fragment
-        android:id="@+id/ExpiriesFragment"
+        android:id="@+id/expiries"
         android:name="de.koenidv.expiries.ExpiriesFragment"
         android:label="@string/label_expiring"
         tools:layout="@layout/fragment_expiries" />
+    <fragment
+        android:id="@+id/locations"
+        android:name="de.koenidv.expiries.LocationsFragment"
+        android:label="@string/label_locations"
+        tools:layout="@layout/fragment_locations" />
 </navigation>

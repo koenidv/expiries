@@ -2,12 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/nav_expiring"
+        android:id="@+id/expiries"
         android:icon="@drawable/ic_grid"
         android:title="@string/label_expiring" />
 
     <item
-        android:id="@+id/nav_locations"
+        android:id="@+id/locations"
         android:icon="@drawable/ic_home"
         android:title="@string/label_locations" />
 
