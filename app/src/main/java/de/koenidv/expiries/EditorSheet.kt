@@ -39,8 +39,6 @@ class EditorSheet(private val article: Article?, val saveCallback: (Article) -> 
         return binding.root
     }
 
-    var fruits = arrayOf("Apple", "ABanana", "ACherry", "ADate", "AGrape", "Kiwi", "Mango", "Pear")
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -100,7 +98,7 @@ class EditorSheet(private val article: Article?, val saveCallback: (Article) -> 
     private fun setupDatePicker() {
         binding.datepicker.apply {
             setDateFormat(LazyDatePicker.DateFormat.DD_MM_YY)
-            setMinLocalDate(LocalDate.now())
+            setMinLocalDate(minOf(LocalDate.now(), article?.expiry ?: LocalDate.now()))
             setMaxLocalDate(LocalDate.now().withYear(2099))
             autofocus = article?.expiry == null && article?.name != null
 
