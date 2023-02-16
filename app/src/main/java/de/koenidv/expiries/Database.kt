@@ -21,10 +21,11 @@ import java.util.Date
 import java.util.Locale
 
 
-@Database(entities = [Article::class], version = 2)
+@Database(entities = [Article::class, Location::class], version = 3)
 @TypeConverters(Converters::class)
 abstract class Database : RoomDatabase() {
     abstract fun articleDao(): ArticleDao
+    abstract fun locationDao(): LocationDao
 
     companion object {
         lateinit var db: de.koenidv.expiries.Database
