@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">MyFoods</string>
-    <string name="expiries_fragment_label">Expiring Soon</string>
+    <string name="label_expiring">Expiring Soon</string>
+    <string name="label_locations">Locations</string>
     <string name="label_settings">Settings</string>
     <string name="label_search">Search</string>
 

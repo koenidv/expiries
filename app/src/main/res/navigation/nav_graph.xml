@@ -7,6 +7,6 @@
     <fragment
         android:id="@+id/ExpiriesFragment"
         android:name="de.koenidv.expiries.ExpiriesFragment"
-        android:label="@string/expiries_fragment_label"
+        android:label="@string/label_expiring"
         tools:layout="@layout/fragment_expiries" />
 </navigation>
