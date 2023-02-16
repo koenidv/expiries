@@ -33,7 +33,9 @@ class MainActivity : AppCompatActivity() {
 
         db = Database.get(applicationContext)
 
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
+        val navHost =
+            supportFragmentManager.findFragmentById(R.id.fragmentContainer) as NavHostFragment
+        val navController = navHost.navController
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
@@ -65,7 +67,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
+        val navHost =
+            supportFragmentManager.findFragmentById(R.id.fragmentContainer) as NavHostFragment
+        val navController = navHost.navController
         return navController.navigateUp(appBarConfiguration)
                 || super.onSupportNavigateUp()
     }
