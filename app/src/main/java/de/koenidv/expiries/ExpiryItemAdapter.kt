@@ -49,6 +49,7 @@ class ExpiryItemAdapter(private val activity: FragmentActivity) :
                     .inflate(R.layout.expiry_item, parent, false)
                 ArticleViewHolder(view)
             }
+
             else -> {
                 val view = LayoutInflater.from(parent.context)
                     .inflate(R.layout.divider_item, parent, false)
@@ -124,5 +125,23 @@ class ExpiryItemAdapter(private val activity: FragmentActivity) :
     }
 
     val differ = AsyncListDiffer(this, diffCallback)
+    var unfiltered: List<ListItem> = listOf()
+
+    fun submitList(list: List<ListItem>) {
+        unfiltered = list
+        differ.submitList(list)
+    }
+
+    fun filter(query: String?) {
+        if (query.isNullOrBlank()) {
+            differ.submitList(unfiltered)
+            return
+        }
+        differ.submitList(
+            unfiltered.filter {
+                it is Article && (it.name?.contains(query, true) ?: false)
+            }
+        )
+    }
 
 }

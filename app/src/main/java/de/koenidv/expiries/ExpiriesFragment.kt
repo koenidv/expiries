@@ -40,7 +40,7 @@ class ExpiriesFragment : Fragment() {
             val articlesObservable = db.articleDao().getAllSorted()
             articlesObservable.collect {
                 (binding.recycler.adapter as ExpiryItemAdapter)
-                    .differ.submitList(ArticleListDividers().addListDividers(it))
+                    .submitList(ArticleListDividers().addListDividers(it))
             }
         }
     }
@@ -67,6 +67,10 @@ class ExpiriesFragment : Fragment() {
         ).setAction(R.string.action_undo) {
             CoroutineScope(Dispatchers.Main).launch { db.articleDao().insert(article) }
         }.show()
+    }
+
+    fun filterRecycler(query: String?) {
+        (binding.recycler.adapter as ExpiryItemAdapter).filter(query)
     }
 
     override fun onDestroyView() {
