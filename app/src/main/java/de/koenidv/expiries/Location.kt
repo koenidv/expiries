@@ -6,6 +6,7 @@ import androidx.room.Entity
 import androidx.room.Insert
 import androidx.room.PrimaryKey
 import androidx.room.Query
+import kotlinx.coroutines.flow.Flow
 
 @Entity
 data class Location(
@@ -17,8 +18,8 @@ data class Location(
 
 @Dao
 interface LocationDao {
-    @Query("SELECT * FROM location")
-    fun getAll(): List<Location>
+    @Query("SELECT * FROM location ORDER BY name")
+    fun observeAll(): Flow<List<Article>>
 
     @Insert
     suspend fun insert(vararg locations: Location)
