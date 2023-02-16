@@ -2,6 +2,7 @@
     <string name="app_name">MyFoods</string>
     <string name="expiries_fragment_label">Expiring Soon</string>
     <string name="label_settings">Settings</string>
+    <string name="label_search">Search</string>
 
     <string name="url_product_data" translatable="false">https://world.openfoodfacts.org/api/v0/product/%s.json</string>
 
