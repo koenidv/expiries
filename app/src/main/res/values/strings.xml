@@ -24,6 +24,7 @@
     <string name="action_yes">Yes</string>
     <string name="action_no">No</string>
     <string name="action_undo">Undo</string>
+    <string name="description_toggle_flashlight">Toggle flashlight</string>
 
     <string name="dialog_cancel_edit_title">Cancel editing?</string>
     <string name="warning_item_deleted">Article marked as used up</string>

@@ -1,12 +1,18 @@
 package de.koenidv.expiries
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.os.Build
 import android.os.Bundle
+import android.os.VibrationEffect
+import android.os.Vibrator
+import android.os.VibratorManager
 import android.util.Log
 import android.util.Size
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.camera.core.Camera
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
@@ -34,6 +40,7 @@ class ScanFragment : Fragment() {
     private var _binding: FragmentScanBinding? = null
     private val binding get() = _binding!!
     private lateinit var cameraExecutor: ExecutorService
+    private lateinit var camera: Camera
     var editing = false
 
     override fun onCreateView(
@@ -52,6 +59,36 @@ class ScanFragment : Fragment() {
         binding.addManuallyButton.setOnClickListener {
             launchEditor(null)
         }
+
+        var flashlightOn = false
+        binding.flashlightButton.setOnClickListener {
+            if (!this::camera.isInitialized) return@setOnClickListener
+            flashlightOn = !flashlightOn
+            camera.cameraControl.enableTorch(flashlightOn)
+            if (flashlightOn) {
+                binding.flashlightButton.setImageResource(R.drawable.ic_flash_on)
+            } else {
+                binding.flashlightButton.setImageResource(R.drawable.ic_flash_off)
+            }
+            vibrate()
+        }
+
+    }
+
+    private fun vibrate() {
+        val v = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            val vibratorManager =
+                requireContext().getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
+            vibratorManager.defaultVibrator
+        } else {
+            @Suppress("DEPRECATION")
+            requireContext().getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            v.vibrate(VibrationEffect.createPredefined(VibrationEffect.EFFECT_CLICK))
+        } else {
+            v.vibrate(VibrationEffect.createOneShot(5, VibrationEffect.DEFAULT_AMPLITUDE))
+        }
     }
 
     @NeedsPermission(android.Manifest.permission.CAMERA)
@@ -62,14 +99,16 @@ class ScanFragment : Fragment() {
         }, ContextCompat.getMainExecutor(requireContext()))
     }
 
-    private fun bindUseCases(camera: ProcessCameraProvider) {
+    private fun bindUseCases(cameraProvider: ProcessCameraProvider) {
         try {
-            camera.bindToLifecycle(
+            camera = cameraProvider.bindToLifecycle(
                 this,
                 CameraSelector.DEFAULT_BACK_CAMERA,
                 getPreviewUseCase(),
                 getImageAnalyzer()
             )
+            binding.flashlightButton.visibility =
+                if (camera.cameraInfo.hasFlashUnit()) View.VISIBLE else View.GONE
         } catch (exc: Exception) {
             Log.e("Camera", "Use case binding failed", exc)
         }
