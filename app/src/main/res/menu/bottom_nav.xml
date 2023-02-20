@@ -2,6 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/scan"
+        android:icon="@drawable/ic_scanner"
+        android:title="@string/label_scan" />
+
+    <item
         android:id="@+id/expiries"
         android:icon="@drawable/ic_grid"
         android:title="@string/label_expiring" />
@@ -10,5 +15,10 @@
         android:id="@+id/locations"
         android:icon="@drawable/ic_home"
         android:title="@string/label_locations" />
+
+    <item
+        android:id="@+id/search"
+        android:icon="@drawable/ic_search_black"
+        android:title="@string/label_search" />
 
 </menu>
