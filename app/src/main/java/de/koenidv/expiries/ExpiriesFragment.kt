@@ -67,10 +67,12 @@ class ExpiriesFragment : Fragment() {
 
     private fun showUndoSnackbar(article: Article, db: Database) {
         Snackbar.make(
-            binding.recycler,
+            requireActivity().findViewById(R.id.navbar),
             R.string.warning_item_deleted,
             Snackbar.LENGTH_LONG
-        ).setAction(R.string.action_undo) {
+        ).apply {
+            anchorView = requireActivity().findViewById(R.id.navbar)
+        }.setAction(R.string.action_undo) {
             CoroutineScope(Dispatchers.Main).launch { db.articleDao().insert(article) }
         }.show()
     }
