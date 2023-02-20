@@ -43,22 +43,23 @@
                 app:layout_constraintStart_toStartOf="@id/camera_preview"
                 app:layout_constraintTop_toTopOf="@id/camera_preview" />
 
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/addManuallyButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:backgroundTint="?attr/colorSecondaryContainer"
+                android:text="@string/action_add_manually"
+                android:textColor="?attr/colorOnSecondaryContainer"
+                app:icon="@drawable/ic_add"
+                app:layout_constraintBottom_toBottomOf="@id/camera_preview"
+                app:layout_constraintStart_toStartOf="@id/camera_preview" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/addManuallyButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:backgroundTint="?attr/colorSecondaryContainer"
-        android:drawableStart="@drawable/ic_add"
-        android:drawablePadding="8dp"
-        android:text="@string/action_add_manually"
-        android:textColor="?attr/colorOnSecondaryContainer"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/camera_card" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
