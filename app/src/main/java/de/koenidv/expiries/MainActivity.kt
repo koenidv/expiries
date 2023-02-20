@@ -2,7 +2,6 @@ package de.koenidv.expiries
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -14,9 +13,6 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.jakewharton.threetenabp.AndroidThreeTen
 import de.koenidv.expiries.databinding.ActivityMainBinding
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -41,35 +37,7 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(binding.navbar.menu)
         setupActionBarWithNavController(navController, appBarConfiguration)
         binding.navbar.setupWithNavController(navController)
-
-        binding.fab.setOnClickListener { _ ->
-            launchScanner()
-        }
     }
-
-    private fun launchScanner() {
-        ScannerSheet { handleScanResult(it) }.show(supportFragmentManager, "scanner")
-    }
-
-    private fun handleScanResult(result: String?) {
-        try {
-            if (result === null) launchEditor(null)
-            else launchEditor(ArticleParser().parseArticle(ArticleParser().parseString(result)))
-        } catch (JSONException: java.lang.NullPointerException) {
-            launchEditor(null)
-        }
-    }
-
-    private fun launchEditor(article: Article?) {
-        EditorSheet(article) {
-            if (it == null) return@EditorSheet
-            CoroutineScope(Dispatchers.IO).launch {
-                db.articleDao().insert(it)
-                Log.d("Database", db.articleDao().getAllSorted().toString())
-            }
-        }.show(supportFragmentManager, "editor")
-    }
-
     override fun onSupportNavigateUp(): Boolean {
         val navHost =
             supportFragmentManager.findFragmentById(R.id.fragmentContainer) as NavHostFragment

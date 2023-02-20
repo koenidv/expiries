@@ -21,19 +21,6 @@
 
     <include layout="@layout/content_main" />
 
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top"
-        app:layout_anchor="@id/navbar"
-        app:layout_anchorGravity="top|end"
-        android:layout_marginEnd="@dimen/fab_margin"
-        android:layout_marginBottom="16dp"
-        android:contentDescription="@string/description_add"
-        android:text="@string/action_scan"
-        app:icon="@drawable/ic_add" />
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navbar"
         android:layout_width="match_parent"
