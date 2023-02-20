@@ -117,7 +117,6 @@ class ScannerSheet(val scannedCallback: (String?) -> Unit) : BottomSheetDialogFr
                 lastResult = result
                 if (result == null) return@processImage
 
-                // todo stop analyzing while network request is running
                 handleBarcodeScanned(result, network)
             }
         }

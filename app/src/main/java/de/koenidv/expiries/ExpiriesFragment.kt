@@ -11,6 +11,7 @@ import com.google.android.material.snackbar.Snackbar
 import de.koenidv.expiries.databinding.FragmentExpiriesBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.takeWhile
 import kotlinx.coroutines.launch
 
 class ExpiriesFragment : Fragment() {
@@ -31,14 +32,19 @@ class ExpiriesFragment : Fragment() {
 
         val db = Database.get(requireContext())
         binding.recycler.adapter = ExpiryItemAdapter(requireActivity())
-        collectArticles(db)
         enableSwipeActions(db)
     }
 
-    private fun collectArticles(db: Database) {
+    override fun onResume() {
+        startArticlesObserver()
+        super.onResume()
+    }
+
+    private fun startArticlesObserver() {
+        val db = Database.get(requireContext())
         CoroutineScope(Dispatchers.Main).launch {
             val articlesObservable = db.articleDao().getAllSorted()
-            articlesObservable.collect {
+            articlesObservable.takeWhile { isResumed }.collect {
                 (binding.recycler.adapter as ExpiryItemAdapter)
                     .submitList(ArticleListDividers().addListDividers(it))
             }
