@@ -16,7 +16,7 @@ import com.google.android.material.color.MaterialColors
 abstract class SwipeCallback(val context: Context) : ItemTouchHelper.Callback() {
 
     private val paint = Paint()
-    private val icon = ContextCompat.getDrawable(context, R.drawable.ic_check)
+    private val icon = ContextCompat.getDrawable(context, R.drawable.ic_approved)
 
     init {
         paint.color = MaterialColors.getColor(context, attr.colorSecondary, Color.GREEN)
@@ -54,10 +54,10 @@ abstract class SwipeCallback(val context: Context) : ItemTouchHelper.Callback() 
         c.drawRoundRect(
             itemView.left + 8.toPx,
             itemView.top + 8.toPx,
-            itemView.left + dX + 32.toPx,
+            itemView.left + dX + 64.toPx,
             itemView.bottom.toFloat(),
-            8.toPx,
-            8.toPx,
+            12.toPx,
+            12.toPx,
             paint
         )
 
@@ -68,6 +68,10 @@ abstract class SwipeCallback(val context: Context) : ItemTouchHelper.Callback() 
             itemView.top + (8.toPx + remainingHeight / 2).toInt(),
             itemView.left + (24.toPx + iconWidth).toInt(),
             itemView.bottom - (remainingHeight / 2).toInt()
+        )
+        icon?.colorFilter = android.graphics.PorterDuffColorFilter(
+            MaterialColors.getColor(context, attr.colorOnSecondary, Color.BLACK),
+            android.graphics.PorterDuff.Mode.SRC_IN
         )
         icon?.draw(c)
 
