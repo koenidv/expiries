@@ -124,6 +124,13 @@ class EditorSheet(private val article: Article?, val callback: (Article?) -> Uni
     private fun preventAccidentalCancel() {
         dialog?.window?.decorView?.findViewById<View>(com.google.android.material.R.id.touch_outside)
             ?.setOnClickListener {
+                if ((article?.name ?: "") == binding.nameEdittext.text.toString() &&
+                    article?.expiry == binding.datepicker.localDate
+                ) {
+                    callback(null)
+                    dismiss()
+                    return@setOnClickListener
+                }
                 AlertDialog.Builder(requireContext())
                     .setTitle(R.string.dialog_cancel_edit_title)
                     .setPositiveButton(R.string.action_yes) { _, _ ->
