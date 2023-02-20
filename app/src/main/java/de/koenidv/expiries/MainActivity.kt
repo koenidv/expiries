@@ -62,6 +62,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun launchEditor(article: Article?) {
         EditorSheet(article) {
+            if (it == null) return@EditorSheet
             CoroutineScope(Dispatchers.IO).launch {
                 db.articleDao().insert(it)
                 Log.d("Database", db.articleDao().getAllSorted().toString())

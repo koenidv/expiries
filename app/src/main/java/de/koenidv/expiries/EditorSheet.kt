@@ -19,7 +19,7 @@ import org.threeten.bp.LocalDate
 import org.threeten.bp.format.DateTimeFormatter
 
 
-class EditorSheet(private val article: Article?, val saveCallback: (Article) -> Unit) :
+class EditorSheet(private val article: Article?, val callback: (Article?) -> Unit) :
     BottomSheetDialogFragment() {
 
     private var _binding: SheetEditorBinding? = null
@@ -126,14 +126,21 @@ class EditorSheet(private val article: Article?, val saveCallback: (Article) -> 
             ?.setOnClickListener {
                 AlertDialog.Builder(requireContext())
                     .setTitle(R.string.dialog_cancel_edit_title)
-                    .setPositiveButton(R.string.action_yes) { _, _ -> this.dismiss() }
-                    .setNegativeButton(R.string.action_no) { dialog, _ -> dialog.dismiss() }
+                    .setPositiveButton(R.string.action_yes) { _, _ ->
+                        run {
+                            callback(null)
+                            this.dismiss()
+                        }
+                    }
+                    .setNegativeButton(R.string.action_no) { dialog, _ ->
+                        dialog.dismiss()
+                    }
                     .show()
             }
     }
 
     private fun saveArticle() {
-        saveCallback(
+        callback(
             Article(
                 article?.barcode,
                 binding.nameEdittext.text.toString(),
@@ -152,12 +159,14 @@ class EditorSheet(private val article: Article?, val saveCallback: (Article) -> 
     private fun deleteArticle() {
         if (article == null) {
             dismiss()
+            callback(null)
             return
         }
 
         CoroutineScope(Dispatchers.IO).launch {
             Database.get(requireContext()).articleDao().delete(article)
             dismiss()
+            callback(null)
         }
     }
 

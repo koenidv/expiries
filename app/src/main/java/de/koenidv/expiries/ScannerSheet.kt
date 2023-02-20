@@ -1,6 +1,6 @@
 package de.koenidv.expiries
 
-import android.annotation.SuppressLint
+import  android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.util.Size
@@ -117,6 +117,7 @@ class ScannerSheet(val scannedCallback: (String?) -> Unit) : BottomSheetDialogFr
                 lastResult = result
                 if (result == null) return@processImage
 
+                // todo stop analyzing while network request is running
                 handleBarcodeScanned(result, network)
             }
         }

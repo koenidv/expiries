@@ -86,6 +86,7 @@ class ExpiryItemAdapter(private val activity: FragmentActivity) :
 
                 holder.card.setOnClickListener {
                     EditorSheet(article) {
+                        if (it == null) return@EditorSheet
                         CoroutineScope(Dispatchers.IO).launch {
                             Database.get(activity).articleDao().update(it)
                         }
