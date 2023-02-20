@@ -13,7 +13,7 @@ data class Location(
     @PrimaryKey val id: Int,
     @ColumnInfo val name: String,
     @ColumnInfo val icon_name: String,
-    @ColumnInfo val comment: String,
+    @ColumnInfo val comment: String?,
 )
 
 @Dao

@@ -43,7 +43,11 @@ abstract class Database : RoomDatabase() {
                             database.execSQL("ALTER TABLE article ADD COLUMN unit TEXT")
                         }
                     }
-                )
+                ).addMigrations(object : Migration(2, 3) {
+                    override fun migrate(database: SupportSQLiteDatabase) {
+                        database.execSQL("CREATE TABLE location (name TEXT NOT NULL, comment TEXT, id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, icon_name TEXT NOT NULL)")
+                    }
+                })
                     .build()
             }
 
