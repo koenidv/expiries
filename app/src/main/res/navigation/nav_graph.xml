@@ -14,4 +14,14 @@
         android:name="de.koenidv.expiries.LocationsFragment"
         android:label="@string/label_locations"
         tools:layout="@layout/fragment_locations" />
+    <fragment
+        android:id="@+id/scan"
+        android:name="de.koenidv.expiries.ScanFragment"
+        android:label="@string/label_scan"
+        tools:layout="@layout/fragment_scan" />
+    <fragment
+        android:id="@+id/search"
+        android:name="de.koenidv.expiries.SearchFragment"
+        android:label="@string/label_search"
+        tools:layout="@layout/fragment_search" />
 </navigation>
