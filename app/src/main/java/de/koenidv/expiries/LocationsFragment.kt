@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import de.koenidv.expiries.databinding.FragmentLocationsBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -47,6 +48,10 @@ class LocationsFragment : Fragment() {
     }
 
     private fun handleLocationSelected(id: Int, longclick: Boolean) {
+        //val navHost =
+        //    parentFragmentManager.findFragmentById(R.id.fragmentContainer) as NavHostFragment
+        //val navController = navHost.navController
+
         if (id >= 0) {
             if (longclick) {
                 CoroutineScope(Dispatchers.IO).launch {
@@ -55,7 +60,7 @@ class LocationsFragment : Fragment() {
                     ).show(parentFragmentManager, "loc-edit")
                 }
             } else {
-                // todo display articles in location
+                findNavController().navigate(LocationsFragmentDirections.actionLocationsToDetails())
             }
         } else if (id == -2) { // Create Location
             LocationEditSheet(null).show(parentFragmentManager, "loc-edit")

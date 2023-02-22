@@ -48,7 +48,6 @@ class LocationsAdapter(val callback: (Int, Boolean) -> Unit) :
             )
 
         holder.card.setCardBackgroundColor(background)
-
     }
 
     override fun getItemCount() = differ.currentList.size

@@ -8,9 +8,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.NavigationUiSaveStateControl
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import com.jakewharton.threetenabp.AndroidThreeTen
 import de.koenidv.expiries.databinding.ActivityMainBinding
 
@@ -20,6 +21,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     lateinit var db: Database
 
+    @OptIn(NavigationUiSaveStateControl::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         AndroidThreeTen.init(this)
@@ -36,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         val navController = navHost.navController
         appBarConfiguration = AppBarConfiguration(binding.navbar.menu)
         setupActionBarWithNavController(navController, appBarConfiguration)
-        binding.navbar.setupWithNavController(navController)
+        NavigationUI.setupWithNavController(binding.navbar, navController, false)
     }
     override fun onSupportNavigateUp(): Boolean {
         val navHost =
