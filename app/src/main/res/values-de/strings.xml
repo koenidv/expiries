@@ -18,6 +18,7 @@
     <string name="action_yes">Ja</string>
     <string name="action_no">Nein</string>
     <string name="action_undo">Rückgängig</string>
+    <string name="description_toggle_flashlight">Blitz umschalten</string>
     <string name="dialog_cancel_edit_title">Bearbeiten abbrechen?</string>
     <string name="warning_item_deleted">Artikel verbraucht</string>
     <string name="timeframe_expired">Abgelaufen</string>
@@ -29,6 +30,8 @@
     <string name="timeframe_this_month">Dieser Monat</string>
     <string name="timeframe_next_month">Nächster Monat</string>
     <string name="timeframe_later">Später</string>
+    <string name="location_undefined">Kein Ort</string>
+    <string name="location_add">Neuer Ort</string>
     <string name="info_added_on">Hinzugefügt am %s</string>
     <string name="settings_backup_and_restore">Sichern &amp; Wiederherstellen</string>
     <string name="settings_backup">Sicherung erstellen</string>

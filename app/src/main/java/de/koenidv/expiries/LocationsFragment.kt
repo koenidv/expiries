@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import de.koenidv.expiries.databinding.FragmentLocationsBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.takeWhile
 import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
@@ -36,16 +37,44 @@ class LocationsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val db = Database.get(requireContext())
-        val adapter = LocationsAdapter()
+        val adapter = LocationsAdapter { handleLocationSelected(it) }
         binding.locationsRecycler.adapter = adapter
-        queryLocations(adapter)
     }
 
-    fun queryLocations(adapter: LocationsAdapter) {
+    override fun onResume() {
+        startLocationsObserver(binding.locationsRecycler.adapter as LocationsAdapter)
+        super.onResume()
+    }
+
+    fun handleLocationSelected(id: Int) {
+
+    }
+
+    fun startLocationsObserver(adapter: LocationsAdapter) {
         CoroutineScope(Dispatchers.IO).launch {
             val locationsObservable = Database.get(requireContext()).locationDao().observeAll()
-            locationsObservable.collect {
-                adapter.differ.submitList(it)
+            locationsObservable.takeWhile { isResumed }.collect {
+                val copy = it.toMutableList().apply {
+                    add(
+                        Location(
+                            id = -1,
+                            name = getString(R.string.location_undefined),
+                            icon_name = "ic_location",
+                            comment = null
+                        )
+                    )
+                    add(
+                        Location(
+                            id = -2,
+                            name = getString(R.string.location_add),
+                            icon_name = "ic_add",
+                            comment = null
+                        )
+                    )
+                }
+                requireActivity().runOnUiThread {
+                    adapter.differ.submitList(copy)
+                }
             }
         }
     }

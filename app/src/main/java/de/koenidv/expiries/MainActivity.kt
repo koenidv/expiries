@@ -60,8 +60,12 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 override fun onQueryTextChange(newText: String?): Boolean {
-                    (navHost.childFragmentManager.primaryNavigationFragment as ExpiriesFragment)
-                        .filterRecycler(newText)
+                    try {
+                        (navHost.childFragmentManager.primaryNavigationFragment as ExpiriesFragment)
+                            .filterRecycler(newText)
+                    } catch (ClassCastException: ClassCastException) {
+                        // Not on ExpiriesFragment
+                    }
                     return false
                 }
             })

@@ -19,7 +19,7 @@ data class Location(
 @Dao
 interface LocationDao {
     @Query("SELECT * FROM location ORDER BY name")
-    fun observeAll(): Flow<List<Article>>
+    fun observeAll(): Flow<List<Location>>
 
     @Insert
     suspend fun insert(vararg locations: Location)

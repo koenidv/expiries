@@ -8,7 +8,8 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 
-class LocationsAdapter : RecyclerView.Adapter<LocationsAdapter.ViewHolder>() {
+class LocationsAdapter(callback: (Int) -> Unit) :
+    RecyclerView.Adapter<LocationsAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val nameText: TextView
@@ -30,12 +31,12 @@ class LocationsAdapter : RecyclerView.Adapter<LocationsAdapter.ViewHolder>() {
 
     override fun getItemCount() = differ.currentList.size
 
-    private val diffCallback = object : DiffUtil.ItemCallback<ListItem>() {
-        override fun areItemsTheSame(oldItem: ListItem, newItem: ListItem): Boolean {
+    private val diffCallback = object : DiffUtil.ItemCallback<Location>() {
+        override fun areItemsTheSame(oldItem: Location, newItem: Location): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: ListItem, newItem: ListItem): Boolean {
+        override fun areContentsTheSame(oldItem: Location, newItem: Location): Boolean {
             return oldItem == newItem
         }
     }

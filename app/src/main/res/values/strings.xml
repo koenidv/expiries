@@ -38,6 +38,8 @@
     <string name="timeframe_this_month">This month</string>
     <string name="timeframe_next_month">Next month</string>
     <string name="timeframe_later">Later</string>
+    <string name="location_undefined">No location</string>
+    <string name="location_add">Add location</string>
 
     <string name="info_added_on">Added on %s</string>
 
