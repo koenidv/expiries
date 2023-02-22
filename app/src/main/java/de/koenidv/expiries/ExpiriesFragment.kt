@@ -42,11 +42,13 @@ class ExpiriesFragment : Fragment() {
 
     private fun startArticlesObserver() {
         val db = Database.get(requireContext())
-        CoroutineScope(Dispatchers.Main).launch {
+        CoroutineScope(Dispatchers.IO).launch {
             val articlesObservable = db.articleDao().getAllSorted()
             articlesObservable.takeWhile { isResumed }.collect {
-                (binding.recycler.adapter as ExpiryItemAdapter)
-                    .submitList(ArticleListDividers().addListDividers(it))
+                requireActivity().runOnUiThread {
+                    (binding.recycler.adapter as ExpiryItemAdapter)
+                        .submitList(ArticleListDividers().addListDividers(it))
+                }
             }
         }
     }
