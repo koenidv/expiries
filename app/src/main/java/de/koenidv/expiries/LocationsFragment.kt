@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import de.koenidv.expiries.databinding.FragmentLocationsBinding
 import kotlinx.coroutines.CoroutineScope
@@ -46,11 +47,11 @@ class LocationsFragment : Fragment() {
         super.onResume()
     }
 
-    fun handleLocationSelected(id: Int) {
-
+    private fun handleLocationSelected(id: Int) {
+        Toast.makeText(requireContext(), "Selected location $id", Toast.LENGTH_SHORT).show()
     }
 
-    fun startLocationsObserver(adapter: LocationsAdapter) {
+    private fun startLocationsObserver(adapter: LocationsAdapter) {
         CoroutineScope(Dispatchers.IO).launch {
             val locationsObservable = Database.get(requireContext()).locationDao().observeAll()
             locationsObservable.takeWhile { isResumed }.collect {
