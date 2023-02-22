@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import de.koenidv.expiries.databinding.FragmentLocationsBinding
 import kotlinx.coroutines.CoroutineScope
@@ -48,7 +47,9 @@ class LocationsFragment : Fragment() {
     }
 
     private fun handleLocationSelected(id: Int) {
-        Toast.makeText(requireContext(), "Selected location $id", Toast.LENGTH_SHORT).show()
+        if (id == -2) { // Create Location
+            LocationEditSheet(null).show(parentFragmentManager, "loc-edit")
+        }
     }
 
     private fun startLocationsObserver(adapter: LocationsAdapter) {

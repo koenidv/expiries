@@ -21,7 +21,7 @@ import java.util.Date
 import java.util.Locale
 
 
-@Database(entities = [Article::class, Location::class], version = 3)
+@Database(entities = [Article::class, Location::class], version = 4)
 @TypeConverters(Converters::class)
 abstract class Database : RoomDatabase() {
     abstract fun articleDao(): ArticleDao
@@ -42,12 +42,16 @@ abstract class Database : RoomDatabase() {
                             database.execSQL("ALTER TABLE article ADD COLUMN amount REAL")
                             database.execSQL("ALTER TABLE article ADD COLUMN unit TEXT")
                         }
+                    }, object : Migration(2, 3) {
+                        override fun migrate(database: SupportSQLiteDatabase) {
+                            database.execSQL("CREATE TABLE location (name TEXT NOT NULL, comment TEXT, id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, icon_name TEXT NOT NULL)")
+                        }
+                    }, object : Migration(3, 4) {
+                        override fun migrate(database: SupportSQLiteDatabase) {
+
+                        }
                     }
-                ).addMigrations(object : Migration(2, 3) {
-                    override fun migrate(database: SupportSQLiteDatabase) {
-                        database.execSQL("CREATE TABLE location (name TEXT NOT NULL, comment TEXT, id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, icon_name TEXT NOT NULL)")
-                    }
-                })
+                )
                     .build()
             }
 
