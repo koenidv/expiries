@@ -75,7 +75,7 @@ class ScanFragment : Fragment() {
 
     }
 
-    private fun vibrate() {
+    private fun vibrate(alt: Boolean = false) {
         val v = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             val vibratorManager =
                 requireContext().getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
@@ -85,9 +85,17 @@ class ScanFragment : Fragment() {
             requireContext().getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            v.vibrate(VibrationEffect.createPredefined(VibrationEffect.EFFECT_CLICK))
+            if (!alt)
+                v.vibrate(VibrationEffect.createPredefined(VibrationEffect.EFFECT_CLICK))
+            else
+                v.vibrate(VibrationEffect.createPredefined(VibrationEffect.EFFECT_DOUBLE_CLICK))
+
         } else {
-            v.vibrate(VibrationEffect.createOneShot(5, VibrationEffect.DEFAULT_AMPLITUDE))
+            if (!alt)
+                v.vibrate(VibrationEffect.createOneShot(5, VibrationEffect.DEFAULT_AMPLITUDE))
+            else
+                v.vibrate(VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE))
+
         }
     }
 
@@ -191,8 +199,10 @@ class ScanFragment : Fragment() {
     private fun handleScanResult(result: String) {
         try {
             launchEditor(ArticleParser().parseArticle(ArticleParser().parseString(result)))
+            vibrate(false)
         } catch (JSONException: java.lang.NullPointerException) {
             launchEditor(null)
+            vibrate(true)
         }
     }
 
