@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.color.MaterialColors
 
-class LocationsAdapter(val callback: (Int) -> Unit) :
+class LocationsAdapter(val callback: (Int, Boolean) -> Unit) :
     RecyclerView.Adapter<LocationsAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -33,7 +33,8 @@ class LocationsAdapter(val callback: (Int) -> Unit) :
 
         holder.nameText.text = location.name
 
-        holder.card.setOnClickListener { callback(location.id) }
+        holder.card.setOnClickListener { callback(location.id, false) }
+        holder.card.setOnLongClickListener { callback(location.id, true); true }
 
         val background = if (location.id < 0)
             MaterialColors.getColor(

@@ -37,7 +37,7 @@ class LocationsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val db = Database.get(requireContext())
-        val adapter = LocationsAdapter { handleLocationSelected(it) }
+        val adapter = LocationsAdapter { id, longclick -> handleLocationSelected(id, longclick) }
         binding.locationsRecycler.adapter = adapter
     }
 
@@ -46,8 +46,18 @@ class LocationsFragment : Fragment() {
         super.onResume()
     }
 
-    private fun handleLocationSelected(id: Int) {
-        if (id == -2) { // Create Location
+    private fun handleLocationSelected(id: Int, longclick: Boolean) {
+        if (id >= 0) {
+            if (longclick) {
+                CoroutineScope(Dispatchers.IO).launch {
+                    LocationEditSheet(
+                        Database.get(requireContext()).locationDao().get(id)
+                    ).show(parentFragmentManager, "loc-edit")
+                }
+            } else {
+                // todo display articles in location
+            }
+        } else if (id == -2) { // Create Location
             LocationEditSheet(null).show(parentFragmentManager, "loc-edit")
         }
     }
