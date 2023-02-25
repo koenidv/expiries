@@ -48,10 +48,6 @@ class LocationsFragment : Fragment() {
     }
 
     private fun handleLocationSelected(id: Int, longclick: Boolean) {
-        //val navHost =
-        //    parentFragmentManager.findFragmentById(R.id.fragmentContainer) as NavHostFragment
-        //val navController = navHost.navController
-
         if (id >= 0) {
             if (longclick) {
                 CoroutineScope(Dispatchers.IO).launch {

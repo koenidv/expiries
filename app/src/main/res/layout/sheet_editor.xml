@@ -26,8 +26,8 @@
         app:layout_constraintTop_toBottomOf="@id/image">
 
         <androidx.appcompat.widget.AppCompatAutoCompleteTextView
-            style="@style/Widget.MaterialComponents.AutoCompleteTextView.OutlinedBox"
             android:id="@+id/name_edittext"
+            style="@style/Widget.MaterialComponents.AutoCompleteTextView.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textCapWords|textEmailSubject"
@@ -47,6 +47,28 @@
         app:ldp_show_full_date="false"
         app:ldp_text_color="?attr/colorOnSurface" />
 
+    <HorizontalScrollView
+        android:id="@+id/locationChipScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="-16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="-16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/datepicker">
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/locationChipGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:singleLine="true"
+            app:singleSelection="true">
+
+        </com.google.android.material.chip.ChipGroup>
+
+    </HorizontalScrollView>
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/save_button"
         style="@style/Widget.Material3.Button"
@@ -56,7 +78,7 @@
         android:paddingTop="8dp"
         android:text="@string/action_save"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/datepicker" />
+        app:layout_constraintTop_toBottomOf="@+id/locationChipScrollView" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/delete_button"

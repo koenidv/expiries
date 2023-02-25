@@ -24,8 +24,12 @@ interface LocationDao {
     @Query("SELECT * FROM location ORDER BY name")
     fun observeAll(): Flow<List<Location>>
 
+    @Query("SELECT * FROM location ORDER BY name")
+    fun getAll(): List<Location>
+
     @Query("SELECT * FROM location WHERE id = :id")
     suspend fun get(id: Int): Location?
+
 
     @Insert
     suspend fun insert(vararg locations: Location)

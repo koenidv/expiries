@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter
 import androidx.fragment.app.DialogFragment
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.chip.Chip
 import de.koenidv.expiries.databinding.SheetEditorBinding
 import de.koenidv.expiries.lazyDatePicker.LazyDatePicker
 import de.koenidv.expiries.lazyDatePicker.LazyLocalDatePicker
@@ -24,6 +25,7 @@ class EditorSheet(private val article: Article?, val callback: (Article?) -> Uni
 
     private var _binding: SheetEditorBinding? = null
     private val binding get() = _binding!!
+    private var checkedLocation: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,8 +51,11 @@ class EditorSheet(private val article: Article?, val callback: (Article?) -> Uni
         binding.nameEdittext.setText(article?.name)
         if (article?.name == null) binding.nameEdittext.focusAndShowKeyboard()
 
+        checkedLocation = article?.location_id
+
         loadImage()
         setupDatePicker()
+        setupLocationPicker()
 
         if (article?.created_at != null && article.expiry != null) {
             // Do not show for new articles
@@ -64,7 +69,6 @@ class EditorSheet(private val article: Article?, val callback: (Article?) -> Uni
 
         checkInputsValid()
         preventAccidentalCancel()
-
 
         CoroutineScope(Dispatchers.IO).launch {
             val previousEntries = Database.get(requireContext()).articleDao().getSuggestedNames()
@@ -115,6 +119,24 @@ class EditorSheet(private val article: Article?, val callback: (Article?) -> Uni
         }
     }
 
+    private fun setupLocationPicker() {
+        CoroutineScope(Dispatchers.IO).launch {
+            val locations = Database.get(requireContext()).locationDao().getAll()
+            requireActivity().runOnUiThread {
+                locations.map {
+                    binding.locationChipGroup.addView(Chip(requireContext()).apply {
+                        text = it.name
+                        isCheckable = true
+                        isChecked = checkedLocation == it.id.toString()
+                        setOnCheckedChangeListener { _, isChecked ->
+                            checkedLocation = if (isChecked) it.id.toString() else null
+                        }
+                    })
+                }
+            }
+        }
+    }
+
     private fun checkInputsValid() {
         var valid = true
         if (binding.datepicker.getDate() == null) valid = false
@@ -153,7 +175,7 @@ class EditorSheet(private val article: Article?, val callback: (Article?) -> Uni
                 binding.nameEdittext.text.toString(),
                 binding.datepicker.localDate,
                 article?.image_url,
-                null,
+                checkedLocation,
                 article?.created_at ?: LocalDate.now(),
                 article?.amount,
                 article?.unit,
