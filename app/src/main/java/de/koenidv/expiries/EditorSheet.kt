@@ -122,6 +122,10 @@ class EditorSheet(private val article: Article?, val callback: (Article?) -> Uni
     private fun setupLocationPicker() {
         CoroutineScope(Dispatchers.IO).launch {
             val locations = Database.get(requireContext()).locationDao().getAll()
+            if (locations.isEmpty()) {
+                binding.locationChipGroup.visibility = View.GONE
+                return@launch
+            }
             requireActivity().runOnUiThread {
                 locations.map {
                     binding.locationChipGroup.addView(Chip(requireContext()).apply {
