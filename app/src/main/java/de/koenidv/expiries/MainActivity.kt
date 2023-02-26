@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         NavigationUI.setupWithNavController(binding.navbar, navController, false)
     }
+
     override fun onSupportNavigateUp(): Boolean {
         val navHost =
             supportFragmentManager.findFragmentById(R.id.fragmentContainer) as NavHostFragment
@@ -66,7 +67,12 @@ class MainActivity : AppCompatActivity() {
                         (navHost.childFragmentManager.primaryNavigationFragment as ExpiriesFragment)
                             .filterRecycler(newText)
                     } catch (ClassCastException: ClassCastException) {
-                        // Not on ExpiriesFragment
+                        try {
+                            (navHost.childFragmentManager.primaryNavigationFragment as LocationDetailsFragment)
+                                .filterRecycler(newText)
+                        } catch (ClassCastException: ClassCastException) {
+                            // Not on ExpiriesFragment
+                        }
                     }
                     return false
                 }
