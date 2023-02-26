@@ -14,7 +14,7 @@ data class Article(
     @ColumnInfo val name: String?,
     @ColumnInfo val expiry: LocalDate?,
     @ColumnInfo val image_url: String?,
-    @ColumnInfo val location_id: String?,
+    @ColumnInfo val location_id: String?, // fixme this should be foreign key int
     @ColumnInfo val created_at: LocalDate?,
     @ColumnInfo val amount: Float?,
     @ColumnInfo val unit: String?,
@@ -25,6 +25,12 @@ data class Article(
 interface ArticleDao {
     @Query("SELECT * FROM article ORDER BY expiry")
     fun getAllSorted(): Flow<List<Article>>
+
+    @Query("SELECT * FROM article WHERE location_id = :locationId ORDER BY expiry")
+    fun observeByLocation(locationId: String): Flow<List<Article>>
+
+    @Query("SELECT * FROM article WHERE location_id IS NULL ORDER BY expiry")
+    fun observeByLocationNull(): Flow<List<Article>>
 
     @Insert
     suspend fun insert(vararg articles: Article)

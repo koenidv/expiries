@@ -1,58 +1,120 @@
 package de.koenidv.expiries
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
+import de.koenidv.expiries.databinding.FragmentLocationDetailsBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.takeWhile
+import kotlinx.coroutines.launch
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+private const val LOCATION_ID = "locationId"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [LocationDetailsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+// fixme DRY this, just a copy of ExpiriesFragment with a different query
+
 class LocationDetailsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private var locationId: String? = null
+
+    private var _binding: FragmentLocationDetailsBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            locationId = it.getString(LOCATION_ID)
         }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_location_details, container, false)
+    ): View {
+        _binding = FragmentLocationDetailsBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val db = Database.get(requireContext())
+        binding.recycler.adapter = ExpiryItemAdapter(requireActivity())
+        enableSwipeActions(db)
+    }
+
+    override fun onResume() {
+        startArticlesObserver()
+        super.onResume()
+    }
+
+    private fun startArticlesObserver() {
+        val db = Database.get(requireContext())
+        CoroutineScope(Dispatchers.IO).launch {
+            Log.d("Location", "Observing articles for location $locationId")
+            val articlesObservable =
+                if (locationId !== null) db.articleDao().observeByLocation(locationId!!)
+                else db.articleDao().observeByLocationNull()
+            articlesObservable.takeWhile { isResumed }.collect {
+                requireActivity().runOnUiThread {
+                    Log.d("Location", "Received ${it.size} articles")
+                    (binding.recycler.adapter as ExpiryItemAdapter)
+                        .submitList(ArticleListDividers().addListDividers(it))
+                }
+            }
+        }
+    }
+
+    private fun enableSwipeActions(db: Database) {
+        val swipeCallback: SwipeCallback = object : SwipeCallback(requireContext()) {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, i: Int) {
+                val position = viewHolder.adapterPosition
+                val adapter = binding.recycler.adapter as ExpiryItemAdapter
+                val article = adapter.differ.currentList[position] as Article
+
+                CoroutineScope(Dispatchers.Main).launch { db.articleDao().delete(article) }
+                showUndoSnackbar(article, db)
+            }
+        }
+        ItemTouchHelper(swipeCallback).attachToRecyclerView(binding.recycler)
+    }
+
+    private fun showUndoSnackbar(article: Article, db: Database) {
+        Snackbar.make(
+            requireActivity().findViewById(R.id.navbar),
+            R.string.warning_item_deleted,
+            Snackbar.LENGTH_LONG
+        ).apply {
+            anchorView = requireActivity().findViewById(R.id.navbar)
+        }.setAction(R.string.action_undo) {
+            CoroutineScope(Dispatchers.Main).launch { db.articleDao().insert(article) }
+        }.show()
+    }
+
+    fun filterRecycler(query: String?) {
+        (binding.recycler.adapter as ExpiryItemAdapter).filter(query)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     companion object {
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment LocationDetailsFragment.
          */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+        fun newInstance(locationId: String) =
             LocationDetailsFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+                    putString(LOCATION_ID, locationId)
                 }
             }
     }
