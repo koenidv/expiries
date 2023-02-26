@@ -25,6 +25,9 @@
                 android:name="locationId"
                 app:argType="string"
                 app:nullable="true" />
+            <argument
+                android:name="name"
+                app:argType="string" />
         </action>
     </fragment>
     <fragment
@@ -40,6 +43,6 @@
     <fragment
         android:id="@+id/locationDetailsFragment"
         android:name="de.koenidv.expiries.LocationDetailsFragment"
-        android:label="fragment_location_details"
+        android:label="@string/label_locations"
         tools:layout="@layout/fragment_location_details" />
 </navigation>

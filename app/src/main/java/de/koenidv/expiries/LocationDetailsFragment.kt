@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.takeWhile
 import kotlinx.coroutines.launch
 
 private const val LOCATION_ID = "locationId"
+private const val LOCATION_NAME = "name"
 
 // fixme DRY this, just a copy of ExpiriesFragment with a different query
 
@@ -46,6 +47,8 @@ class LocationDetailsFragment : Fragment() {
         val db = Database.get(requireContext())
         binding.recycler.adapter = ExpiryItemAdapter(requireActivity())
         enableSwipeActions(db)
+        (requireActivity() as MainActivity).supportActionBar?.title =
+            arguments?.getString(LOCATION_NAME)
     }
 
     override fun onResume() {
@@ -103,19 +106,5 @@ class LocationDetailsFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         */
-        @JvmStatic
-        fun newInstance(locationId: String?) =
-            LocationDetailsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(LOCATION_ID, locationId)
-                }
-            }
     }
 }

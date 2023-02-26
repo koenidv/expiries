@@ -37,7 +37,8 @@ class LocationsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = LocationsAdapter { id, longclick -> handleLocationSelected(id, longclick) }
+        val adapter =
+            LocationsAdapter { id, longclick, name -> handleLocationSelected(id, longclick, name) }
         binding.locationsRecycler.adapter = adapter
     }
 
@@ -46,7 +47,7 @@ class LocationsFragment : Fragment() {
         super.onResume()
     }
 
-    private fun handleLocationSelected(id: Int, longclick: Boolean) {
+    private fun handleLocationSelected(id: Int, longclick: Boolean, name: String) {
         if (id >= 0) {
             if (longclick) {
                 CoroutineScope(Dispatchers.IO).launch {
@@ -55,10 +56,20 @@ class LocationsFragment : Fragment() {
                     ).show(parentFragmentManager, "loc-edit")
                 }
             } else {
-                findNavController().navigate(LocationsFragmentDirections.actionLocationsToDetails(id.toString()))
+                findNavController().navigate(
+                    LocationsFragmentDirections.actionLocationsToDetails(
+                        id.toString(),
+                        name
+                    )
+                )
             }
         } else if (id == -1) {
-            findNavController().navigate(LocationsFragmentDirections.actionLocationsToDetails(null))
+            findNavController().navigate(
+                LocationsFragmentDirections.actionLocationsToDetails(
+                    null,
+                    name
+                )
+            )
         } else if (id == -2) { // Create Location
             LocationEditSheet(null).show(parentFragmentManager, "loc-edit")
         }
