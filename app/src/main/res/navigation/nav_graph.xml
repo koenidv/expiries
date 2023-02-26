@@ -20,7 +20,12 @@
             app:enterAnim="@anim/enter_from_right"
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/exit_to_right" />
+            app:popExitAnim="@anim/exit_to_right">
+            <argument
+                android:name="locationId"
+                app:argType="string"
+                app:nullable="true" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/scan"

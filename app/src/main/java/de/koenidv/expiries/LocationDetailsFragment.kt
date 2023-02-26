@@ -111,7 +111,7 @@ class LocationDetailsFragment : Fragment() {
          * this fragment using the provided parameters.
          */
         @JvmStatic
-        fun newInstance(locationId: String) =
+        fun newInstance(locationId: String?) =
             LocationDetailsFragment().apply {
                 arguments = Bundle().apply {
                     putString(LOCATION_ID, locationId)

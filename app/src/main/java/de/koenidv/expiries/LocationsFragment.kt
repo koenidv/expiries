@@ -37,7 +37,6 @@ class LocationsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val db = Database.get(requireContext())
         val adapter = LocationsAdapter { id, longclick -> handleLocationSelected(id, longclick) }
         binding.locationsRecycler.adapter = adapter
     }
@@ -56,8 +55,10 @@ class LocationsFragment : Fragment() {
                     ).show(parentFragmentManager, "loc-edit")
                 }
             } else {
-                findNavController().navigate(LocationsFragmentDirections.actionLocationsToDetails())
+                findNavController().navigate(LocationsFragmentDirections.actionLocationsToDetails(id.toString()))
             }
+        } else if (id == -1) {
+            findNavController().navigate(LocationsFragmentDirections.actionLocationsToDetails(null))
         } else if (id == -2) { // Create Location
             LocationEditSheet(null).show(parentFragmentManager, "loc-edit")
         }
