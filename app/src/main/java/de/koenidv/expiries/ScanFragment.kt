@@ -20,6 +20,7 @@ import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.google.android.material.chip.Chip
 import com.google.mlkit.vision.barcode.BarcodeScanner
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions
 import com.google.mlkit.vision.barcode.BarcodeScanning
@@ -29,6 +30,7 @@ import de.koenidv.expiries.databinding.FragmentScanBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.threeten.bp.LocalDate
 import permissions.dispatcher.NeedsPermission
 import permissions.dispatcher.RuntimePermissions
 import java.util.concurrent.ExecutorService
@@ -41,7 +43,8 @@ class ScanFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var cameraExecutor: ExecutorService
     private lateinit var camera: Camera
-    var editing = false
+    private var editing = false
+    private var checkedLocation: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,7 +60,20 @@ class ScanFragment : Fragment() {
         startCameraWithPermissionCheck()
 
         binding.addManuallyButton.setOnClickListener {
-            launchEditor(null)
+            // fixme DRY this; duplicate of #handleScanResult
+            if (checkedLocation !== null) launchEditor(
+                Article(
+                    null,
+                    null,
+                    null,
+                    null,
+                    checkedLocation,
+                    LocalDate.now(),
+                    1f,
+                    "PIECE"
+                )
+            )
+            else launchEditor(null)
         }
 
         var flashlightOn = false
@@ -72,6 +88,8 @@ class ScanFragment : Fragment() {
             }
             vibrate()
         }
+
+        setupLocationPicker()
 
     }
 
@@ -198,11 +216,50 @@ class ScanFragment : Fragment() {
 
     private fun handleScanResult(result: String) {
         try {
-            launchEditor(ArticleParser().parseArticle(ArticleParser().parseString(result)))
+            launchEditor(
+                ArticleParser().parseArticle(
+                    ArticleParser().parseString(result),
+                    checkedLocation
+                )
+            )
             vibrate(false)
-        } catch (JSONException: java.lang.NullPointerException) {
-            launchEditor(null)
+        } catch (jsonException: java.lang.NullPointerException) {
+            if (checkedLocation !== null) launchEditor(
+                Article(
+                    null,
+                    null,
+                    null,
+                    null,
+                    checkedLocation,
+                    LocalDate.now(),
+                    1f,
+                    "PIECE"
+                )
+            )
+            else launchEditor(null)
             vibrate(true)
+        }
+    }
+
+    // fixme DRY this; extract Location Picker to own component; offer Bottom Sheet
+    private fun setupLocationPicker() {
+        CoroutineScope(Dispatchers.IO).launch {
+            val locations = Database.get(requireContext()).locationDao().getAll()
+            if (locations.isEmpty()) {
+                binding.locationChipGroup.visibility = View.GONE
+                return@launch
+            }
+            requireActivity().runOnUiThread {
+                locations.map {
+                    binding.locationChipGroup.addView(Chip(requireContext()).apply {
+                        text = it.name
+                        isCheckable = true
+                        setOnCheckedChangeListener { _, isChecked ->
+                            checkedLocation = if (isChecked) it.id.toString() else null
+                        }
+                    })
+                }
+            }
         }
     }
 

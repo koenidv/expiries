@@ -7,7 +7,7 @@ class ArticleParser {
 
     fun parseString(string: String): JsonElement = com.google.gson.JsonParser.parseString(string)
 
-    fun parseArticle(json: JsonElement): Article {
+    fun parseArticle(json: JsonElement, location: String? = null): Article {
         val data = json.asJsonObject
         val product = data.getAsJsonObject("product")
         return Article(
@@ -15,7 +15,7 @@ class ArticleParser {
             product["product_name"].asString,
             null,
             product["image_small_url"].asString,
-            null,
+            location,
             LocalDate.now(),
             1f,
             "PIECE"
